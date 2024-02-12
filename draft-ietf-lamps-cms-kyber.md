@@ -1,8 +1,10 @@
 ---
+v: 3
+docname: draft-ietf-lamps-cms-kyber-latest
 title: Use of KYBER in the Cryptographic Message Syntax (CMS)
 abbrev: KYBER in CMS
-# <!-- EDNOTE: Edits the draft name -->
-docname: draft-ietf-lamps-cms-kyber-latest
+consensus: 'true'
+submissiontype: IETF
 date: 2023-11-05
 # <!-- date: 2023-11 -->
 # <!-- date: 2023 -->
