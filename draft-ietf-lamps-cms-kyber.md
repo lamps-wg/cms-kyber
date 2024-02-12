@@ -2,7 +2,7 @@
 title: Use of KYBER in the Cryptographic Message Syntax (CMS)
 abbrev: KYBER in CMS
 # <!-- EDNOTE: Edits the draft name -->
-docname: draft-ietf-lamps-cms-kyber-01
+docname: draft-ietf-lamps-cms-kyber-latest
 date: 2023-11-05
 # <!-- date: 2023-11 -->
 # <!-- date: 2023 -->
