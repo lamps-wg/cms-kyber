@@ -9,7 +9,7 @@ date: 2023-11-05
 
 # <!-- stand_alone: true -->
 ipr: trust200902
-area: Security
+area: "Security"
 wg: LAMPS
 kw: Internet-Draft
 cat: std
