@@ -104,11 +104,11 @@ In recent years, there has been a substantial amount of research on quantum comp
 
 Post-quantum key encapsulation mechanisms (PQ-KEM) are being developed in order to provide secure key establishment against an adversary with access to a quantum computer.
 
-As the National Institute of Standards and Technology (NIST) is still in the process of selecting the new post-quantum cryptographic algorithms that are secure against both quantum and classical computers, the purpose of this document is to propose a generic "algorithm-agnostic" solution to protect in confidentiality the CMS envelopped-data content against the quantum threat : the KEM-TRANS mechanism. 
+As the National Institute of Standards and Technology (NIST) is still in the process of selecting the new post-quantum cryptographic algorithms that are secure against both quantum and classical computers, the purpose of this document is to propose a generic "algorithm-agnostic" solution to protect in confidentiality the CMS envelopped-data content against the quantum threat : the KEM-TRANS mechanism.
 
 Although this mechanism could thus be used with any key encapsulation mechanism, including post-quantum KEMs or hybrid KEMs.
 
-This RFC nonetheless specifically specifies the case where the algorithm PQ-KEM algorithm is Kyber. 
+This RFC nonetheless specifically specifies the case where the algorithm PQ-KEM algorithm is Kyber.
 
 <!-- End of introduction section -->
 
@@ -132,7 +132,7 @@ The Cryptographic Message Syntax (CMS) [RFC5652] defines two levels of encryptio
 
  - the Content-encryption process which protects the data using a symmetric algorithm used with a content encryption key (CEK);
  - the Key-encryption process which protects this CEK using a key transport mechanism.
- 
+
 One of the typical use case of the CMS Envelopped-Data Content is to randomly generate a CEK, encrypt the data with a symmetric algorithm using this CEK and individually send the CEK to one or more recipients protected by asymmetric cryptography in a RecipientInfo object.
 
 To achieve this scenario with KEM primitives, it is necessary to define a new key transport mechanism that will fulfil the following requirements:
@@ -182,7 +182,7 @@ A wrapping algorithm is a symmetric algorithm protecting data in confidentiality
 
 In the following, *kekLen* denotes the length in bytes of the wrapping key for the underlying symmetric key-wrapping scheme.
 
-In this scheme, the length of the keying data to be transported MUST be among the lengths supported by the underlying symmetric key-wrapping scheme. 
+In this scheme, the length of the keying data to be transported MUST be among the lengths supported by the underlying symmetric key-wrapping scheme.
 
 <!-- End of underlying-components section -->
 
@@ -336,7 +336,7 @@ The conventions specified in this section augment [RFC5280].
 
 The intended application for the key MAY be indicated in the key usage certificate extension (see [RFC5280], Section 4.2.1.3). If the keyUsage extension is present in a certificate that conveys a public key with the id-kem object identifier as discussed above, then the key usage extension MUST contain only the value *keyEncipherment*.
 
-*digitalSignature*, *nonRepudiation*, *dataEncipherment*, *keyAgreement*, *keyCertSign*, *cRLSign*, *encipherOnly* and *decipherOnly* SHOULD NOT be present. 
+*digitalSignature*, *nonRepudiation*, *dataEncipherment*, *keyAgreement*, *keyCertSign*, *cRLSign*, *encipherOnly* and *decipherOnly* SHOULD NOT be present.
 
 A key intended to be employed only with the KEM-TRANS SHOULD NOT also be employed for data encryption. Good cryptographic practice employs a given key pair in only one scheme. This practice avoids the risk that vulnerability in one scheme may compromise the security of the other, and may be essential to maintain provable security.
 
@@ -414,13 +414,13 @@ The object identifier for the KEM Key Transport Mechanism is id-kem-trans, which
 
     id-kem-trans OID ::= { smimeAlgorithm TBD }
 
-When id-kem-trans is used in an AlgorithmIdentifier, the parameters MUST employ the GenericKemTransParameters syntax. 
+When id-kem-trans is used in an AlgorithmIdentifier, the parameters MUST employ the GenericKemTransParameters syntax.
 The syntax for GenericKemTransParameters is as follows:
 
     GenericKemTransParameters ::= {
         kem  KeyEncapsulationMechanism,
         kdf  KeyDerivationFunction,
-        wrap KeyWrappingMechanism 
+        wrap KeyWrappingMechanism
     }
 
 The fields of type GenericKemTransParameters have the following meanings:
@@ -467,7 +467,7 @@ For SHA2 algorithms, the following object identifiers from [RFC8619] should be u
 
 For SHA3 algorithms, the following object identifiers from [draft-housley-lamps-cms-sha3-hash] should be used:
 
-      id-alg-hkdf-with-sha3-256 OID ::= { OID id-alg-hkdf-with-sha3-256 } 
+      id-alg-hkdf-with-sha3-256 OID ::= { OID id-alg-hkdf-with-sha3-256 }
       id-alg-hkdf-with-sha3-384 OID ::= { OID id-alg-hkdf-with-sha3-384 }
       id-alg-hkdf-with-sha3-512 OID ::= { OID id-alg-hkdf-with-sha3-512 }
 
