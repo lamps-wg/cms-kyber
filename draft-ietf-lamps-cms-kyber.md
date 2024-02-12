@@ -38,16 +38,29 @@ author:
       ins: J. Prat
       name: Julien Prat
       org: CryptoNext Security
+      street: 16, Boulevard Saint-Germain
+      city: Paris
+      country: France
+      code: 75005
       email: julien.prat@cryptonext-security.com
     -
       ins: M. Ounsworth
       name: Mike Ounsworth
       org: Entrust Limited
+      abbrev: Entrust
+      street: 2500 Solandt Road – Suite 100
+      city: Ottawa, Ontario
+      country: Canada
+      code: K2K 3G5
       email: mike.ounsworth@entrust.com
     -
       ins: D. Van Geest
       name: Daniel Van Geest
       org: CryptoNext Security
+      street: 16, Boulevard Saint-Germain
+      city: Paris
+      country: France
+      code: 75005
       email: daniel.vangeest.ietf@gmail.com
 
 
