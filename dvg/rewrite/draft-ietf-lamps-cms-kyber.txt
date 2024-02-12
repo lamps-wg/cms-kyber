@@ -5,7 +5,7 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 15 August 2024                                  Entrust Limited
+Expires: 15 August 2024                                          Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
                                                         12 February 2024
@@ -633,14 +633,23 @@ Authors' Addresses
 
    Julien Prat
    CryptoNext Security
+   16, Boulevard Saint-Germain
+   75005 Paris
+   France
    Email: julien.prat@cryptonext-security.com
 
 
    Mike Ounsworth
    Entrust Limited
+   2500 Solandt Road -- Suite 100
+   Ottawa, Ontario  K2K 3G5
+   Canada
    Email: mike.ounsworth@entrust.com
 
 
    Daniel Van Geest
    CryptoNext Security
+   16, Boulevard Saint-Germain
+   75005 Paris
+   France
    Email: daniel.vangeest.ietf@gmail.com
