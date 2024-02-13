@@ -1,0 +1,81 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-02-13T00:30:39.747996+00:00",
+  "repo": "lamps-wg/cms-kyber",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOLQoLsc5mnTC3",
+      "title": "Rewrite based on cms.kemri/rfc5990bis",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/1",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-12T09:34:31Z",
+      "updatedAt": "2024-02-12T09:54:59Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "cb3111ce9644ec633e7b70cadbc969be36f95323",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/rewrite",
+      "headRefOid": "905a010d1826b133196fc71d812a2e5c4235c089",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
