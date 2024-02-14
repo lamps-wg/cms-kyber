@@ -102,7 +102,7 @@ The Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM) Algorithm is a one
 
 ML-KEM is an IND-CCA2-secure key-encapsulation mechanism (KEM) standardized in {{FIPS203}} by the US NIST PQC Project {{NIST-PQ}}.
 
-{{!I-D.ietf-lamps-cms-kemri}} defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the use of ML-KEM in the KEMRecipientInfo structure in CMS at three security levels: MK-KEM-512, ML-KEM-768, ML-KEM-1024.
+Native support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!I-D.ietf-lamps-cms-kemri}}, which defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the use of ML-KEM in the KEMRecipientInfo structure in CMS at three security levels: MK-KEM-512, ML-KEM-768, ML-KEM-1024.
 
 ## KEMs {#sec-intro-kems}
 
@@ -122,11 +122,13 @@ Decapsulate(sk, ct) -> ss:
 
 The main security property for KEMs standardized in the NIST Post-Quantum Cryptography Standardization Project {{NIST-PQ}} is indistinguishability under adaptive chosen ciphertext attacks (IND-CCA2), which means that shared secret values should be indistinguishable from random strings even given the ability to have arbitrary ciphertexts decapsulated. IND-CCA2 corresponds to security against an active attacker, and the public key / secret key pair can be treated as a long-term key or reused. A weaker security notion is indistinguishability under chosen plaintext attacks (IND-CPA), which means that the shared secret values should be indistinguishable from random strings given a copy of the public key. IND-CPA roughly corresponds to security against a passive attacker, and sometimes corresponds to one-time key exchange.
 
+IND-CCA2 is a desirable property of encryption mechanisms for CMS since encryption public keys are often long-term -- for example contained within X.509 certificates {{?RFC5280}} -- and certain uses of CMS could allow for the type of decryption oracle that forms the basis of an adaptive ciphertext attack.
+
 <!-- End of KEMs section -->
 
 ## ML-KEM {#sec-intro-ml-kem}
 
-ML-KEM is a recently standardized lattice-based key encapsulation mechanism defined in {{FIPS203}}.
+ML-KEM is a lattice-based key encapsulation mechanism defined in {{FIPS203}}.
 \[EDNOTE: Not actually standardized yet, but will be by publication]
 
 ML-KEM is using Module Learning with Errors as its underlying primitive which is a structured lattices variant that offers good performance and relatively small and balanced key and ciphertext sizes. ML-KEM was standardized with three parameters, ML-KEM-512, ML-KEM-768, and ML-KEM-1024. These were mapped by NIST to the three security levels defined in the NIST PQC Project, Level 1, 3, and 5. These levels correspond to the hardness of breaking AES-128, AES-192 and AES-256 respectively.
@@ -150,7 +152,7 @@ To support the ML-KEM algorithm, the CMS originator MUST implement Encapsulate()
 Given a content-encryption key CEK, the ML-KEM Algorithm processing by the originator to produce the values that are carried in the CMS KEMRecipientInfo can be summarized as:
 
 >
-1\. Obtain the shared secret using the Encapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM public key:
+1\. Obtain the shared secret and ciphertext using the Encapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM public key:
 
 ~~~
        (ct, ss) = Encapsulate(pk)
@@ -321,6 +323,8 @@ All identifiers used by ML-KEM in CMS are defined elsewhere but reproduced here 
 
 # Security Considerations {#sec-security-considerations}
 
+[ednote: many of the security considerations below apply to ML-KEM in general and are not specific to ML-KEM within CMS. As this document and draft-ietf-lamps-kyber-certificates approach WGLC, the two Security Consideration sections should be harmonized and duplicate text removed.]
+
 The Security Considerations section of {{!I-D.ietf-lamps-kyber-certificates}} applies to this specification as well.
 
 The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in the NIST SP 800-57 Part 1 {{?NIST.SP.800-57pt1r5}}. To achieve 128-bit security, ML-KEM-512 SHOULD be used, the key-derivation function SHOULD make use of SHA3-256, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 128-bit key. To achieve 192-bit security, ML-KEM-768 SHOULD be used, the key-derivation function SHOULD make use of SHA3-384, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 192-bit key or larger. In this case AES Key Wrap with a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 SHOULD be used, the key-derivation function SHOULD make use of SHA3-512, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 256-bit key.
@@ -355,6 +359,8 @@ Parties MAY gain assurance that implementations are correct through formal imple
 <!-- End of security-considerations section -->
 
 # IANA Considerations {#sec-iana-considerations}
+
+None.
 
 Within the CMS, algorithms are identified by object identifiers (OIDs). All of the OIDs used in this document were assigned in other IETF documents, in ISO/IEC standards documents, by the National Institute of Standards and Technology (NIST).
 
