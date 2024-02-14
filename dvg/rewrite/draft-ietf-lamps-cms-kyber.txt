@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 15 August 2024                                          Entrust
+Expires: 17 August 2024                                          Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                        12 February 2024
+                                                        14 February 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 August 2024.
+   This Internet-Draft will expire on 17 August 2024.
 
 Copyright Notice
 
@@ -105,12 +105,13 @@ Table of Contents
    ML-KEM is an IND-CCA2-secure key-encapsulation mechanism (KEM)
    standardized in [FIPS203] by the US NIST PQC Project [NIST-PQ].
 
-   [I-D.ietf-lamps-cms-kemri] defines the KEMRecipientInfo structure for
-   the use of KEM algorithms for the CMS enveloped-data content type,
-   the CMS authenticated-data content type, and the CMS authenticated-
-   enveloped-data content type.  This document specifies the use of ML-
-   KEM in the KEMRecipientInfo structure in CMS at three security
-   levels: MK-KEM-512, ML-KEM-768, ML-KEM-1024.
+   Native support for Key Encapsulation Mechanisms (KEMs) was added to
+   CMS in [I-D.ietf-lamps-cms-kemri], which defines the KEMRecipientInfo
+   structure for the use of KEM algorithms for the CMS enveloped-data
+   content type, the CMS authenticated-data content type, and the CMS
+   authenticated-enveloped-data content type.  This document specifies
+   the use of ML-KEM in the KEMRecipientInfo structure in CMS at three
+   security levels: MK-KEM-512, ML-KEM-768, ML-KEM-1024.
 
 1.1.  KEMs
 
@@ -146,11 +147,17 @@ Table of Contents
    corresponds to security against a passive attacker, and sometimes
    corresponds to one-time key exchange.
 
+   IND-CCA2 is a desirable property of encryption mechanisms for CMS
+   since encryption public keys are often long-term -- for example
+   contained within X.509 certificates [RFC5280] -- and certain uses of
+   CMS could allow for the type of decryption oracle that forms the
+   basis of an adaptive ciphertext attack.
+
 1.2.  ML-KEM
 
-   ML-KEM is a recently standardized lattice-based key encapsulation
-   mechanism defined in [FIPS203].  [EDNOTE: Not actually standardized
-   yet, but will be by publication]
+   ML-KEM is a lattice-based key encapsulation mechanism defined in
+   [FIPS203].  [EDNOTE: Not actually standardized yet, but will be by
+   publication]
 
    ML-KEM is using Module Learning with Errors as its underlying
    primitive which is a structured lattices variant that offers good
@@ -183,8 +190,9 @@ Table of Contents
    by the originator to produce the values that are carried in the CMS
    KEMRecipientInfo can be summarized as:
 
-      1.  Obtain the shared secret using the Encapsulate() function of
-      the ML-KEM algorithm and the recipient's ML-KEM public key:
+      1.  Obtain the shared secret and ciphertext using the
+      Encapsulate() function of the ML-KEM algorithm and the recipient's
+      ML-KEM public key:
 
           (ct, ss) = Encapsulate(pk)
 
@@ -382,6 +390,12 @@ Table of Contents
 
 4.  Security Considerations
 
+   [ednote: many of the security considerations below apply to ML-KEM in
+   general and are not specific to ML-KEM within CMS.  As this document
+   and draft-ietf-lamps-kyber-certificates approach WGLC, the two
+   Security Consideration sections should be harmonized and duplicate
+   text removed.]
+
    The Security Considerations section of
    [I-D.ietf-lamps-kyber-certificates] applies to this specification as
    well.
@@ -465,6 +479,8 @@ Table of Contents
    Module Validation Program (CMVP) [CMVP].
 
 5.  IANA Considerations
+
+   None.
 
    Within the CMS, algorithms are identified by object identifiers
    (OIDs).  All of the OIDs used in this document were assigned in other
