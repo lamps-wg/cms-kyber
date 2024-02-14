@@ -79,10 +79,10 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-     1.1.  KEMs
-     1.2.  ML-KEM
-     1.3.  CMS KEMRecipientInfo Processing Summary
-     1.4.  Conventions and Terminology
+     1.1.  Conventions and Terminology
+     1.2.  KEMs
+     1.3.  ML-KEM
+     1.4.  CMS KEMRecipientInfo Processing Summary
    2.  Use of the ML-KEM Algorithm in CMS
      2.1.  RecipientInfo Conventions
      2.2.  Underlying Components
@@ -113,7 +113,15 @@ Table of Contents
    the use of ML-KEM in the KEMRecipientInfo structure in CMS at three
    security levels: MK-KEM-512, ML-KEM-768, ML-KEM-1024.
 
-1.1.  KEMs
+1.1.  Conventions and Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+1.2.  KEMs
 
    All KEM algorithms provides three functions: KeyGen(), Encapsulate(),
    and Decapsulate():
@@ -153,7 +161,7 @@ Table of Contents
    CMS could allow for the type of decryption oracle that forms the
    basis of an adaptive ciphertext attack.
 
-1.2.  ML-KEM
+1.3.  ML-KEM
 
    ML-KEM is a lattice-based key encapsulation mechanism defined in
    [FIPS203].  [EDNOTE: Not actually standardized yet, but will be by
@@ -181,7 +189,7 @@ Table of Contents
    SHAKE512 internally.  This informs the choice of KDF within this
    document.
 
-1.3.  CMS KEMRecipientInfo Processing Summary
+1.4.  CMS KEMRecipientInfo Processing Summary
 
    To support the ML-KEM algorithm, the CMS originator MUST implement
    Encapsulate().
@@ -230,14 +238,6 @@ Table of Contents
 
    Note that the KDF used to process the KEMRecipientInfo structure MAY
    be different from the KDF used in the ML-KEM algorithm.
-
-1.4.  Conventions and Terminology
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
-   BCP14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
 
 2.  Use of the ML-KEM Algorithm in CMS
 
