@@ -104,6 +104,12 @@ ML-KEM is an IND-CCA2-secure key-encapsulation mechanism (KEM) standardized in {
 
 Native support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!I-D.ietf-lamps-cms-kemri}}, which defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the use of ML-KEM in the KEMRecipientInfo structure in CMS at three security levels: MK-KEM-512, ML-KEM-768, ML-KEM-1024.
 
+## Conventions and Terminology {#sec-intro-terminology}
+
+{::boilerplate bcp14-tagged}
+
+<!-- End of terminology section -->
+
 ## KEMs {#sec-intro-kems}
 
 All KEM algorithms provides three functions: KeyGen(), Encapsulate(), and Decapsulate():
@@ -204,12 +210,6 @@ RSA-KEM algorithm and the recipient's ML-KEM private key:
 Note that the KDF used to process the KEMRecipientInfo structure MAY be different from the KDF used in the ML-KEM algorithm.
 
 <!-- End of processing-summary section -->
-
-## Conventions and Terminology {#sec-intro-terminology}
-
-{::boilerplate bcp14-tagged}
-
-<!-- End of terminology section -->
 
 <!-- End of introduction section -->
 
@@ -323,7 +323,7 @@ All identifiers used by ML-KEM in CMS are defined elsewhere but reproduced here 
 
 # Security Considerations {#sec-security-considerations}
 
-[ednote: many of the security considerations below apply to ML-KEM in general and are not specific to ML-KEM within CMS. As this document and draft-ietf-lamps-kyber-certificates approach WGLC, the two Security Consideration sections should be harmonized and duplicate text removed.]
+\[ednote: many of the security considerations below apply to ML-KEM in general and are not specific to ML-KEM within CMS. As this document and draft-ietf-lamps-kyber-certificates approach WGLC, the two Security Consideration sections should be harmonized and duplicate text removed.]
 
 The Security Considerations section of {{!I-D.ietf-lamps-kyber-certificates}} applies to this specification as well.
 
