@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-13T00:30:39.747996+00:00",
+  "timestamp": "2024-02-15T00:29:56.031156+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -63,19 +63,182 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-02-12T09:34:31Z",
-      "updatedAt": "2024-02-12T09:54:59Z",
+      "updatedAt": "2024-02-14T13:34:19Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "cb3111ce9644ec633e7b70cadbc969be36f95323",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/rewrite",
-      "headRefOid": "905a010d1826b133196fc71d812a2e5c4235c089",
+      "headRefOid": "2119a95baeda4c685e74b52a90b6458aed80f797",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for the work on this Dan!\r\n",
+          "createdAt": "2024-02-13T19:47:08Z",
+          "updatedAt": "2024-02-13T20:17:28Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc5v_Bq6",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-02-13T19:49:36Z",
+          "updatedAt": "2024-02-13T20:30:52Z",
+          "comments": [
+            {
+              "originalPosition": 176,
+              "body": "```suggestion\r\nNative support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!I-D.ietf-lamps-cms-kemri}}, which defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the use of ML-KEM in the KEMRecipientInfo structure in CMS at three security levels: MK-KEM-512, ML-KEM-768, ML-KEM-1024.\r\n```",
+              "createdAt": "2024-02-13T19:49:36Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 214,
+              "body": "```suggestion\r\nThe main security property for KEMs standardized in the NIST Post-Quantum Cryptography Standardization Project {{NIST-PQ}} is indistinguishability under adaptive chosen ciphertext attacks (IND-CCA2), which means that shared secret values should be indistinguishable from random strings even given the ability to have arbitrary ciphertexts decapsulated. IND-CCA2 corresponds to security against an active attacker, and the public key / secret key pair can be treated as a long-term key or reused. A weaker security notion is indistinguishability under chosen plaintext attacks (IND-CPA), which means that the shared secret values should be indistinguishable from random strings given a copy of the public key. IND-CPA roughly corresponds to security against a passive attacker, and sometimes corresponds to one-time key exchange.\r\n\r\nIND-CCA2 is a desirable property of encryption mechanisms for CMS since encryption public keys are often long-term -- for example contained within X.509 certificates {{?RFC5280}} -- and certain uses of CMS could allow for the type of decryption oracle that forms the basis of an adaptive ciphertext attack.\r\n```",
+              "createdAt": "2024-02-13T19:55:36Z",
+              "updatedAt": "2024-02-14T13:01:55Z"
+            },
+            {
+              "originalPosition": 223,
+              "body": "```suggestion\r\nML-KEM is a lattice-based key encapsulation mechanism defined in {{FIPS203}}.\r\n```",
+              "createdAt": "2024-02-13T19:56:21Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 223,
+              "body": "\"recently standardized\" will not stand the test of time :) ",
+              "createdAt": "2024-02-13T19:56:37Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 263,
+              "body": "```suggestion\r\n1\\. Obtain the shared secret and ciphertext using the Encapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM public key:\r\n```",
+              "createdAt": "2024-02-13T19:58:29Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 274,
+              "body": "I find this section confusing because it is conceptually crossing the boundaries of the processing done in this document and in the KEMRI document.\r\n\r\nI think I would remove this section in its entirety so that casual readers don't think that ML-KEM needs to include a KDF and a WRAP.",
+              "createdAt": "2024-02-13T20:05:35Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 337,
+              "body": "This is odd to be so low in the document. Usually the boilerplate is section 1.1.",
+              "createdAt": "2024-02-13T20:07:47Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 398,
+              "body": "Yup! I agree with this ednote; this section will be in flux (and I will need to align draft-composite-kem with whatever choice is made here).",
+              "createdAt": "2024-02-13T20:14:03Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 578,
+              "body": "```suggestion\r\n\r\nNone.\r\n\r\n```",
+              "createdAt": "2024-02-13T20:29:04Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 528,
+              "body": "```suggestion\r\n\r\n[ednote: many of the security considerations below apply to ML-KEM in general and are not specific to ML-KEM within CMS. As this document and draft-ietf-lamps-kyber-certificates approach WGLC, the two Security Consideration sections should be harmonized and duplicate text removed.]\r\n\r\n```",
+              "createdAt": "2024-02-13T20:30:33Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5wEeg3",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-14T13:04:32Z",
+          "updatedAt": "2024-02-14T13:04:32Z",
+          "comments": [
+            {
+              "originalPosition": 223,
+              "body": "This paragraph was stolen from draft-kampanakis-ml-kem-ikev2, so if that gets adopted we'll have to make the same comment there :)",
+              "createdAt": "2024-02-14T13:04:32Z",
+              "updatedAt": "2024-02-14T13:04:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5wEjKF",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-14T13:14:53Z",
+          "updatedAt": "2024-02-14T13:14:53Z",
+          "comments": [
+            {
+              "originalPosition": 274,
+              "body": "@ounsworth, this was stolen directly from section 1.3 of rfc5990bis, does the same comment apply there? :) https://www.ietf.org/archive/id/draft-ietf-lamps-rfc5990bis-04.html#name-cms-kemrecipientinfo-proces\r\n\r\nThere is useful normative language in here:\r\n- CMS originator MUST implement Encapsulate()\r\n- CMS recipient MUST implement Decapsulate()\r\n- KDF MAY be different than the internal ML-KEM one.\r\nAlthough the first two may be obvious and the third may be more important for rfc5990bis because that document also describes the RSA-KEM process.\r\n\r\nIf we kept this text, would it be more clear if at the beginning it made clear that these are the same steps from cms-kemri?  Or do you still think it's better to just remove it?",
+              "createdAt": "2024-02-14T13:14:53Z",
+              "updatedAt": "2024-02-14T13:14:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5wEkaf",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-14T13:17:30Z",
+          "updatedAt": "2024-02-14T13:17:31Z",
+          "comments": [
+            {
+              "originalPosition": 337,
+              "body": "Also copied from rfc5990bis, but I can move it up.",
+              "createdAt": "2024-02-14T13:17:30Z",
+              "updatedAt": "2024-02-14T13:17:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5wElB0",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-14T13:18:28Z",
+          "updatedAt": "2024-02-14T13:18:28Z",
+          "comments": [
+            {
+              "originalPosition": 398,
+              "body": "BTW I heard directly from Russ that we'll get OIDs for KMAC-based KDFs.  If NIST doesn't assign them as he asked then LAMPS will.",
+              "createdAt": "2024-02-14T13:18:28Z",
+              "updatedAt": "2024-02-14T13:18:28Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
