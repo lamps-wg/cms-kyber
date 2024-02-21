@@ -9,7 +9,7 @@ date: 2024
 # <!-- date: 2023-11 -->
 # <!-- date: 2023 -->
 
-stand_alone: true
+stand_alone: true # This lets us do fancy auto-generation of references
 ipr: trust200902
 area: Security
 workgroup: LAMPS
@@ -25,7 +25,7 @@ venue:
   type: "Working Group"
   mail: "spasm@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/spasm/"
-  github: "https://github.com/JulienPrat/draft-ietf-lamps-cms-kyber"
+  github: "lamps-wg/kyber-certificates"
 
 coding: us-ascii
 pi:    # can use array (if all yes) or hash here
@@ -91,7 +91,7 @@ informative:
     date: 2016
 --- abstract
 
-The Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM) Algorithm is a one-pass (store-and-forward) cryptographic mechanism for an originator to securely send keying material to a recipient using the recipient's ML-KEM public key. Three parameters sets for the ML-KEM Algorithm is specified by NIST in {{FIPS203-ipd}} \[EDNOTE: Change to {{FIPS203}} when it is published\]. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as specified in {{!I-D.ietf-lamps-cms-kemri}}.
+The Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM) Algorithm is a one-pass (store-and-forward) cryptographic mechanism for an originator to securely send keying material to a recipient using the recipient's ML-KEM public key. Three parameters sets for the ML-KEM Algorithm are specified by NIST in {{FIPS203-ipd}} \[EDNOTE: Change to {{FIPS203}} when it is published\]. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as specified in {{!I-D.ietf-lamps-cms-kemri}}.
 
 <!-- End of Abstract -->
 
@@ -186,8 +186,7 @@ To support the ML-KEM algorithm, the CMS recipient MUST implement Decapsulate().
 The ML-KEM algorithm recipient processing of the values obtained from the KEMRecipientInfo structure can be summarized as:
 
 >
-1\. Obtain the shared secret using the Decapsulate() function of the
-RSA-KEM algorithm and the recipient's ML-KEM private key:
+1\. Obtain the shared secret using the Decapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM private key:
 
 ~~~
        ss = Decapsulate(sk, ct)
@@ -292,7 +291,7 @@ A key intended to be employed with KEMRecipientInfo SHOULD NOT also be employed 
 
 Section 2.5.2 of {{!RFC8551}} defines the SMIMECapabilities attribute to announce a partial list of algorithms that an S/MIME implementation can support. When constructing a CMS signed-data content type {{!RFC5652}}, a compliant implementation MAY include the SMIMECapabilities attribute that announces support for one or more of the ML-KEM Algorithm identifiers.
 
-The SMIMECapability SEQUENCE representing the ML-KEM Algorithm MUST include one of the ML-KEM object identifiers in the capabilityID field. When the one of the ML-KEM object identifiers appear in the capabilityID field, the parameters MUST NOT be present.
+The SMIMECapability SEQUENCE representing the ML-KEM Algorithm MUST include one of the ML-KEM object identifiers in the capabilityID field. When the one of the ML-KEM object identifiers appears in the capabilityID field, the parameters MUST NOT be present.
 
 <!-- End of smime-capabilities-attribute-conventions section -->
 
@@ -323,24 +322,21 @@ All identifiers used by ML-KEM in CMS are defined elsewhere but reproduced here 
 
 # Security Considerations {#sec-security-considerations}
 
-\[ednote: many of the security considerations below apply to ML-KEM in general and are not specific to ML-KEM within CMS. As this document and draft-ietf-lamps-kyber-certificates approach WGLC, the two Security Consideration sections should be harmonized and duplicate text removed.]
+\[EDNOTE: many of the security considerations below apply to ML-KEM in general and are not specific to ML-KEM within CMS. As this document and draft-ietf-lamps-kyber-certificates approach WGLC, the two Security Consideration sections should be harmonized and duplicate text removed.]
 
 The Security Considerations section of {{!I-D.ietf-lamps-kyber-certificates}} applies to this specification as well.
 
 The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in the NIST SP 800-57 Part 1 {{?NIST.SP.800-57pt1r5}}. To achieve 128-bit security, ML-KEM-512 SHOULD be used, the key-derivation function SHOULD make use of SHA3-256, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 128-bit key. To achieve 192-bit security, ML-KEM-768 SHOULD be used, the key-derivation function SHOULD make use of SHA3-384, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 192-bit key or larger. In this case AES Key Wrap with a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 SHOULD be used, the key-derivation function SHOULD make use of SHA3-512, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 256-bit key.
 
 Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the ML-KEM.Encaps and ML-KEM.Decaps algorithms from {{FIPS203}} will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol. However, it is possible (though extremely unlikely) that the process will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
-secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are given here:
+secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are given in {{tab-fail}}.
 
-~~~
-+--------------+----------------------------+
 |Parameter set | Decapsulation failure rate |
-+--------------+----------------------------+
+|---           |---                         |
 | ML-KEM-512   | 2^(−139)                   |
 | ML-KEM-768   | 2^(−164)                   |
 | ML-KEM-1024  | 2^(−174)                   |
-+--------------+----------------------------+
-~~~
+{: #tab-fail title="ML-KEM decapsulation failures rates"}
 
 Implementations MUST protect the ML-KEM private key, the key-encryption key, the content-encryption key, message-authentication key, and the content-authenticated-encryption key. Disclosure of the ML-KEM private key could result in the compromise of all messages protected with that key. Disclosure of the key-encryption key, the content- encryption key, or the content-authenticated-encryption key could result in compromise of the associated encrypted content. Disclosure of the key-encryption key, the message-authentication key, or the content-authenticated-encryption key could allow modification of the associated authenticated content.
 
