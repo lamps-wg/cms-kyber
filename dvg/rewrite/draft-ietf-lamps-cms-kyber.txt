@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 17 August 2024                                          Entrust
+Expires: 24 August 2024                                          Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                        14 February 2024
+                                                        21 February 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -20,7 +20,7 @@ Abstract
    Algorithm is a one-pass (store-and-forward) cryptographic mechanism
    for an originator to securely send keying material to a recipient
    using the recipient's ML-KEM public key.  Three parameters sets for
-   the ML-KEM Algorithm is specified by NIST in [FIPS203-ipd] [EDNOTE:
+   the ML-KEM Algorithm are specified by NIST in [FIPS203-ipd] [EDNOTE:
    Change to [FIPS203] when it is published].  In order of increasing
    security strength (and decreasing performance), these parameter sets
    are ML-KEM-512, ML-KEM-768, and ML-KEM-1024.  This document specifies
@@ -42,8 +42,7 @@ About This Document
    https://www.ietf.org/mailman/listinfo/spasm/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/https://github.com/JulienPrat/draft-ietf-lamps-
-   cms-kyber.
+   https://github.com/lamps-wg/kyber-certificates.
 
 Status of This Memo
 
@@ -60,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 August 2024.
+   This Internet-Draft will expire on 24 August 2024.
 
 Copyright Notice
 
@@ -223,7 +222,7 @@ Table of Contents
    the KEMRecipientInfo structure can be summarized as:
 
       1.  Obtain the shared secret using the Decapsulate() function of
-      the RSA-KEM algorithm and the recipient's ML-KEM private key:
+      the ML-KEM algorithm and the recipient's ML-KEM private key:
 
           ss = Decapsulate(sk, ct)
 
@@ -361,7 +360,7 @@ Table of Contents
 
    The SMIMECapability SEQUENCE representing the ML-KEM Algorithm MUST
    include one of the ML-KEM object identifiers in the capabilityID
-   field.  When the one of the ML-KEM object identifiers appear in the
+   field.  When the one of the ML-KEM object identifiers appears in the
    capabilityID field, the parameters MUST NOT be present.
 
 3.  Identifiers
@@ -390,7 +389,7 @@ Table of Contents
 
 4.  Security Considerations
 
-   [ednote: many of the security considerations below apply to ML-KEM in
+   [EDNOTE: many of the security considerations below apply to ML-KEM in
    general and are not specific to ML-KEM within CMS.  As this document
    and draft-ietf-lamps-kyber-certificates approach WGLC, the two
    Security Consideration sections should be harmonized and duplicate
@@ -428,15 +427,19 @@ Table of Contents
    recipient clearly did not succeed in producing a shared secret key.
    This event is called a decapsulation failure.  Estimates for the
    decapsulation failure probability (or rate) for each of the ML-KEM
-   parameter sets are given here:
+   parameter sets are given in Table 1.
 
-   +--------------+----------------------------+
-   |Parameter set | Decapsulation failure rate |
-   +--------------+----------------------------+
-   | ML-KEM-512   | 2^(-139)                   |
-   | ML-KEM-768   | 2^(-164)                   |
-   | ML-KEM-1024  | 2^(-174)                   |
-   +--------------+----------------------------+
+              +===============+============================+
+              | Parameter set | Decapsulation failure rate |
+              +===============+============================+
+              | ML-KEM-512    | 2^(-139)                   |
+              +---------------+----------------------------+
+              | ML-KEM-768    | 2^(-164)                   |
+              +---------------+----------------------------+
+              | ML-KEM-1024   | 2^(-174)                   |
+              +---------------+----------------------------+
+
+               Table 1: ML-KEM decapsulation failures rates
 
    Implementations MUST protect the ML-KEM private key, the key-
    encryption key, the content-encryption key, message-authentication
@@ -588,9 +591,9 @@ Table of Contents
               Kampanakis, P. and G. Ravago, "Post-quantum Hybrid Key
               Exchange with ML-KEM in the Internet Key Exchange Protocol
               Version 2 (IKEv2)", Work in Progress, Internet-Draft,
-              draft-kampanakis-ml-kem-ikev2-01, 20 November 2023,
+              draft-kampanakis-ml-kem-ikev2-02, 19 February 2024,
               <https://datatracker.ietf.org/doc/html/draft-kampanakis-
-              ml-kem-ikev2-01>.
+              ml-kem-ikev2-02>.
 
    [NIST-PQ]  National Institute of Standards and Technology, "Post-
               Quantum Cryptography Project", 20 December 2016,
