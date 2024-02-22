@@ -102,7 +102,7 @@ The Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM) Algorithm is a one
 
 ML-KEM is an IND-CCA2-secure key-encapsulation mechanism (KEM) standardized in {{FIPS203}} by the US NIST PQC Project {{NIST-PQ}}.
 
-Native support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!I-D.ietf-lamps-cms-kemri}}, which defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the use of ML-KEM in the KEMRecipientInfo structure in CMS at three security levels: MK-KEM-512, ML-KEM-768, ML-KEM-1024.
+Native support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!I-D.ietf-lamps-cms-kemri}}, which defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the direct use of ML-KEM in the KEMRecipientInfo structure in CMS using each of the three parameter sets from {{FIPS203}}, namely MK-KEM-512, ML-KEM-768, and ML-KEM-1024.  It does not address or preclude the use of ML-KEM as part of any hybrid scheme.
 
 ## Conventions and Terminology {#sec-intro-terminology}
 
@@ -137,7 +137,7 @@ IND-CCA2 is a desirable property of encryption mechanisms for CMS since encrypti
 ML-KEM is a lattice-based key encapsulation mechanism defined in {{FIPS203}}.
 \[EDNOTE: Not actually standardized yet, but will be by publication]
 
-ML-KEM is using Module Learning with Errors as its underlying primitive which is a structured lattices variant that offers good performance and relatively small and balanced key and ciphertext sizes. ML-KEM was standardized with three parameters, ML-KEM-512, ML-KEM-768, and ML-KEM-1024. These were mapped by NIST to the three security levels defined in the NIST PQC Project, Level 1, 3, and 5. These levels correspond to the hardness of breaking AES-128, AES-192 and AES-256 respectively.
+ML-KEM is using Module Learning with Errors as its underlying primitive which is a structured lattices variant that offers good performance and relatively small and balanced key and ciphertext sizes. ML-KEM was standardized with three parameter sets: ML-KEM-512, ML-KEM-768, and ML-KEM-1024. These were mapped by NIST to the three security levels defined in the NIST PQC Project, Level 1, 3, and 5. These levels correspond to the hardness of breaking AES-128, AES-192 and AES-256 respectively.
 
 The KEM functions defined above correspond to the following functions in {{FIPS203}}:
 
@@ -225,7 +225,7 @@ The fields of the KEMRecipientInfo MUST have the following values:
 
 > rid identifies the recipient's certificate or public key.
 
-> kem identifies the KEM algorithm ; For ML-KEM-512 it MUST contain id-ML-KEM-512, for ML-KEM-768 it MUST contain id-ML-KEM-768, for ML-KEM-1024 it MUST contain id-ML-KEM-1024. These identifiers are reproduced in {{sec-identifiers}}.
+> kem identifies the KEM algorithm ; it MUST contain one of id-ML-KEM-512, id-ML-KEM-768, or id-ML-KEM-1024. These identifiers are reproduced in {{sec-identifiers}}.
 
 > kemct is the ciphertext produced for this recipient.
 
@@ -243,7 +243,7 @@ The fields of the KEMRecipientInfo MUST have the following values:
 
 When ML-KEM is employed in CMS, the security levels of the different underlying components used within the KEMRecipientInfo structure should be consistent.
 
-\[EDNOTE: if we get OIDs for KMAC-based KDFs, use those. If we don't, do we want to use KDF3 with SHA3 <!--{{!ANS-X9.44=ANSI.X9-44.1993}}--> instead? ]
+\[EDNOTE: if we get OIDs for KMAC-based KDFs, use those. If we don't, do we want to use KDF3 {{!ANS-X9.44=ANSI.X9-44.1993}} with SHA3 instead?]
 
 For ML-KEM-512, the following underlying components MUST be supported:
 
@@ -267,7 +267,7 @@ The above object identifiers are reproduced for convenience in {{sec-identifiers
 
 An implementation MAY also support other key-derivation functions and other key-encryption algorithms as well.
 
-If underlying components other than those specified above are used, then:
+If underlying components other than those specified above are used, then the following KDF requirements are in effect in addition to those asserted in {{!I-D.ietf-lamps-cms-kemri}}:
 
 > ML-KEM-512 SHOULD be used with a KDF capable of outputting a key with at least 128 bits of security and with a key wrapping algorithm with a key length of at least 128 bits.
 
@@ -284,8 +284,6 @@ The conventions specified in this section augment {{!RFC5280}}.
 A recipient who employs the ML-KEM Algorithm with a certificate MUST identify the public key in the certificate using the id-ML-KEM-512, id-ML-KEM-768, or id-ML-KEM-1024 object identifiers following the conventions specified in {{!I-D.ietf-lamps-kyber-certificates}} and reproduced in {{sec-identifiers}}.
 
 In particular, the key usage certificate extension MUST only contain keyEncipherment (Section 4.2.1.3 of {{!RFC5280}}).
-
-A key intended to be employed with KEMRecipientInfo SHOULD NOT also be employed for any other purpose. Good cryptographic practice employs a given key pair in only one scheme. This practice avoids the risk that vulnerability in one scheme may compromise the security of the other, and may be essential to maintain provable security.
 
 ## SMIME Capabilities Attribute Conventions {#sec-using-smime-caps}
 
@@ -329,7 +327,7 @@ The Security Considerations section of {{!I-D.ietf-lamps-kyber-certificates}} ap
 The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in the NIST SP 800-57 Part 1 {{?NIST.SP.800-57pt1r5}}. To achieve 128-bit security, ML-KEM-512 SHOULD be used, the key-derivation function SHOULD make use of SHA3-256, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 128-bit key. To achieve 192-bit security, ML-KEM-768 SHOULD be used, the key-derivation function SHOULD make use of SHA3-384, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 192-bit key or larger. In this case AES Key Wrap with a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 SHOULD be used, the key-derivation function SHOULD make use of SHA3-512, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 256-bit key.
 
 Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the ML-KEM.Encaps and ML-KEM.Decaps algorithms from {{FIPS203}} will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol. However, it is possible (though extremely unlikely) that the process will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
-secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are given in {{tab-fail}}.
+secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are provided in Table 1 \[EDNOTE: make sure this doesn't change] of {{FIPS203}} and reproduced here in {{tab-fail}}.
 
 |Parameter set | Decapsulation failure rate |
 |---           |---                         |
@@ -365,6 +363,8 @@ Within the CMS, algorithms are identified by object identifiers (OIDs). All of t
 # Acknowledgements {#sec-acknowledgements}
 
 This document borrows heavily from {{?I-D.ietf-lamps-rfc5990bis}}, {{FIPS203}}, and {{?I-D.kampanakis-ml-kem-ikev2}}. Thanks go to the authors of those documents. "Copying always makes things easier and less error prone" - RFC8411.
+
+Thanks to Carl Wallace for the detailed review and interoperability testing.
 
 <!-- End of acknowledgements section -->
 
