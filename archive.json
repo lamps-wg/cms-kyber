@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-20T00:29:26.222328+00:00",
+  "timestamp": "2024-02-22T00:29:53.021316+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -63,13 +63,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-02-12T09:34:31Z",
-      "updatedAt": "2024-02-14T13:34:19Z",
+      "updatedAt": "2024-02-21T15:00:55Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "cb3111ce9644ec633e7b70cadbc969be36f95323",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/rewrite",
-      "headRefOid": "2119a95baeda4c685e74b52a90b6458aed80f797",
+      "headRefOid": "997f28468f0011cf535e6d6cf7fc56d78ee27bc1",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -235,6 +235,26 @@
               "body": "BTW I heard directly from Russ that we'll get OIDs for KMAC-based KDFs.  If NIST doesn't assign them as he asked then LAMPS will.",
               "createdAt": "2024-02-14T13:18:28Z",
               "updatedAt": "2024-02-14T13:18:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5w2AaE",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-21T13:31:35Z",
+          "updatedAt": "2024-02-21T13:31:35Z",
+          "comments": [
+            {
+              "originalPosition": 274,
+              "body": "Ugg, yeah, that really is copied directly from the KEMRecipientInfo section of 5990bis. \r\nUgg, ok, fine then.",
+              "createdAt": "2024-02-21T13:31:35Z",
+              "updatedAt": "2024-02-21T13:31:35Z"
             }
           ]
         }
