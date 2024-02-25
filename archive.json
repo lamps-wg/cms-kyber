@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-22T00:29:53.021316+00:00",
+  "timestamp": "2024-02-25T00:32:59.087956+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -49,7 +49,24 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOLQoLsc6AFSgy",
+      "title": "Is \"CMS KEMRecipientInfo Processing Summary\" section needed?",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/2",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Section 4 \"CMS KEMRecipientInfo Processing Summary\" was copied from rfc5990bis.  Section 2 in cms-kemri is a more complete statement of the process, so is our section needed?\r\n\r\nIf we keep it, in the AuthenticatedData case the key that is transfered is a MAC key, not a CEK.",
+      "createdAt": "2024-02-22T11:39:12Z",
+      "updatedAt": "2024-02-22T11:39:12Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
@@ -63,13 +80,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-02-12T09:34:31Z",
-      "updatedAt": "2024-02-21T15:00:55Z",
+      "updatedAt": "2024-02-22T13:42:02Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "cb3111ce9644ec633e7b70cadbc969be36f95323",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/rewrite",
-      "headRefOid": "997f28468f0011cf535e6d6cf7fc56d78ee27bc1",
+      "headRefOid": "e81dda89905a3304d470e22db53bcb2b6afef680",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
