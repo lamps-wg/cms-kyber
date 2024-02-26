@@ -5,33 +5,44 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 8 May 2024                                      Entrust Limited
-                                                         5 November 2023
+Expires: 29 August 2024                                          Entrust
+                                                            D. Van Geest
+                                                     CryptoNext Security
+                                                        26 February 2024
 
 
-         Use of KYBER in the Cryptographic Message Syntax (CMS)
+        Use of ML-KEM in the Cryptographic Message Syntax (CMS)
                    draft-ietf-lamps-cms-kyber-latest
 
 Abstract
 
-   This document describes the conventions for using a Key Encapsulation
-   Mechanism algorithm (KEM) within the Cryptographic Message Syntax
-   (CMS).  The CMS specifies the envelopped-data content type, which
-   consists of an encrypted content and encrypted content-encryption
-   keys for one or more recipients.  The mechanism proposed here can
-   rely on either post-quantum KEMs, hybrid KEMs or classical KEMs.
+   The Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM)
+   Algorithm is a one-pass (store-and-forward) cryptographic mechanism
+   for an originator to securely send keying material to a recipient
+   using the recipient's ML-KEM public key.  Three parameters sets for
+   the ML-KEM Algorithm are specified by NIST in [FIPS203-ipd] [EDNOTE:
+   Change to [FIPS203] when it is published].  In order of increasing
+   security strength (and decreasing performance), these parameter sets
+   are ML-KEM-512, ML-KEM-768, and ML-KEM-1024.  This document specifies
+   the conventions for using ML-KEM with the Cryptographic Message
+   Syntax (CMS) using KEMRecipientInfo as specified in
+   [I-D.ietf-lamps-cms-kemri].
 
-Discussion Venues
+About This Document
 
    This note is to be removed before publishing as an RFC.
 
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-kyber/.
+
    Discussion of this document takes place on the Limited Additional
-   Mechanisms for PKIX and SMIME Working Group mailing list
-   (spasm@ietf.org), which is archived at
-   https://mailarchive.ietf.org/arch/browse/spasm/.
+   Mechanisms for PKIX and SMIME (lamps) Working Group mailing list
+   (mailto:spasm@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/spasm/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/spasm/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/lamps-wg/cms-kyber.
+   https://github.com/lamps-wg/kyber-certificates.
 
 Status of This Memo
 
@@ -48,11 +59,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 May 2024.
+   This Internet-Draft will expire on 29 August 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -66,41 +77,564 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Revision History
-   2.  Introduction
-   3.  Terminology
-   4.  Design Rationales
-   5.  KEM Key Transport Mechanism (KEM-TRANS)
-     5.1.  Underlying Components
-       5.1.1.  KEM
-       5.1.2.  KDF
-       5.1.3.  WRAP
-     5.2.  Recipient's Key Generation and Distribution
-     5.3.  Sender's Operations
-     5.4.  Recipient's Operations
-   6.  Use of Kyber in CMS
-     6.1.  Use of of Kyber within KEM-TRANS
-     6.2.  RecipientInfo Conventions
-     6.3.  Certificate Conventions
-       6.3.1.  Key Usage Extension
-       6.3.2.  Subject Public Key Info
-     6.4.  SMIME Capabilities Attribute Conventions
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  Acknowledgements
-   10. Annex A : ASN.1 Syntax
-     10.1.  Annex A1 : KEM-TRANS Key Transport Mechanism
-     10.2.  Annex A2 : Underlying Components
-       10.2.1.  Key Encapsulation Mechanisms
-       10.2.2.  Key Derivation Functions
-       10.2.3.  Key Wrapping Schemes
-     10.3.  Appendix A3 : Examples
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   1.  Introduction
+     1.1.  Conventions and Terminology
+     1.2.  KEMs
+     1.3.  ML-KEM
+     1.4.  CMS KEMRecipientInfo Processing Summary
+   2.  Use of the ML-KEM Algorithm in CMS
+     2.1.  RecipientInfo Conventions
+     2.2.  Underlying Components
+     2.3.  Certificate Conventions
+     2.4.  SMIME Capabilities Attribute Conventions
+   3.  Identifiers
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  Acknowledgements
+   7.  References
+     7.1.  Normative References
+     7.2.  Informative References
+   Appendix A.  ASN.1 Module
+     A.1.  Examples
+   Appendix B.  Revision History
    Authors' Addresses
 
-1.  Revision History
+1.  Introduction
+
+   ML-KEM is an IND-CCA2-secure key-encapsulation mechanism (KEM)
+   standardized in [FIPS203] by the US NIST PQC Project [NIST-PQ].
+
+   Native support for Key Encapsulation Mechanisms (KEMs) was added to
+   CMS in [I-D.ietf-lamps-cms-kemri], which defines the KEMRecipientInfo
+   structure for the use of KEM algorithms for the CMS enveloped-data
+   content type, the CMS authenticated-data content type, and the CMS
+   authenticated-enveloped-data content type.  This document specifies
+   the direct use of ML-KEM in the KEMRecipientInfo structure in CMS
+   using each of the three parameter sets from [FIPS203], namely MK-KEM-
+   512, ML-KEM-768, and ML-KEM-1024.  It does not address or preclude
+   the use of ML-KEM as part of any hybrid scheme.
+
+1.1.  Conventions and Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+1.2.  KEMs
+
+   All KEM algorithms provides three functions: KeyGen(), Encapsulate(),
+   and Decapsulate():
+
+   KeyGen() -> (pk, sk):
+
+      Generate the public key (pk) and a private key (sk).
+
+   Encapsulate(pk) -> (ct, ss):
+
+      Given the recipient's public key (pk), produce a ciphertext (ct)
+      to be passed to the recipient and a shared secret (ss) for use by
+      the originator.
+
+   Decapsulate(sk, ct) -> ss:
+
+      Given the private key (sk) and the ciphertext (ct), produce the
+      shared secret (ss) for the recipient.
+
+   The main security property for KEMs standardized in the NIST Post-
+   Quantum Cryptography Standardization Project [NIST-PQ] is
+   indistinguishability under adaptive chosen ciphertext attacks (IND-
+   CCA2), which means that shared secret values should be
+   indistinguishable from random strings even given the ability to have
+   arbitrary ciphertexts decapsulated.  IND-CCA2 corresponds to security
+   against an active attacker, and the public key / secret key pair can
+   be treated as a long-term key or reused.  A weaker security notion is
+   indistinguishability under chosen plaintext attacks (IND-CPA), which
+   means that the shared secret values should be indistinguishable from
+   random strings given a copy of the public key.  IND-CPA roughly
+   corresponds to security against a passive attacker, and sometimes
+   corresponds to one-time key exchange.
+
+   IND-CCA2 is a desirable property of encryption mechanisms for CMS
+   since encryption public keys are often long-term -- for example
+   contained within X.509 certificates [RFC5280] -- and certain uses of
+   CMS could allow for the type of decryption oracle that forms the
+   basis of an adaptive ciphertext attack.
+
+1.3.  ML-KEM
+
+   ML-KEM is a lattice-based key encapsulation mechanism defined in
+   [FIPS203].  [EDNOTE: Not actually standardized yet, but will be by
+   publication]
+
+   ML-KEM is using Module Learning with Errors as its underlying
+   primitive which is a structured lattices variant that offers good
+   performance and relatively small and balanced key and ciphertext
+   sizes.  ML-KEM was standardized with three parameter sets: ML-KEM-
+   512, ML-KEM-768, and ML-KEM-1024.  These were mapped by NIST to the
+   three security levels defined in the NIST PQC Project, Level 1, 3,
+   and 5.  These levels correspond to the hardness of breaking AES-128,
+   AES-192 and AES-256 respectively.
+
+   The KEM functions defined above correspond to the following functions
+   in [FIPS203]:
+
+      KeyGen(): ML-KEM.KeyGen() from section 6.1.
+
+      Encapsulate(): ML-KEM.Encaps() from section 6.2.
+
+      Decapsulate(): ML-KEM.Decaps() from section 6.3.
+
+   All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and
+   SHAKE512 internally.  This informs the choice of KDF within this
+   document.
+
+1.4.  CMS KEMRecipientInfo Processing Summary
+
+   To support the ML-KEM algorithm, the CMS originator MUST implement
+   Encapsulate().
+
+   Given a content-encryption key CEK, the ML-KEM Algorithm processing
+   by the originator to produce the values that are carried in the CMS
+   KEMRecipientInfo can be summarized as:
+
+      1.  Obtain the shared secret and ciphertext using the
+      Encapsulate() function of the ML-KEM algorithm and the recipient's
+      ML-KEM public key:
+
+          (ct, ss) = Encapsulate(pk)
+
+      2.  Derive a key-encryption key KEK from the shared secret:
+
+          KEK = KDF(ss)
+
+      3.  Wrap the CEK with the KEK to obtain wrapped keying material
+      WK:
+
+          WK = WRAP(KEK, CEK)
+
+      4.  The originator sends the ciphertext and WK to the recipient in
+      the CMS KEMRecipientInfo structure.
+
+   To support the ML-KEM algorithm, the CMS recipient MUST implement
+   Decapsulate().
+
+   The ML-KEM algorithm recipient processing of the values obtained from
+   the KEMRecipientInfo structure can be summarized as:
+
+      1.  Obtain the shared secret using the Decapsulate() function of
+      the ML-KEM algorithm and the recipient's ML-KEM private key:
+
+          ss = Decapsulate(sk, ct)
+
+      2.  Derive a key-encryption key KEK from the shared secret:
+
+          KEK = KDF(ss)
+
+      3.  Unwrap the WK with the KEK to obtain content-encryption key
+      CEK:
+
+          CEK = UNWRAP(KEK, WK)
+
+   Note that the KDF used to process the KEMRecipientInfo structure MAY
+   be different from the KDF used in the ML-KEM algorithm.
+
+2.  Use of the ML-KEM Algorithm in CMS
+
+   The ML-KEM Algorithm MAY be employed for one or more recipients in
+   the CMS enveloped-data content type [RFC5652], the CMS authenticated-
+   data content type [RFC5652], or the CMS authenticated-enveloped-data
+   content type [RFC5083].  In each case, the KEMRecipientInfo
+   [I-D.ietf-lamps-cms-kemri] is used with with the ML-KEM Algorithm to
+   securely transfer the content-encryption key from the originator to
+   the recipient.
+
+2.1.  RecipientInfo Conventions
+
+   When the ML-KEM Algorithm is employed for a recipient, the
+   RecipientInfo alternative for that recipient MUST be
+   OtherRecipientInfo using the KEMRecipientInfo structure as defined in
+   [I-D.ietf-lamps-cms-kemri].  The fields of the KEMRecipientInfo MUST
+   have the following values:
+
+      version is the syntax version number; it MUST be 0.
+
+      rid identifies the recipient's certificate or public key.
+
+      kem identifies the KEM algorithm ; it MUST contain one of id-ML-
+      KEM-512, id-ML-KEM-768, or id-ML-KEM-1024.  These identifiers are
+      reproduced in Section 3.
+
+      kemct is the ciphertext produced for this recipient.
+
+      kdf identifies the key-derivation algorithm.  Note that the KDF
+      used for CMS RecipientInfo process MAY be different than the KDF
+      used within the ML-KEM Algorithm.
+
+      kekLength is the size of the key-encryption key in octets.
+
+      ukm is an optional random input to the key-derivation function.
+      ML-KEM doesn't place any requirements on the ukm contents.
+
+      wrap identifies a key wrapping algorithm used to encrypt the
+      content-encryption key.
+
+2.2.  Underlying Components
+
+   When ML-KEM is employed in CMS, the security levels of the different
+   underlying components used within the KEMRecipientInfo structure
+   should be consistent.
+
+   [EDNOTE: if we get OIDs for KMAC-based KDFs, use those.  If we don't,
+   do we want to use KDF3 [ANS-X9.44] with SHA3 instead?]
+
+   For ML-KEM-512, the following underlying components MUST be
+   supported:
+
+      KDF: id-alg-hkdf-with-sha3-256 [I-D.ietf-lamps-cms-sha3-hash]
+
+      Key wrapping: id-aes128-wrap [RFC3565]
+
+   For ML-KEM-768, the following underlying components MUST be
+   supported:
+
+      KDF: id-alg-hkdf-with-sha3-384 [I-D.ietf-lamps-cms-sha3-hash]
+
+      Key wrapping: id-aes256-wrap [RFC3565]
+
+   For ML-KEM-1024, the following underlying components MUST be
+   supported:
+
+      KDF: id-alg-hkdf-with-sha3-512 [I-D.ietf-lamps-cms-sha3-hash]
+
+      Key wrapping: id-aes256-wrap [RFC3565]
+
+   The above object identifiers are reproduced for convenience in
+   Section 3.
+
+   An implementation MAY also support other key-derivation functions and
+   other key-encryption algorithms as well.
+
+   If underlying components other than those specified above are used,
+   then the following KDF requirements are in effect in addition to
+   those asserted in [I-D.ietf-lamps-cms-kemri]:
+
+      ML-KEM-512 SHOULD be used with a KDF capable of outputting a key
+      with at least 128 bits of security and with a key wrapping
+      algorithm with a key length of at least 128 bits.
+
+      ML-KEM-768 SHOULD be used with a KDF capable of outputting a key
+      with at least 192 bits of security and with a key wrapping
+      algorithm with a key length of at least 192 bits.
+
+      ML-KEM-1024 SHOULD be used with a KDF capable of outputting a key
+      with at least 256 bits of security and with a key wrapping
+      algorithm with a key length of at least 256 bits.
+
+2.3.  Certificate Conventions
+
+   The conventions specified in this section augment [RFC5280].
+
+   A recipient who employs the ML-KEM Algorithm with a certificate MUST
+   identify the public key in the certificate using the id-ML-KEM-512,
+   id-ML-KEM-768, or id-ML-KEM-1024 object identifiers following the
+   conventions specified in [I-D.ietf-lamps-kyber-certificates] and
+   reproduced in Section 3.
+
+   In particular, the key usage certificate extension MUST only contain
+   keyEncipherment (Section 4.2.1.3 of [RFC5280]).
+
+2.4.  SMIME Capabilities Attribute Conventions
+
+   Section 2.5.2 of [RFC8551] defines the SMIMECapabilities attribute to
+   announce a partial list of algorithms that an S/MIME implementation
+   can support.  When constructing a CMS signed-data content type
+   [RFC5652], a compliant implementation MAY include the
+   SMIMECapabilities attribute that announces support for one or more of
+   the ML-KEM Algorithm identifiers.
+
+   The SMIMECapability SEQUENCE representing the ML-KEM Algorithm MUST
+   include one of the ML-KEM object identifiers in the capabilityID
+   field.  When the one of the ML-KEM object identifiers appears in the
+   capabilityID field, the parameters MUST NOT be present.
+
+3.  Identifiers
+
+   All identifiers used by ML-KEM in CMS are defined elsewhere but
+   reproduced here for convenience:
+
+     id-TBD-NIST-KEM OBJECT IDENTIFIER ::= { TBD }
+
+     id-ML-KEM-512 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
+     id-ML-KEM-768 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
+     id-ML-KEM-1024 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
+
+     id-alg OBJECT IDENTIFIER ::= { iso(1) member-body(2)
+              us(840) rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) 3 }
+
+     id-alg-hkdf-with-sha3-256 OBJECT IDENTIFIER ::= { id-alg TBD }
+     id-alg-hkdf-with-sha3-384 OBJECT IDENTIFIER ::= { id-alg TBD }
+     id-alg-hkdf-with-sha3-512 OBJECT IDENTIFIER ::= { id-alg TBD }
+
+     aes OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16) us(840)
+              organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
+
+     id-aes128-wrap OBJECT IDENTIFIER ::= { aes 5 }
+     id-aes256-wrap OBJECT IDENTIFIER ::= { aes 45 }
+
+4.  Security Considerations
+
+   [EDNOTE: many of the security considerations below apply to ML-KEM in
+   general and are not specific to ML-KEM within CMS.  As this document
+   and draft-ietf-lamps-kyber-certificates approach WGLC, the two
+   Security Consideration sections should be harmonized and duplicate
+   text removed.]
+
+   The Security Considerations section of
+   [I-D.ietf-lamps-kyber-certificates] applies to this specification as
+   well.
+
+   The ML-KEM variant and the underlying components need to be selected
+   consistent with the desired security level.  Several security levels
+   have been identified in the NIST SP 800-57 Part 1
+   [NIST.SP.800-57pt1r5].  To achieve 128-bit security, ML-KEM-512
+   SHOULD be used, the key-derivation function SHOULD make use of
+   SHA3-256, and the symmetric key-encryption algorithm SHOULD be AES
+   Key Wrap with a 128-bit key.  To achieve 192-bit security, ML-KEM-768
+   SHOULD be used, the key-derivation function SHOULD make use of
+   SHA3-384, and the symmetric key-encryption algorithm SHOULD be AES
+   Key Wrap with a 192-bit key or larger.  In this case AES Key Wrap
+   with a 256-bit key is typically used because AES-192 is not as
+   commonly deployed.  To achieve 256-bit security, ML-KEM-1024 SHOULD
+   be used, the key-derivation function SHOULD make use of SHA3-512, and
+   the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a
+   256-bit key.
+
+   Provided all inputs are well-formed, the key establishment procedure
+   of ML-KEM will never explicitly fail.  Specifically, the ML-
+   KEM.Encaps and ML-KEM.Decaps algorithms from [FIPS203] will always
+   output a value with the same data type as a shared secret key, and
+   will never output an error or failure symbol.  However, it is
+   possible (though extremely unlikely) that the process will fail in
+   the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different
+   outputs, even though both of them are behaving honestly and no
+   adversarial interference is present.  In this case, the sender and
+   recipient clearly did not succeed in producing a shared secret key.
+   This event is called a decapsulation failure.  Estimates for the
+   decapsulation failure probability (or rate) for each of the ML-KEM
+   parameter sets are provided in Table 1 [EDNOTE: make sure this
+   doesn't change] of [FIPS203] and reproduced here in Table 1.
+
+              +===============+============================+
+              | Parameter set | Decapsulation failure rate |
+              +===============+============================+
+              | ML-KEM-512    | 2^(-139)                   |
+              +---------------+----------------------------+
+              | ML-KEM-768    | 2^(-164)                   |
+              +---------------+----------------------------+
+              | ML-KEM-1024   | 2^(-174)                   |
+              +---------------+----------------------------+
+
+               Table 1: ML-KEM decapsulation failures rates
+
+   Implementations MUST protect the ML-KEM private key, the key-
+   encryption key, the content-encryption key, message-authentication
+   key, and the content-authenticated-encryption key.  Disclosure of the
+   ML-KEM private key could result in the compromise of all messages
+   protected with that key.  Disclosure of the key-encryption key, the
+   content- encryption key, or the content-authenticated-encryption key
+   could result in compromise of the associated encrypted content.
+   Disclosure of the key-encryption key, the message-authentication key,
+   or the content-authenticated-encryption key could allow modification
+   of the associated authenticated content.
+
+   Additional considerations related to key management may be found in
+   [NIST.SP.800-57pt1r5].
+
+   The security of the ML-KEM Algorithm depends on a quality random
+   number generator.  For further discussion on random number
+   generation, see [RFC4086].
+
+   ML-KEM encapsulation and decapsulation only outputs a shared secret
+   and ciphertext.  Implementations SHOULD NOT use intermediate values
+   directly for any purpose.
+
+   Implementations SHOULD NOT reveal information about intermediate
+   values or calculations, whether by timing or other "side channels",
+   otherwise an opponent may be able to determine information about the
+   keying data and/or the recipient's private key.  Although not all
+   intermediate information may be useful to an opponent, it is
+   preferable to conceal as much information as is practical, unless
+   analysis specifically indicates that the information would not be
+   useful to an opponent.
+
+   Generally, good cryptographic practice employs a given ML-KEM key
+   pair in only one scheme.  This practice avoids the risk that
+   vulnerability in one scheme may compromise the security of the other,
+   and may be essential to maintain provable security.
+
+   Parties MAY gain assurance that implementations are correct through
+   formal implementation validation, such as the NIST Cryptographic
+   Module Validation Program (CMVP) [CMVP].
+
+5.  IANA Considerations
+
+   None.
+
+   Within the CMS, algorithms are identified by object identifiers
+   (OIDs).  All of the OIDs used in this document were assigned in other
+   IETF documents, in ISO/IEC standards documents, by the National
+   Institute of Standards and Technology (NIST).
+
+6.  Acknowledgements
+
+   This document borrows heavily from [I-D.ietf-lamps-rfc5990bis],
+   [FIPS203], and [I-D.kampanakis-ml-kem-ikev2].  Thanks go to the
+   authors of those documents.  "Copying always makes things easier and
+   less error prone" - RFC8411.
+
+   Thanks to Carl Wallace for the detailed review and interoperability
+   testing.
+
+7.  References
+
+7.1.  Normative References
+
+   [ANS-X9.44]
+              American National Standards Institute, "Public Key
+              Cryptography Using Reversible Algorithms for the Financial
+              Services Industry: Transport of Symmetric Algorithm Keys
+              Using RSA", ANSI X9.44, 1993.
+
+   [FIPS203]  "TBD", n.d..
+
+   [FIPS203-ipd]
+              National Institute of Standards and Technology (NIST),
+              "Module-Lattice-based Key-Encapsulation Mechanism
+              Standard", 24 August 2023,
+              <https://nvlpubs.nist.gov/nistpubs/FIPS/
+              NIST.FIPS.203.ipd.pdf>.
+
+   [I-D.ietf-lamps-cms-kemri]
+              Housley, R., Gray, J., and T. Okubo, "Using Key
+              Encapsulation Mechanism (KEM) Algorithms in the
+              Cryptographic Message Syntax (CMS)", Work in Progress,
+              Internet-Draft, draft-ietf-lamps-cms-kemri-08, 6 February
+              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              lamps-cms-kemri-08>.
+
+   [I-D.ietf-lamps-cms-sha3-hash]
+              Housley, R., "Use of the SHA3 One-way Hash Functions in
+              the Cryptographic Message Syntax (CMS)", Work in Progress,
+              Internet-Draft, draft-ietf-lamps-cms-sha3-hash-00, 28
+              November 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-lamps-cms-sha3-hash-00>.
+
+   [I-D.ietf-lamps-kyber-certificates]
+              Turner, S., Kampanakis, P., Massimo, J., and B.
+              Westerbaan, "Internet X.509 Public Key Infrastructure -
+              Algorithm Identifiers for Kyber", Work in Progress,
+              Internet-Draft, draft-ietf-lamps-kyber-certificates-02, 23
+              October 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-lamps-kyber-certificates-02>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC3565]  Schaad, J., "Use of the Advanced Encryption Standard (AES)
+              Encryption Algorithm in Cryptographic Message Syntax
+              (CMS)", RFC 3565, DOI 10.17487/RFC3565, July 2003,
+              <https://www.rfc-editor.org/rfc/rfc3565>.
+
+   [RFC5083]  Housley, R., "Cryptographic Message Syntax (CMS)
+              Authenticated-Enveloped-Data Content Type", RFC 5083,
+              DOI 10.17487/RFC5083, November 2007,
+              <https://www.rfc-editor.org/rfc/rfc5083>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/rfc/rfc5280>.
+
+   [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
+              RFC 5652, DOI 10.17487/RFC5652, September 2009,
+              <https://www.rfc-editor.org/rfc/rfc5652>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8551]  Schaad, J., Ramsdell, B., and S. Turner, "Secure/
+              Multipurpose Internet Mail Extensions (S/MIME) Version 4.0
+              Message Specification", RFC 8551, DOI 10.17487/RFC8551,
+              April 2019, <https://www.rfc-editor.org/rfc/rfc8551>.
+
+7.2.  Informative References
+
+   [CMVP]     National Institute of Standards and Technology,
+              "Cryptographic Module Validation Program", 2016,
+              <https://csrc.nist.gov/projects/cryptographic-module-
+              validation-program>.
+
+   [I-D.ietf-lamps-rfc5990bis]
+              Housley, R. and S. Turner, "Use of the RSA-KEM Algorithm
+              in the Cryptographic Message Syntax (CMS)", Work in
+              Progress, Internet-Draft, draft-ietf-lamps-rfc5990bis-04,
+              19 October 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-lamps-rfc5990bis-04>.
+
+   [I-D.kampanakis-ml-kem-ikev2]
+              Kampanakis, P. and G. Ravago, "Post-quantum Hybrid Key
+              Exchange with ML-KEM in the Internet Key Exchange Protocol
+              Version 2 (IKEv2)", Work in Progress, Internet-Draft,
+              draft-kampanakis-ml-kem-ikev2-02, 19 February 2024,
+              <https://datatracker.ietf.org/doc/html/draft-kampanakis-
+              ml-kem-ikev2-02>.
+
+   [NIST-PQ]  National Institute of Standards and Technology, "Post-
+              Quantum Cryptography Project", 20 December 2016,
+              <https://csrc.nist.gov/projects/post-quantum-
+              cryptography>.
+
+   [NIST.SP.800-57pt1r5]
+              Barker, E. and NIST, "Recommendation for key
+              management:part 1 - general", NIST Special Publications
+              (General) 800-57pt1r5, DOI 10.6028/NIST.SP.800-57pt1r5,
+              May 2020,
+              <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
+              NIST.SP.800-57pt1r5.pdf>.
+
+   [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
+              "Randomness Requirements for Security", BCP 106, RFC 4086,
+              DOI 10.17487/RFC4086, June 2005,
+              <https://www.rfc-editor.org/rfc/rfc4086>.
+
+Appendix A.  ASN.1 Module
+
+   [EDNOTE: Do we need an ASN.1 module?  We haven't defined any new
+   ASN.1]
+
+A.1.  Examples
+
+   EDITOR'S NOTE' - TODO
+   section to be completed
+
+Appendix B.  Revision History
+
+   [EDNOTE: remove before publishing]
+
+   *  draft-ietf-lamps-cms-kyber-02:
+
+      -  Rearrange and rewrite to align with rfc5990bis and I-D.ietf-
+         lamps-cms-kemri
+
+      -  Move Revision History to end to avoid renumbering later
+
+      -  Add Security Considerations
 
    *  draft-ietf-lamps-cms-kyber-01:
 
@@ -114,644 +648,27 @@ Table of Contents
 
       -  Editorial changes.
 
-2.  Introduction
-
-   In recent years, there has been a substantial amount of research on
-   quantum computers -- machines that exploit quantum mechanical
-   phenomena to solve mathematical problems that are difficult or
-   intractable for conventional computers.  If large-scale quantum
-   computers are ever built, they will be able to break many of the
-   public-key cryptosystems currently in use.  This would seriously
-   compromise the confidentiality and integrity of digital
-   communications on the Internet and elsewhere.  Under such a threat
-   model, the current key encapsulation mechanisms would be vulnerable.
-
-   Post-quantum key encapsulation mechanisms (PQ-KEM) are being
-   developed in order to provide secure key establishment against an
-   adversary with access to a quantum computer.
-
-   As the National Institute of Standards and Technology (NIST) is still
-   in the process of selecting the new post-quantum cryptographic
-   algorithms that are secure against both quantum and classical
-   computers, the purpose of this document is to propose a generic
-   "algorithm-agnostic" solution to protect in confidentiality the CMS
-   envelopped-data content against the quantum threat : the KEM-TRANS
-   mechanism.
-
-   Although this mechanism could thus be used with any key encapsulation
-   mechanism, including post-quantum KEMs or hybrid KEMs.
-
-   This RFC nonetheless specifically specifies the case where the
-   algorithm PQ-KEM algorithm is Kyber.
-
-3.  Terminology
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in BCP
-   14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
-
-   The following terms are used in this document:
-
-   BER: Basic Encoding Rules (BER) as defined in [X.690].
-
-   DER: Distinguished Encoding Rules as defined in [X.690].
-
-4.  Design Rationales
-
-   The Cryptographic Message Syntax (CMS) [RFC5652] defines two levels
-   of encryptions in the Envelopped-Data Content section:
-
-   *  the Content-encryption process which protects the data using a
-      symmetric algorithm used with a content encryption key (CEK);
-
-   *  the Key-encryption process which protects this CEK using a key
-      transport mechanism.
-
-   One of the typical use case of the CMS Envelopped-Data Content is to
-   randomly generate a CEK, encrypt the data with a symmetric algorithm
-   using this CEK and individually send the CEK to one or more
-   recipients protected by asymmetric cryptography in a RecipientInfo
-   object.
-
-   To achieve this scenario with KEM primitives, it is necessary to
-   define a new key transport mechanism that will fulfil the following
-   requirements:
-
-   *  the Key Transport Mechanism SHALL be secure against quantum
-      computers.
-
-   *  the Key Transport Mechanism SHALL take the Content-Encryption Key
-      (CEK) as input.
-
-   According to NIST, a KEM generates a random secret and a ciphertext
-   from which the recipient can extract the shared secret, meaning that
-   a KEM can not be used straightforwardly as a key transport mechanism
-   in the CMS "multi-recipients" context.  The KEM-TRANS mechanism
-   defined in this document aims to turn a KEM into a key transport
-   scheme allowing the sender to distribute a randomly generated key to
-   several recipients.  The KEM-TRANS Key transport mechanism described
-   in the following section fulfils the requirements listed above and is
-   an adaptation of the RSA-KEM algorithm previously specified in
-   [RFC5990].  The solution is also aligned with the hybrid public key
-   encyption scheme described in [RFC9180].
-
-5.  KEM Key Transport Mechanism (KEM-TRANS)
-
-   The KEM Key Transport Mechanism (KEM-TRANS) is a one-pass (store-and-
-   forward) mechanism for transporting keying data to a recipient.
-
-   With this type of mechanism, a sender cryptographically encapsulates
-   the keying data using the recipient's public key to obtain encrypted
-   keying data.  The recipient can then decapsulate the encrypted keying
-   data using his private key to recover the plaintext keying data.
-
-5.1.  Underlying Components
-
-   The KEM-TRANS requires use of the following underlying components,
-   which are provided to KEM-TRANS as algorithm parameters.
-
-   *  KEM, a Key Encapsulation Mechanism;
-
-   *  KDF, a Key Derivation Function, which derives keying data of a
-      specified length from a shared secret value;
-
-   *  WRAP, a symmetric key-wrapping scheme, which encrypts keying Data
-      using a key-encrypting key (KEK).
-
-5.1.1.  KEM
-
-   A KEM is a cryptographic algorithm consisting of three functions :
-
-   *  a key generation function *KEM.keygen* taking as input a security
-      level and returning a key pair (private key and the associated
-      public key) for this security level.
-
-   *  an encapsulation function *KEM.encaps* taking a public key as
-      input and returning a random session key and a ciphertext that is
-      an encapsulation of the session key.
-
-   *  a decaspulation function *KEM.decaps* taking as input a private
-      key and a ciphertext and returning a session key.
-
-5.1.2.  KDF
-
-   A key derivation function (KDF) is a cryptographic function that
-   deterministically derives one or more secret keys from a secret value
-   using a pseudorandom function.  KDFs can be used to stretch keys into
-   longer keys or to obtain keys of a required format.
-
-   If the session key obtained from the KEM algorithm is long enough to
-   fit into the WRAP algorithm, then the KDF could be equal to the
-   identity function.
-
-5.1.3.  WRAP
-
-   A wrapping algorithm is a symmetric algorithm protecting data in
-   confidentiality and integrity.  It is especially designed to
-   transport key material. the WRAP algorithm consists of two functions
-   :
-
-   *  a wrapping function *Wrap* taking a wrapping key and a plaintext
-      key as input and returning a wrapped key.
-
-   *  a decaspulation function *Unwrap* taking as input a wrapping key
-      and a wraped key and returning the plaintext key.
-
-   In the following, _kekLen_ denotes the length in bytes of the
-   wrapping key for the underlying symmetric key-wrapping scheme.
-
-   In this scheme, the length of the keying data to be transported MUST
-   be among the lengths supported by the underlying symmetric key-
-   wrapping scheme.
-
-5.2.  Recipient's Key Generation and Distribution
-
-   The KEM-TRANS described in the next sections assumes that the
-   recipient has previously generated a key pair (_recipPrivKey_ and
-   _recipPubKey_) and has distributed his public key to the sender.
-
-   The protocols and mechanisms by which the key pair is securely
-   generated and the public key is securely distributed are out of the
-   scope of this document.
-
-5.3.  Sender's Operations
-
-   This process assumes that the following algorithm parameters have
-   been selected:
-
-   *  _KEM_: a key encapsulation mechanism, as defined above.
-
-   *  _KDF_: a key derivation function, as defined above.
-
-   *  _Wrap_: a symmetric key-wrapping algorithm, as defined above.
-
-   *  _kekLen_: the length in bits of the key required for the Wrap
-      algorithm.
-
-   This process assumes that the following input data has been provided:
-
-   *  _recipPubKey_: the recipient's public key.
-
-   *  _K_: the keying data to be transported, assumed to be a length
-      that is compatible with the chosen Wrap algorithm.
-
-   This process outputs:
-
-   *  _EK_: the encrypted keying data, from which the recipient will be
-      able to retrieve _K_.
-
-   The sender performs the following operations:
-
-   1.  Generate a shared secret _SS_ and the associated ciphertext _CT_
-       using the KEM encaspulation function and the recipient's public
-       key _recipPubKey_:
-
-          (SS, CT) = KEM.encaps(recipPubKey)
-
-   2.  Derive a key-encrypting key _KEK_ of length _kekLen_ bytes from
-       the shared secret _SS_ using the underlying key derivation
-       function:
-
-          KEK = KDF(SS, kekLen)
-
-   3.  Wrap the keying data _K_ with the key-encrypting key _KEK_ using
-       the underlying key-wrapping scheme to obtain wrapped keying data
-       _WK_ of length _wrappedKekLen_:
-
-          WK = Wrap(KEK, K)
-
-   4.  Concatenate the wrapped keying data _WK_ of length
-       _wrappedKekLen_ and the ciphertext _CT_ to obtain the encrypted
-       keying data _EK_:
-
-          EK = (WK || CT)
-
-   5.  Output the encrypted keying data _EK_.
-
-5.4.  Recipient's Operations
-
-   This process assumes that the following algorithm parameters have
-   been communicated from the sender:
-
-   *  _KEM_: a key encapsulation mechanism, as defined above.
-
-   *  _KDF_: a key derivation function, as defined above.
-
-   *  _Wrap_: a symmetric key-wrapping algorithm, as defined above.
-
-   *  _kekLen_: the length in bits of the key required for the Wrap
-      algorithm.
-
-   This process assumes that the following input data has been provided:
-
-   *  _recipPrivKey_: the recipient's private key.
-
-   *  _EK_: the encrypted keying data.
-
-   This process outputs:
-
-   *  _K_: the keying data to be transported.
-
-   The recipient performs the following operations:
-
-   1.  Separate the encrypted keying data _EK_ into wrapped keying data
-       _WK_ of length _wrappedKekLen_ and a ciphertext _CT_ :
-
-          (WK || CT) = EK
-
-   2.  Decapsulate the ciphertext _CT_ using the KEM decaspulation
-       function and the recipient's private key to retrieve the shared
-       secret _SS_:
-
-          SS = KEM.decaps(recipPrivKey, CT)
-
-       If the decapsulation operation outputs an error, output
-       "decryption error", and stop.
-
-   3.  Derive a key-encrypting key _KEK_ of length _kekLen_ bytes from
-       the shared secret _SS_ using the underlying key derivation
-       function:
-
-          KEK = KDF(SS, kekLen)
-
-   4.  Unwrap the wrapped keying data _WK_ with the key-encrypting key
-       _KEK_ using the underlying key-wrapping scheme to recover the
-       keying data _K_:
-
-          K = Unwrap(KEK, WK)
-
-       If the unwrapping operation outputs an error, output "decryption
-       error", and stop.
-
-   5.  Output the keying data _K_.
-
-6.  Use of Kyber in CMS
-
-   The KEM Key Transport Mechanism MAY be employed for one or more
-   recipients in the CMS envelopped-data content type (Section 6 of
-   [RFC5652]), where the keying data _K_ processed by the mechanism is
-   the CMS content-encryption key (_CEK_).
-
-6.1.  Use of of Kyber within KEM-TRANS
-
-   When Kyber is employed in CMS, the security levels of the different
-   underlying components used by the sender within the KEM-TRANS should
-   be consistant.
-
-   When kyber512 is used, the following configuration should be used:
-
-   *  KEM: id-kyber512
-
-   *  KDF: id-alg-hkdf-with-sha256 OR id-alg-hkdf-with-sha3-256
-
-   *  kekLen: 128
-
-   *  WRAP: id-aes128-Wrap
-
-   When kyber768 is used, the following configuration should be used:
-
-   *  KEM: id-kyber768
-
-   *  KDF: id-alg-hkdf-with-sha384 OR id-alg-hkdf-with-sha3-384
-
-   *  kekLen: 192
-
-   *  WRAP: id-aes192-Wrap
-
-   When kyber1024 is used, the following configuration should be used:
-
-   *  KEM: id-kyber1024
-
-   *  KDF: None
-
-   *  kekLen: 256
-
-   *  WRAP: id-aes256-Wrap
-
-6.2.  RecipientInfo Conventions
-
-   When KEM-TRANS is employed for a recipient, the RecipientInfo
-   alternative for that recipient MUST be OtherRecipientInfo using the
-   KEMRecipientInfo structure as defined in
-   [draft-ietf-lamps-cms-kemri].  The fields of the KEMRecipientInfo
-   MUST have the following values:
-
-   *  version is the syntax version number; it MUST be 0;
-
-   *  rid identifies the recipient's certificate or public key
-      (_recipPubKey_);
-
-   *  kem identifies the KEM algorithm (_KEM_); it MUST contain one of
-      the id-kyber (id-kyber512, id-kyber768, id-kyber1024);
-
-   *  kemct is the ciphertext produced for this recipient (_CT_);
-
-   *  kdf identifies the key-derivation algorithm (_KDF_);
-
-   *  kekLength is the size of the key-encryption key in octets
-      (_kekLen_);
-
-   *  ukm is an optional random input to the key-derivation function;
-
-   *  wrap identifies a key wrappingn algorithm used to encrypt the
-      content-encryption key (_WRAP_).
-
-6.3.  Certificate Conventions
-
-   The conventions specified in this section augment [RFC5280].
-
-6.3.1.  Key Usage Extension
-
-   The intended application for the key MAY be indicated in the key
-   usage certificate extension (see [RFC5280], Section 4.2.1.3).  If the
-   keyUsage extension is present in a certificate that conveys a public
-   key with the id-kem object identifier as discussed above, then the
-   key usage extension MUST contain only the value _keyEncipherment_.
-
-   _digitalSignature_, _nonRepudiation_, _dataEncipherment_,
-   _keyAgreement_, _keyCertSign_, _cRLSign_, _encipherOnly_ and
-   _decipherOnly_ SHOULD NOT be present.
-
-   A key intended to be employed only with the KEM-TRANS SHOULD NOT also
-   be employed for data encryption.  Good cryptographic practice employs
-   a given key pair in only one scheme.  This practice avoids the risk
-   that vulnerability in one scheme may compromise the security of the
-   other, and may be essential to maintain provable security.
-
-6.3.2.  Subject Public Key Info
-
-   If the recipient wishes to employ the KEM-TRANS with a given public
-   key, the recipient MUST use a X.509 certificate as defined in
-   [draft-ietf-lamps-kyber-certificates].
-
-   The public key in the certificate should be identified by one of
-   object identifiers given in Annex : id-kyber512, id-kyber768 or id-
-   kyber1024.
-
-6.4.  SMIME Capabilities Attribute Conventions
-
-   [RFC8551], Section 2.5.2 defines the SMIMECapabilities signed
-   attribute (defined as a SEQUENCE of SMIMECapability SEQUENCEs) to be
-   used to specify a partial list of algorithms that the software
-   announcing the SMIMECapabilities can support.  When constructing a
-   signedData object, compliant software MAY include the
-   SMIMECapabilities signed attribute announcing that it supports the
-   KEM Key Transport Mechanism.
-
-   The SMIMECapability SEQUENCE representing the KEM Key Transport
-   Mechanism MUST include the id-kem-trans object identifier in the
-   capabilityID field and MUST include a GenericKemTransParameters value
-   in the parameters field identifying the components with which the
-   mechanism is to be employed.
-
-   The DER encoding of a SMIMECapability SEQUENCE is the same as the DER
-   encoding of an AlgorithmIdentifier.  Example DER encodings for
-   typical sets of components are given in Appendix A.
-
-7.  Security Considerations
-
-   EDITOR'S NOTE' - TODO
-   section to be completed
-
-8.  IANA Considerations
-
-   Within the CMS, algorithms are identified by object identifiers
-   (OIDs).  With one exception, all of the OIDs used in this document
-   were assigned in other IETF documents, in ISO/IEC standards
-   documents, by the National Institute of Standards and Technology
-   (NIST).  The two exceptions are the ASN.1 module's identifier and id-
-   kem-transport that are both assigned in this document.
-
-9.  Acknowledgements
-
-   This document incorporates contributions and comments from a large
-   group of experts.  The Editors would especially like to acknowledge
-   the expertise and tireless dedication of the following people, who
-   attended many long meetings and generated millions of bytes of
-   electronic mail and VOIP traffic over the past year in pursuit of
-   this document:
-
-   We are grateful to all, including any contributors who may have been
-   inadvertently omitted from this list.
-
-   This document borrows text from similar documents, including those
-   referenced below.  Thanks to the authors of those documents..
-
-10.  Annex A : ASN.1 Syntax
-
-   The syntax for the scheme is given in Appendix A.1.
-
-   The syntax for selected underlying components including those
-   mentioned above is given in Appendix A.2.
-
-   The following object identifier prefixes are used in the definitions
-   below:
-
-     nistAlgorithm OID ::= {
-        joint-iso-itu-t(2) country(16) us(840) organization(1)
-        gov(101) csor(3) nistAlgorithm(4)
-     }
-
-     smimeAlgorithm OID ::= { iso(1) member-body(2)
-        us(840) rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) alg(3)
-     }
-
-10.1.  Annex A1 : KEM-TRANS Key Transport Mechanism
-
-   The object identifier for the KEM Key Transport Mechanism is id-kem-
-   trans, which is defined in this document as:
-
-   id-kem-trans OID ::= { smimeAlgorithm TBD }
-
-   When id-kem-trans is used in an AlgorithmIdentifier, the parameters
-   MUST employ the GenericKemTransParameters syntax.  The syntax for
-   GenericKemTransParameters is as follows:
-
-   GenericKemTransParameters ::= {
-       kem  KeyEncapsulationMechanism,
-       kdf  KeyDerivationFunction,
-       wrap KeyWrappingMechanism
-   }
-
-   The fields of type GenericKemTransParameters have the following
-   meanings:
-
-   *  kem identifies the underlying key encapsulation mechanism (KEM).
-      This can be Kyber.
-
-   *  kdf identifies the underlying key derivation function (KDF).  This
-      can be any KDF from [SP-800-56C-r2]. kdf can be equal to _null_ if
-      the key encaspulation mechanism outputs a shared secret _SS_ of
-      size _kekLen_.
-
-   *  wrap identifies the underlying key wrapping mechanism (WRAP).
-      This can be any wrapping mechanism from [RFC5649].
-
-10.2.  Annex A2 : Underlying Components
-
-10.2.1.  Key Encapsulation Mechanisms
-
-   KEM-TRANS can support any NIST KEM, including the post-quantum KEM
-   Kyber.  This RFC only specifies the use of Kyber.
-
-   The object identifier for KEM depends on the security level (128
-   bits, 192 bits or 256 bits)
-
-     id-kyber512 OID ::= { nistAlgorithm TBD }
-     id-kyber768 OID ::= { nistAlgorithm TBD }
-     id-kyber1024 OID ::= { nistAlgorithm TBD }
-
-   These object identifiers have no associated parameters.
-
-     kyber512 ALGORITHM ::= { OID id-kyber512 }
-     kyber768 ALGORITHM ::= { OID id-kyber768 }
-     kyber1024 ALGORITHM ::= { OID id-kyber1024 }
-
-   When one of these algorithms identifiers is used, the parameters
-   field MUST be absent; not NULL but absent.
-
-10.2.2.  Key Derivation Functions
-
-   This RFC only specifies the use of HKDF from [RFC5869].  The HKDF can
-   be bypassed if the key encaspulation mechanism outputs a shared
-   secret _SS_ of size _kekLen_. kdf is then equal to _null_.
-
-   The object identifier for HKDF depends on the security level (128
-   bits, 192 bits or 256 bits).
-
-   For SHA2 algorithms, the following object identifiers from [RFC8619]
-   should be used:
-
-     id-alg-hkdf-with-sha256 OID ::= { OID id-alg-hkdf-with-sha256 }
-     id-alg-hkdf-with-sha384 OID ::= { OID id-alg-hkdf-with-sha384 }
-     id-alg-hkdf-with-sha512 OID ::= { OID id-alg-hkdf-with-sha512 }
-
-   For SHA3 algorithms, the following object identifiers from
-   [draft-housley-lamps-cms-sha3-hash] should be used:
-
-     id-alg-hkdf-with-sha3-256 OID ::= { OID id-alg-hkdf-with-sha3-256 }
-     id-alg-hkdf-with-sha3-384 OID ::= { OID id-alg-hkdf-with-sha3-384 }
-     id-alg-hkdf-with-sha3-512 OID ::= { OID id-alg-hkdf-with-sha3-512 }
-
-   When one of these algorithms identifiers is used, the parameters
-   field MUST be absent; not NULL but absent.
-
-10.2.3.  Key Wrapping Schemes
-
-   KEM-TRANS can support any wrapping mechanism from [RFC5649].  This
-   RFC only specifies the use of aes256-Wrap.
-
-   The object identifiers for the AES Key Wrap depend on the size of the
-   key-encrypting key.
-
-   The following object identifiers from [RFC5649] should be used:
-
-     aes128-Wrap ALGORITHM ::= { OID id-aes128-Wrap }
-     aes192-Wrap ALGORITHM ::= { OID id-aes192-Wrap }
-     aes256-Wrap ALGORITHM ::= { OID id-aes256-Wrap }
-
-   When one of these algorithms identifiers is used, the parameters
-   field MUST be absent; not NULL but absent.
-
-10.3.  Appendix A3 : Examples
-
-   EDITOR'S NOTE' - TODO
-   section to be completed
-
-11.  References
-
-11.1.  Normative References
-
-   [draft-housley-lamps-cms-sha3-hash]
-              IETF, "Use of the SHA3 One-way Hash Functions in the
-              Cryptographic Message Syntax (CMS)", 2023.
-
-   [draft-ietf-lamps-cms-kemri]
-              IETF, "Using Key Encapsulation Mechanism (KEM) Algorithms
-              in the Cryptographic Message Syntax (CMS)", 2023.
-
-   [draft-ietf-lamps-kyber-certificates]
-              IETF, "Internet X.509 Public Key Infrastructure -
-              Algorithm Identifiers for Kyber", 2023.
-
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/rfc/rfc2119>.
-
-   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
-              Housley, R., and W. Polk, "Internet X.509 Public Key
-              Infrastructure Certificate and Certificate Revocation List
-              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
-              <https://www.rfc-editor.org/rfc/rfc5280>.
-
-   [RFC5649]  Housley, R. and M. Dworkin, "Advanced Encryption Standard
-              (AES) Key Wrap with Padding Algorithm", RFC 5649,
-              DOI 10.17487/RFC5649, September 2009,
-              <https://www.rfc-editor.org/rfc/rfc5649>.
-
-   [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
-              RFC 5652, DOI 10.17487/RFC5652, September 2009,
-              <https://www.rfc-editor.org/rfc/rfc5652>.
-
-   [RFC5869]  Krawczyk, H. and P. Eronen, "HMAC-based Extract-and-Expand
-              Key Derivation Function (HKDF)", RFC 5869,
-              DOI 10.17487/RFC5869, May 2010,
-              <https://www.rfc-editor.org/rfc/rfc5869>.
-
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
-
-   [RFC8551]  Schaad, J., Ramsdell, B., and S. Turner, "Secure/
-              Multipurpose Internet Mail Extensions (S/MIME) Version 4.0
-              Message Specification", RFC 8551, DOI 10.17487/RFC8551,
-              April 2019, <https://www.rfc-editor.org/rfc/rfc8551>.
-
-   [RFC8619]  Housley, R., "Algorithm Identifiers for the HMAC-based
-              Extract-and-Expand Key Derivation Function (HKDF)",
-              RFC 8619, DOI 10.17487/RFC8619, June 2019,
-              <https://www.rfc-editor.org/rfc/rfc8619>.
-
-   [SP-800-56C-r2]
-              NIST, "Recommendation for Key-Derivation Methods in Key-
-              Establishment Schemes", 2020.
-
-   [X.690]    ASC, "Information technology - ASN.1 encoding Rules:
-              Specification of Basic Encoding Rules (BER), Canonical
-              Encoding Rules (CER) and Distinguished Encoding Rules
-              (DER)", 2007.
-
-11.2.  Informative References
-
-   [RFC5990]  Randall, J., Kaliski, B., Brainard, J., and S. Turner,
-              "Use of the RSA-KEM Key Transport Algorithm in the
-              Cryptographic Message Syntax (CMS)", RFC 5990,
-              DOI 10.17487/RFC5990, September 2010,
-              <https://www.rfc-editor.org/rfc/rfc5990>.
-
-   [RFC8411]  Schaad, J. and R. Andrews, "IANA Registration for the
-              Cryptographic Algorithm Object Identifier Range",
-              RFC 8411, DOI 10.17487/RFC8411, August 2018,
-              <https://www.rfc-editor.org/rfc/rfc8411>.
-
-   [RFC9180]  Barnes, R., Bhargavan, K., Lipp, B., and C. Wood, "Hybrid
-              Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
-              February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
-
-   [SP-800-108]
-              NIST, "Recommendation for Key Derivation Using
-              Pseudorandom Functions", 2009.
-
 Authors' Addresses
 
    Julien Prat
    CryptoNext Security
+   16, Boulevard Saint-Germain
+   75005 Paris
+   France
    Email: julien.prat@cryptonext-security.com
 
 
    Mike Ounsworth
    Entrust Limited
+   2500 Solandt Road -- Suite 100
+   Ottawa, Ontario  K2K 3G5
+   Canada
    Email: mike.ounsworth@entrust.com
+
+
+   Daniel Van Geest
+   CryptoNext Security
+   16, Boulevard Saint-Germain
+   75005 Paris
+   France
+   Email: daniel.vangeest.ietf@gmail.com
