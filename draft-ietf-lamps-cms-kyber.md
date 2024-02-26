@@ -153,6 +153,8 @@ All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and SHAKE512 int
 
 ## CMS KEMRecipientInfo Processing Summary {#sec-intro-kemri}
 
+Processing ML-KEM with KEMRecipientInfo follows the same steps as Section 2 of {{!I-D.ietf-lamps-cms-kemri}}.
+
 To support the ML-KEM algorithm, the CMS originator MUST implement Encapsulate().
 
 Given a content-encryption key CEK, the ML-KEM Algorithm processing by the originator to produce the values that are carried in the CMS KEMRecipientInfo can be summarized as:
