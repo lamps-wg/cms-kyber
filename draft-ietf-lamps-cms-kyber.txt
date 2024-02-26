@@ -192,6 +192,9 @@ Table of Contents
 
 1.4.  CMS KEMRecipientInfo Processing Summary
 
+   Processing ML-KEM with KEMRecipientInfo follows the same steps as
+   Section 2 of [I-D.ietf-lamps-cms-kemri].
+
    To support the ML-KEM algorithm, the CMS originator MUST implement
    Encapsulate().
 

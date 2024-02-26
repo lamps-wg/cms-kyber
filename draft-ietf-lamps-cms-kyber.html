@@ -1295,76 +1295,77 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
         <h3 id="name-cms-kemrecipientinfo-proces">
 <a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-cms-kemrecipientinfo-proces" class="section-name selfRef">CMS KEMRecipientInfo Processing Summary</a>
         </h3>
-<p id="section-1.4-1">To support the ML-KEM algorithm, the CMS originator <span class="bcp14">MUST</span> implement Encapsulate().<a href="#section-1.4-1" class="pilcrow">¶</a></p>
-<p id="section-1.4-2">Given a content-encryption key CEK, the ML-KEM Algorithm processing by the originator to produce the values that are carried in the CMS KEMRecipientInfo can be summarized as:<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+<p id="section-1.4-1">Processing ML-KEM with KEMRecipientInfo follows the same steps as Section 2 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<p id="section-1.4-2">To support the ML-KEM algorithm, the CMS originator <span class="bcp14">MUST</span> implement Encapsulate().<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+<p id="section-1.4-3">Given a content-encryption key CEK, the ML-KEM Algorithm processing by the originator to produce the values that are carried in the CMS KEMRecipientInfo can be summarized as:<a href="#section-1.4-3" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-3.1">
-            <p id="section-1.4-3.1.1">1. Obtain the shared secret and ciphertext using the Encapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM public key:<a href="#section-1.4-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-4.1">
+            <p id="section-1.4-4.1.1">1. Obtain the shared secret and ciphertext using the Encapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM public key:<a href="#section-1.4-4.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-4">
+<div class="alignLeft art-text artwork" id="section-1.4-5">
 <pre>
        (ct, ss) = Encapsulate(pk)
-</pre><a href="#section-1.4-4" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-5" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-5.1">
-            <p id="section-1.4-5.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.4-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-6.1">
+            <p id="section-1.4-6.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.4-6.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-6">
+<div class="alignLeft art-text artwork" id="section-1.4-7">
 <pre>
        KEK = KDF(ss)
-</pre><a href="#section-1.4-6" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-7" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-7.1">
-            <p id="section-1.4-7.1.1">3. Wrap the CEK with the KEK to obtain wrapped keying material WK:<a href="#section-1.4-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-8.1">
+            <p id="section-1.4-8.1.1">3. Wrap the CEK with the KEK to obtain wrapped keying material WK:<a href="#section-1.4-8.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-8">
+<div class="alignLeft art-text artwork" id="section-1.4-9">
 <pre>
        WK = WRAP(KEK, CEK)
-</pre><a href="#section-1.4-8" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-9.1">
-            <p id="section-1.4-9.1.1">4. The originator sends the ciphertext and WK to the recipient in the CMS KEMRecipientInfo structure.<a href="#section-1.4-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-10.1">
+            <p id="section-1.4-10.1.1">4. The originator sends the ciphertext and WK to the recipient in the CMS KEMRecipientInfo structure.<a href="#section-1.4-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-1.4-10">To support the ML-KEM algorithm, the CMS recipient <span class="bcp14">MUST</span> implement Decapsulate().<a href="#section-1.4-10" class="pilcrow">¶</a></p>
-<p id="section-1.4-11">The ML-KEM algorithm recipient processing of the values obtained from the KEMRecipientInfo structure can be summarized as:<a href="#section-1.4-11" class="pilcrow">¶</a></p>
+<p id="section-1.4-11">To support the ML-KEM algorithm, the CMS recipient <span class="bcp14">MUST</span> implement Decapsulate().<a href="#section-1.4-11" class="pilcrow">¶</a></p>
+<p id="section-1.4-12">The ML-KEM algorithm recipient processing of the values obtained from the KEMRecipientInfo structure can be summarized as:<a href="#section-1.4-12" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-12.1">
-            <p id="section-1.4-12.1.1">1. Obtain the shared secret using the Decapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM private key:<a href="#section-1.4-12.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-13.1">
+            <p id="section-1.4-13.1.1">1. Obtain the shared secret using the Decapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM private key:<a href="#section-1.4-13.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-13">
+<div class="alignLeft art-text artwork" id="section-1.4-14">
 <pre>
        ss = Decapsulate(sk, ct)
-</pre><a href="#section-1.4-13" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-14" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-14.1">
-            <p id="section-1.4-14.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.4-14.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-15.1">
+            <p id="section-1.4-15.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.4-15.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-15">
+<div class="alignLeft art-text artwork" id="section-1.4-16">
 <pre>
        KEK = KDF(ss)
-</pre><a href="#section-1.4-15" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-16" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-16.1">
-            <p id="section-1.4-16.1.1">3. Unwrap the WK with the KEK to obtain content-encryption key CEK:<a href="#section-1.4-16.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-17.1">
+            <p id="section-1.4-17.1.1">3. Unwrap the WK with the KEK to obtain content-encryption key CEK:<a href="#section-1.4-17.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-17">
+<div class="alignLeft art-text artwork" id="section-1.4-18">
 <pre>
        CEK = UNWRAP(KEK, WK)
-</pre><a href="#section-1.4-17" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-18" class="pilcrow">¶</a>
 </div>
-<p id="section-1.4-18">Note that the KDF used to process the KEMRecipientInfo structure <span class="bcp14">MAY</span> be different from the KDF used in the ML-KEM algorithm.<a href="#section-1.4-18" class="pilcrow">¶</a></p>
+<p id="section-1.4-19">Note that the KDF used to process the KEMRecipientInfo structure <span class="bcp14">MAY</span> be different from the KDF used in the ML-KEM algorithm.<a href="#section-1.4-19" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
