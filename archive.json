@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-25T00:32:59.087956+00:00",
+  "timestamp": "2024-02-27T00:29:29.947719+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -60,11 +60,83 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "Section 4 \"CMS KEMRecipientInfo Processing Summary\" was copied from rfc5990bis.  Section 2 in cms-kemri is a more complete statement of the process, so is our section needed?\r\n\r\nIf we keep it, in the AuthenticatedData case the key that is transfered is a MAC key, not a CEK.",
+      "body": "Section 1.4 \"CMS KEMRecipientInfo Processing Summary\" was copied from rfc5990bis.  Section 2 in cms-kemri is a more complete statement of the process, so is our section needed?\r\n\r\nIf we keep it, in the AuthenticatedData case the key that is transfered is a MAC key, not a CEK.",
       "createdAt": "2024-02-22T11:39:12Z",
-      "updatedAt": "2024-02-22T11:39:12Z",
+      "updatedAt": "2024-02-26T10:47:30Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOLQoLsc6AXzm6",
+      "title": "KMAC KDF OIDs",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/3",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We should be getting KMAC-based KDF OIDs, either from NIST or LAMPS.  Switch to those.\r\n\r\nIf we don't get them, is it better to specify HKDF-with-SHA3, or KDF3-with-SHA3 as MTI?",
+      "createdAt": "2024-02-26T09:49:36Z",
+      "updatedAt": "2024-02-26T09:49:36Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOLQoLsc6AX0QU",
+      "title": "Harmonize security considerations",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/4",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Harmonize Security Considerations section between this and draft-ietf-lamps-kyber-certificates.",
+      "createdAt": "2024-02-26T09:50:54Z",
+      "updatedAt": "2024-02-26T09:50:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOLQoLsc6AX2lx",
+      "title": "Add examples",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/5",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See Appendices C and D of https://datatracker.ietf.org/doc/draft-ietf-lamps-rfc5990bis/ for examples.\r\n\r\nWe probably don't need a SMIMECapabilities Examples section because our encoding is much simpler that for RSA-KEM.",
+      "createdAt": "2024-02-26T09:55:31Z",
+      "updatedAt": "2024-02-26T09:55:31Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOLQoLsc6AX66l",
+      "title": "Is \"CMS KEMRecipientInfo Processing Summary\" needed?",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/6",
+      "state": "CLOSED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Is the \"CMS KEMRecipientInfo Processing Summary\" section needed? Both Mike and Carl pointed this out during review.  It is basically a less complete version of section 2 from cms-kemri.\r\n\r\nI added the section because rfc5990bis also has this section.  I will see if Russ wants to remove it from rfc5990bis or if there's justification to keep it there (and here).\r\n",
+      "createdAt": "2024-02-26T10:03:49Z",
+      "updatedAt": "2024-02-26T10:55:59Z",
+      "closedAt": "2024-02-26T10:55:59Z",
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Duplicate of #2 ",
+          "createdAt": "2024-02-26T10:47:56Z",
+          "updatedAt": "2024-02-26T10:47:56Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -73,24 +145,26 @@
       "id": "PR_kwDOLQoLsc5mnTC3",
       "title": "Rewrite based on cms.kemri/rfc5990bis",
       "url": "https://github.com/lamps-wg/cms-kyber/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-02-12T09:34:31Z",
-      "updatedAt": "2024-02-22T13:42:02Z",
+      "updatedAt": "2024-02-26T09:45:25Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "cb3111ce9644ec633e7b70cadbc969be36f95323",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/rewrite",
       "headRefOid": "e81dda89905a3304d470e22db53bcb2b6afef680",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-02-26T09:45:16Z",
+      "mergedAt": "2024-02-26T09:45:16Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "67b63f877fdf6042aaf03e71a54a10307ed38fca"
+      },
       "comments": [
         {
           "author": "ounsworth",
