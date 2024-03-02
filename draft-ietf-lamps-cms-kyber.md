@@ -243,31 +243,51 @@ The fields of the KEMRecipientInfo MUST have the following values:
 
 ## Underlying Components {#sec-using-components}
 
-When ML-KEM is employed in CMS, the security levels of the different underlying components used within the KEMRecipientInfo structure should be consistent.
+When ML-KEM is employed in CMS, the security levels of the different underlying components used within the KEMRecipientInfo structure SHOULD be consistent.
 
-\[EDNOTE: if we get OIDs for KMAC-based KDFs, use those. If we don't, do we want to use KDF3 {{!ANS-X9.44=ANSI.X9-44.1993}} with SHA3 instead?]
+### KDF
+
+KMAC128-KDF and KMAC256-KDF are KMAC-based KDFs specified for use in CMS in {{!I-D.ietf-lamps-cms-sha3-hash}}.  Here, KMAC# indicates the use of either KMAC128-KDF or KMAC256-KDF.
+
+KMAC#(K, X, L, S) takes the following parameters:
+
+> K: the input key-derivation key.  In this document this is the shared secret outputted from the Encapsulate() or Decapsulate() functions.  This corresponds to the IKM KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}.
+
+> X: the context, corresponding to the info KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo.
+
+> L: the output length, in bits.  This corresponds to the L KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}, which is identified in the kekLength value from KEMRecipientInfo.  The L and kekLength values are specified in octets and this parameter is specified in bits.
+
+> S: the optional customization label.  In this document this parameter is unused, that is it is the zero-length string "".
+
+The object identifier for KMAC128-KDF is id-kmac128 (see {{sec-identifiers}}).
+
+The object identifier for KMAC256-KDF is id-kmac256 (see {{sec-identifiers}}).
+
+Since the customization label to KMAC# is not used, when id-kmac128 or id-kmac256 is used as part of an algorithm identifier, the parameters field MUST be absent.
+
+### Components for ML-KEM in CMS
 
 For ML-KEM-512, the following underlying components MUST be supported:
 
-> KDF: id-alg-hkdf-with-sha3-256 {{!I-D.ietf-lamps-cms-sha3-hash}}
+> KDF: KMAC128-KDF using id-kmac128
 
-> Key wrapping: id-aes128-wrap {{!RFC3565}}
+> Key wrapping: 128-bit AES key wrapping using id-aes128-wrap {{!RFC3565}}
 
 For ML-KEM-768, the following underlying components MUST be supported:
 
-> KDF: id-alg-hkdf-with-sha3-384 {{!I-D.ietf-lamps-cms-sha3-hash}}
+> KDF: KMAC256-KDF using id-kmac256
 
-> Key wrapping: id-aes256-wrap {{!RFC3565}}
+> Key wrapping: 256-bit AES key wrapping using id-aes256-wrap {{!RFC3565}}
 
 For ML-KEM-1024, the following underlying components MUST be supported:
 
-> KDF: id-alg-hkdf-with-sha3-512 {{!I-D.ietf-lamps-cms-sha3-hash}}
+> KDF: KMAC256-KDF using id-kmac256
 
-> Key wrapping: id-aes256-wrap {{!RFC3565}}
+> Key wrapping: 256-bit AES key wrapping using id-aes256-wrap {{!RFC3565}}
 
 The above object identifiers are reproduced for convenience in {{sec-identifiers}}.
 
-An implementation MAY also support other key-derivation functions and other key-encryption algorithms as well.
+An implementation MAY also support other key-derivation functions and other key-encryption algorithms.
 
 If underlying components other than those specified above are used, then the following KDF requirements are in effect in addition to those asserted in {{!I-D.ietf-lamps-cms-kemri}}:
 
@@ -307,15 +327,14 @@ All identifiers used by ML-KEM in CMS are defined elsewhere but reproduced here 
       id-ML-KEM-768 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
       id-ML-KEM-1024 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
 
-      id-alg OBJECT IDENTIFIER ::= { iso(1) member-body(2)
-               us(840) rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) 3 }
+      hashAlgs OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+          us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 }
 
-      id-alg-hkdf-with-sha3-256 OBJECT IDENTIFIER ::= { id-alg TBD }
-      id-alg-hkdf-with-sha3-384 OBJECT IDENTIFIER ::= { id-alg TBD }
-      id-alg-hkdf-with-sha3-512 OBJECT IDENTIFIER ::= { id-alg TBD }
+      id-kmac128 OBJECT IDENTIFIER ::= { hashAlgs 21 }
+      id-kmac256 OBJECT IDENTIFIER ::= { hashAlgs 22 }
 
       aes OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16) us(840)
-               organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
+          organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
 
       id-aes128-wrap OBJECT IDENTIFIER ::= { aes 5 }
       id-aes256-wrap OBJECT IDENTIFIER ::= { aes 45 }
@@ -326,7 +345,7 @@ All identifiers used by ML-KEM in CMS are defined elsewhere but reproduced here 
 
 The Security Considerations section of {{!I-D.ietf-lamps-kyber-certificates}} applies to this specification as well.
 
-The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in the NIST SP 800-57 Part 1 {{?NIST.SP.800-57pt1r5}}. To achieve 128-bit security, ML-KEM-512 SHOULD be used, the key-derivation function SHOULD make use of SHA3-256, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 128-bit key. To achieve 192-bit security, ML-KEM-768 SHOULD be used, the key-derivation function SHOULD make use of SHA3-384, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 192-bit key or larger. In this case AES Key Wrap with a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 SHOULD be used, the key-derivation function SHOULD make use of SHA3-512, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 256-bit key.
+The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in the NIST SP 800-57 Part 1 {{?NIST.SP.800-57pt1r5}}. To achieve 128-bit security, ML-KEM-512 SHOULD be used, the key-derivation function SHOULD provide at least 128 bits of security, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 128-bit key. To achieve 192-bit security, ML-KEM-768 SHOULD be used, the key-derivation function SHOULD provide at least 192 bits of security, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 192-bit key or larger. In this case AES Key Wrap with a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 SHOULD be used, the key-derivation function SHOULD provide at least 256 bits of security, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 256-bit key.
 
 Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the ML-KEM.Encaps and ML-KEM.Decaps algorithms from {{FIPS203}} will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol. However, it is possible (though extremely unlikely) that the process will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
 secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are provided in Table 1 \[EDNOTE: make sure this doesn't change] of {{FIPS203}} and reproduced here in {{tab-fail}}.
@@ -374,7 +393,7 @@ Thanks to Carl Wallace for the detailed review and interoperability testing.
 
 # ASN.1 Module
 
-\[EDNOTE: Do we need an ASN.1 module? We haven't defined any new ASN.1]
+\[EDNOTE: Do we need an ASN.1 module? We haven't defined any new ASN.1.  Yes, see S/MIME ASN.1 changes to composite-kem draft]
 
 ## Examples
 
@@ -387,6 +406,8 @@ section to be completed
 
 \[EDNOTE: remove before publishing\]
 
+- draft-ietf-lamps-cms-kyber-03:
+   - Switch MTI KDF from HKDF to KMAC.
 - draft-ietf-lamps-cms-kyber-02:
    - Rearrange and rewrite to align with rfc5990bis and I-D.ietf-lamps-cms-kemri
    - Move Revision History to end to avoid renumbering later
