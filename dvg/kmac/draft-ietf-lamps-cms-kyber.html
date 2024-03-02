@@ -1458,7 +1458,7 @@ The fields of the KEMRecipientInfo <span class="bcp14">MUST</span> have the foll
           </ul>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-2.2.1-5.1">
-              <p id="section-2.2.1-5.1.1">L: the output length, in bits.  This corresponds to the L KDF input from Section 5 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>, which is identified in the kekLength value from KEMRecipientInfo.  The L and kekLength values are specified in octets and this parameter is specified in bits.<a href="#section-2.2.1-5.1.1" class="pilcrow">¶</a></p>
+              <p id="section-2.2.1-5.1.1">L: the output length, in bits.  This corresponds to the L KDF input from Section 5 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>, which is identified in the kekLength value from KEMRecipientInfo.  The L KDF input and kekLength values are specified in octets while this L parameter is specified in bits.<a href="#section-2.2.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <ul class="normal ulEmpty">
@@ -1468,7 +1468,7 @@ The fields of the KEMRecipientInfo <span class="bcp14">MUST</span> have the foll
           </ul>
 <p id="section-2.2.1-7">The object identifier for KMAC128-KDF is id-kmac128 (see <a href="#sec-identifiers" class="auto internal xref">Section 3</a>).<a href="#section-2.2.1-7" class="pilcrow">¶</a></p>
 <p id="section-2.2.1-8">The object identifier for KMAC256-KDF is id-kmac256 (see <a href="#sec-identifiers" class="auto internal xref">Section 3</a>).<a href="#section-2.2.1-8" class="pilcrow">¶</a></p>
-<p id="section-2.2.1-9">Since the customization label to KMAC# is not used, when id-kmac128 or id-kmac256 is used as part of an algorithm identifier, the parameters field <span class="bcp14">MUST</span> be absent.<a href="#section-2.2.1-9" class="pilcrow">¶</a></p>
+<p id="section-2.2.1-9">Since the customization label to KMAC# is not used, the parameter field <span class="bcp14">MUST</span> be absent when id-kmac128 or id-kmac256 is used as part of an algorithm identifier specifying the KDF to use for ML-KEM in KemRecipientInfo.<a href="#section-2.2.1-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="components-for-ml-kem-in-cms">
