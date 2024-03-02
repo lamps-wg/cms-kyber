@@ -255,7 +255,7 @@ KMAC#(K, X, L, S) takes the following parameters:
 
 > X: the context, corresponding to the info KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo.
 
-> L: the output length, in bits.  This corresponds to the L KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}, which is identified in the kekLength value from KEMRecipientInfo.  The L and kekLength values are specified in octets and this parameter is specified in bits.
+> L: the output length, in bits.  This corresponds to the L KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}, which is identified in the kekLength value from KEMRecipientInfo.  The L KDF input and kekLength values are specified in octets while this L parameter is specified in bits.
 
 > S: the optional customization label.  In this document this parameter is unused, that is it is the zero-length string "".
 
@@ -263,7 +263,7 @@ The object identifier for KMAC128-KDF is id-kmac128 (see {{sec-identifiers}}).
 
 The object identifier for KMAC256-KDF is id-kmac256 (see {{sec-identifiers}}).
 
-Since the customization label to KMAC# is not used, when id-kmac128 or id-kmac256 is used as part of an algorithm identifier, the parameters field MUST be absent.
+Since the customization label to KMAC# is not used, the parameter field MUST be absent when id-kmac128 or id-kmac256 is used as part of an algorithm identifier specifying the KDF to use for ML-KEM in KemRecipientInfo.
 
 ### Components for ML-KEM in CMS
 
