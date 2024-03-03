@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-29T00:29:51.642879+00:00",
+  "timestamp": "2024-03-03T00:31:56.602193+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -348,6 +348,46 @@
               "updatedAt": "2024-02-21T13:31:35Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOLQoLsc5ofKo7",
+      "title": "Switch to KMAC KDF",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/7",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-02T16:12:22Z",
+      "updatedAt": "2024-03-02T21:08:28Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "9035219f50b531ffc3c38989c44d3b53196716aa",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/kmac",
+      "headRefOid": "31ef408db2dc75972f6b759735d0d69c8f5eaf80",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc5yAiL1",
+          "commit": {
+            "abbreviatedOid": "31ef408"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-02T21:08:28Z",
+          "updatedAt": "2024-03-02T21:08:28Z",
+          "comments": []
         }
       ]
     }
