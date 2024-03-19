@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-17T00:32:47.064877+00:00",
+  "timestamp": "2024-03-19T00:29:54.782199+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -62,25 +62,41 @@
       "labels": [],
       "body": "Section 1.4 \"CMS KEMRecipientInfo Processing Summary\" was copied from rfc5990bis.  Section 2 in cms-kemri is a more complete statement of the process, so is our section needed?\r\n\r\nIf we keep it, in the AuthenticatedData case the key that is transfered is a MAC key, not a CEK.",
       "createdAt": "2024-02-22T11:39:12Z",
-      "updatedAt": "2024-02-26T10:47:30Z",
+      "updatedAt": "2024-03-18T14:56:59Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Russ: rfc5990bis is in WGLC and nobody has shouted about section 1.4 so hopefully it's okay.",
+          "createdAt": "2024-03-18T14:56:58Z",
+          "updatedAt": "2024-03-18T14:56:58Z"
+        }
+      ]
     },
     {
       "number": 3,
       "id": "I_kwDOLQoLsc6AXzm6",
       "title": "KMAC KDF OIDs",
       "url": "https://github.com/lamps-wg/cms-kyber/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "We should be getting KMAC-based KDF OIDs, either from NIST or LAMPS.  Switch to those.\r\n\r\nIf we don't get them, is it better to specify HKDF-with-SHA3, or KDF3-with-SHA3 as MTI?",
       "createdAt": "2024-02-26T09:49:36Z",
-      "updatedAt": "2024-02-26T09:49:36Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-03-18T14:56:11Z",
+      "closedAt": "2024-03-18T14:56:10Z",
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Done in -03",
+          "createdAt": "2024-03-18T14:56:10Z",
+          "updatedAt": "2024-03-18T14:56:10Z"
+        }
+      ]
     },
     {
       "number": 4,
@@ -137,6 +153,38 @@
           "updatedAt": "2024-02-26T10:47:56Z"
         }
       ]
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOLQoLsc6CriSj",
+      "title": "KMAC OR HKDF-with-SHA2-*",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/8",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "KMAC uses SHAKE (SHA3).  HKDF-with-SHA2-* uses SHA2.\r\n\r\nCurrently the draft specifies KMAC as the only MTI KDF algorithm.  There was a concern from LAMPS (Deb Cooley) that some implementations might not have access to SHA3/KMAC at the CMS level.  That is, SHA3 may only be at the crypto level (maybe even in an HSM or TPM) since ML-KEM requires it, but many other things don't.  On the other hand, low-resource devices may want to only support SHA3 and not SHA2.\r\n\r\nIt was mentioned in LAMPS IETF 119 that we could give the option for either to be supported, with good reasoning to it doesn't get challenged by IESG.\r\n\r\nSuggested text, before I have time to actually write a PR:\r\n\r\n```\r\nOne of KMAC{128,256} or HKDF-with-SHA{256,512} MUST be supported.  It is RECOMMENDED that both be supported.\r\n```\r\n\r\nand then specific details for each of the security variants.",
+      "createdAt": "2024-03-18T14:55:51Z",
+      "updatedAt": "2024-03-18T14:55:51Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOLQoLsc6CrkK1",
+      "title": "ASN.1",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/9",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add ASN.1 with SMIMECaps. See composite-kems CMS section and ASN.1.\r\n\r\nSomeone needs to define a KEM-ALGORITHM for ML-KEM, I think it should be the kyber-certificates, but tracking it here just in case.",
+      "createdAt": "2024-03-18T14:58:53Z",
+      "updatedAt": "2024-03-18T14:58:53Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
