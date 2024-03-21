@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-19T00:29:54.782199+00:00",
+  "timestamp": "2024-03-21T00:31:04.800948+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -183,6 +183,38 @@
       "body": "Add ASN.1 with SMIMECaps. See composite-kems CMS section and ASN.1.\r\n\r\nSomeone needs to define a KEM-ALGORITHM for ML-KEM, I think it should be the kyber-certificates, but tracking it here just in case.",
       "createdAt": "2024-03-18T14:58:53Z",
       "updatedAt": "2024-03-18T14:58:53Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOLQoLsc6C70jq",
+      "title": "Address Jonathan Hammell's review",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/10",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/spasm/puobAXZ71oE3RZG2O6S2O9zwamA/\r\n",
+      "createdAt": "2024-03-20T05:57:29Z",
+      "updatedAt": "2024-03-20T05:57:29Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOLQoLsc6C71y7",
+      "title": "More KMAC vs HKDF",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/11",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-cek-hkdf-sha256/ requires HKDF-with-SHA256 for its mitigation.  Are there any use cases where this mitigation wouldn't be implemented?  If not, this essentially means that HKDF and SHA2 is required in CMS.  Does this mean that cms-kyber should just switch its MTI KDF to only HKDF and remote the requirement for KMAC?",
+      "createdAt": "2024-03-20T06:02:13Z",
+      "updatedAt": "2024-03-20T06:02:13Z",
       "closedAt": null,
       "comments": []
     }
