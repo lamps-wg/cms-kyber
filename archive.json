@@ -1,0 +1,477 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-06-06T00:32:52.419701+00:00",
+  "repo": "lamps-wg/cms-kyber",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOLQoLsc6AFSgy",
+      "title": "Is \"CMS KEMRecipientInfo Processing Summary\" section needed?",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/2",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Section 1.4 \"CMS KEMRecipientInfo Processing Summary\" was copied from rfc5990bis.  Section 2 in cms-kemri is a more complete statement of the process, so is our section needed?\r\n\r\nIf we keep it, in the AuthenticatedData case the key that is transfered is a MAC key, not a CEK.",
+      "createdAt": "2024-02-22T11:39:12Z",
+      "updatedAt": "2024-03-18T14:56:59Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Russ: rfc5990bis is in WGLC and nobody has shouted about section 1.4 so hopefully it's okay.",
+          "createdAt": "2024-03-18T14:56:58Z",
+          "updatedAt": "2024-03-18T14:56:58Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOLQoLsc6AXzm6",
+      "title": "KMAC KDF OIDs",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/3",
+      "state": "CLOSED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We should be getting KMAC-based KDF OIDs, either from NIST or LAMPS.  Switch to those.\r\n\r\nIf we don't get them, is it better to specify HKDF-with-SHA3, or KDF3-with-SHA3 as MTI?",
+      "createdAt": "2024-02-26T09:49:36Z",
+      "updatedAt": "2024-03-18T14:56:11Z",
+      "closedAt": "2024-03-18T14:56:10Z",
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Done in -03",
+          "createdAt": "2024-03-18T14:56:10Z",
+          "updatedAt": "2024-03-18T14:56:10Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOLQoLsc6AX0QU",
+      "title": "Harmonize security considerations",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/4",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Harmonize Security Considerations section between this and draft-ietf-lamps-kyber-certificates.",
+      "createdAt": "2024-02-26T09:50:54Z",
+      "updatedAt": "2024-02-26T09:50:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOLQoLsc6AX2lx",
+      "title": "Add examples",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/5",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See Appendices C and D of https://datatracker.ietf.org/doc/draft-ietf-lamps-rfc5990bis/ for examples.\r\n\r\nWe probably don't need a SMIMECapabilities Examples section because our encoding is much simpler that for RSA-KEM.",
+      "createdAt": "2024-02-26T09:55:31Z",
+      "updatedAt": "2024-02-26T09:55:31Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOLQoLsc6AX66l",
+      "title": "Is \"CMS KEMRecipientInfo Processing Summary\" needed?",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/6",
+      "state": "CLOSED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Is the \"CMS KEMRecipientInfo Processing Summary\" section needed? Both Mike and Carl pointed this out during review.  It is basically a less complete version of section 2 from cms-kemri.\r\n\r\nI added the section because rfc5990bis also has this section.  I will see if Russ wants to remove it from rfc5990bis or if there's justification to keep it there (and here).\r\n",
+      "createdAt": "2024-02-26T10:03:49Z",
+      "updatedAt": "2024-02-26T10:55:59Z",
+      "closedAt": "2024-02-26T10:55:59Z",
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Duplicate of #2 ",
+          "createdAt": "2024-02-26T10:47:56Z",
+          "updatedAt": "2024-02-26T10:47:56Z"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOLQoLsc6CriSj",
+      "title": "KMAC OR HKDF-with-SHA2-*",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/8",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "KMAC uses SHAKE (SHA3).  HKDF-with-SHA2-* uses SHA2.\r\n\r\nCurrently the draft specifies KMAC as the only MTI KDF algorithm.  There was a concern from LAMPS (Deb Cooley) that some implementations might not have access to SHA3/KMAC at the CMS level.  That is, SHA3 may only be at the crypto level (maybe even in an HSM or TPM) since ML-KEM requires it, but many other things don't.  On the other hand, low-resource devices may want to only support SHA3 and not SHA2.\r\n\r\nIt was mentioned in LAMPS IETF 119 that we could give the option for either to be supported, with good reasoning to it doesn't get challenged by IESG.\r\n\r\nSuggested text, before I have time to actually write a PR:\r\n\r\n```\r\nOne of KMAC{128,256} or HKDF-with-SHA{256,512} MUST be supported.  It is RECOMMENDED that both be supported.\r\n```\r\n\r\nand then specific details for each of the security variants.",
+      "createdAt": "2024-03-18T14:55:51Z",
+      "updatedAt": "2024-03-18T14:55:51Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOLQoLsc6CrkK1",
+      "title": "ASN.1",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/9",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add ASN.1 with SMIMECaps. See composite-kems CMS section and ASN.1.\r\n\r\nSomeone needs to define a KEM-ALGORITHM for ML-KEM, I think it should be the kyber-certificates, but tracking it here just in case.",
+      "createdAt": "2024-03-18T14:58:53Z",
+      "updatedAt": "2024-03-18T14:58:53Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOLQoLsc6C70jq",
+      "title": "Address Jonathan Hammell's review",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/10",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/spasm/puobAXZ71oE3RZG2O6S2O9zwamA/\r\n",
+      "createdAt": "2024-03-20T05:57:29Z",
+      "updatedAt": "2024-03-20T05:57:29Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOLQoLsc6C71y7",
+      "title": "More KMAC vs HKDF",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/11",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-cek-hkdf-sha256/ requires HKDF-with-SHA256 for its mitigation.  Are there any use cases where this mitigation wouldn't be implemented?  If not, this essentially means that HKDF and SHA2 is required in CMS.  Does this mean that cms-kyber should just switch its MTI KDF to only HKDF and remote the requirement for KMAC?",
+      "createdAt": "2024-03-20T06:02:13Z",
+      "updatedAt": "2024-03-20T06:02:13Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOLQoLsc5mnTC3",
+      "title": "Rewrite based on cms.kemri/rfc5990bis",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/1",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-12T09:34:31Z",
+      "updatedAt": "2024-02-26T09:45:25Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "cb3111ce9644ec633e7b70cadbc969be36f95323",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/rewrite",
+      "headRefOid": "e81dda89905a3304d470e22db53bcb2b6afef680",
+      "closedAt": "2024-02-26T09:45:16Z",
+      "mergedAt": "2024-02-26T09:45:16Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "67b63f877fdf6042aaf03e71a54a10307ed38fca"
+      },
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for the work on this Dan!\r\n",
+          "createdAt": "2024-02-13T19:47:08Z",
+          "updatedAt": "2024-02-13T20:17:28Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc5v_Bq6",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-02-13T19:49:36Z",
+          "updatedAt": "2024-02-13T20:30:52Z",
+          "comments": [
+            {
+              "originalPosition": 176,
+              "body": "```suggestion\r\nNative support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!I-D.ietf-lamps-cms-kemri}}, which defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the use of ML-KEM in the KEMRecipientInfo structure in CMS at three security levels: MK-KEM-512, ML-KEM-768, ML-KEM-1024.\r\n```",
+              "createdAt": "2024-02-13T19:49:36Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 214,
+              "body": "```suggestion\r\nThe main security property for KEMs standardized in the NIST Post-Quantum Cryptography Standardization Project {{NIST-PQ}} is indistinguishability under adaptive chosen ciphertext attacks (IND-CCA2), which means that shared secret values should be indistinguishable from random strings even given the ability to have arbitrary ciphertexts decapsulated. IND-CCA2 corresponds to security against an active attacker, and the public key / secret key pair can be treated as a long-term key or reused. A weaker security notion is indistinguishability under chosen plaintext attacks (IND-CPA), which means that the shared secret values should be indistinguishable from random strings given a copy of the public key. IND-CPA roughly corresponds to security against a passive attacker, and sometimes corresponds to one-time key exchange.\r\n\r\nIND-CCA2 is a desirable property of encryption mechanisms for CMS since encryption public keys are often long-term -- for example contained within X.509 certificates {{?RFC5280}} -- and certain uses of CMS could allow for the type of decryption oracle that forms the basis of an adaptive ciphertext attack.\r\n```",
+              "createdAt": "2024-02-13T19:55:36Z",
+              "updatedAt": "2024-02-14T13:01:55Z"
+            },
+            {
+              "originalPosition": 223,
+              "body": "```suggestion\r\nML-KEM is a lattice-based key encapsulation mechanism defined in {{FIPS203}}.\r\n```",
+              "createdAt": "2024-02-13T19:56:21Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 223,
+              "body": "\"recently standardized\" will not stand the test of time :) ",
+              "createdAt": "2024-02-13T19:56:37Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 263,
+              "body": "```suggestion\r\n1\\. Obtain the shared secret and ciphertext using the Encapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM public key:\r\n```",
+              "createdAt": "2024-02-13T19:58:29Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 274,
+              "body": "I find this section confusing because it is conceptually crossing the boundaries of the processing done in this document and in the KEMRI document.\r\n\r\nI think I would remove this section in its entirety so that casual readers don't think that ML-KEM needs to include a KDF and a WRAP.",
+              "createdAt": "2024-02-13T20:05:35Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 337,
+              "body": "This is odd to be so low in the document. Usually the boilerplate is section 1.1.",
+              "createdAt": "2024-02-13T20:07:47Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 398,
+              "body": "Yup! I agree with this ednote; this section will be in flux (and I will need to align draft-composite-kem with whatever choice is made here).",
+              "createdAt": "2024-02-13T20:14:03Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 578,
+              "body": "```suggestion\r\n\r\nNone.\r\n\r\n```",
+              "createdAt": "2024-02-13T20:29:04Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            },
+            {
+              "originalPosition": 528,
+              "body": "```suggestion\r\n\r\n[ednote: many of the security considerations below apply to ML-KEM in general and are not specific to ML-KEM within CMS. As this document and draft-ietf-lamps-kyber-certificates approach WGLC, the two Security Consideration sections should be harmonized and duplicate text removed.]\r\n\r\n```",
+              "createdAt": "2024-02-13T20:30:33Z",
+              "updatedAt": "2024-02-13T20:30:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5wEeg3",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-14T13:04:32Z",
+          "updatedAt": "2024-02-14T13:04:32Z",
+          "comments": [
+            {
+              "originalPosition": 223,
+              "body": "This paragraph was stolen from draft-kampanakis-ml-kem-ikev2, so if that gets adopted we'll have to make the same comment there :)",
+              "createdAt": "2024-02-14T13:04:32Z",
+              "updatedAt": "2024-02-14T13:04:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5wEjKF",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-14T13:14:53Z",
+          "updatedAt": "2024-02-14T13:14:53Z",
+          "comments": [
+            {
+              "originalPosition": 274,
+              "body": "@ounsworth, this was stolen directly from section 1.3 of rfc5990bis, does the same comment apply there? :) https://www.ietf.org/archive/id/draft-ietf-lamps-rfc5990bis-04.html#name-cms-kemrecipientinfo-proces\r\n\r\nThere is useful normative language in here:\r\n- CMS originator MUST implement Encapsulate()\r\n- CMS recipient MUST implement Decapsulate()\r\n- KDF MAY be different than the internal ML-KEM one.\r\nAlthough the first two may be obvious and the third may be more important for rfc5990bis because that document also describes the RSA-KEM process.\r\n\r\nIf we kept this text, would it be more clear if at the beginning it made clear that these are the same steps from cms-kemri?  Or do you still think it's better to just remove it?",
+              "createdAt": "2024-02-14T13:14:53Z",
+              "updatedAt": "2024-02-14T13:14:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5wEkaf",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-14T13:17:30Z",
+          "updatedAt": "2024-02-14T13:17:31Z",
+          "comments": [
+            {
+              "originalPosition": 337,
+              "body": "Also copied from rfc5990bis, but I can move it up.",
+              "createdAt": "2024-02-14T13:17:30Z",
+              "updatedAt": "2024-02-14T13:17:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5wElB0",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-14T13:18:28Z",
+          "updatedAt": "2024-02-14T13:18:28Z",
+          "comments": [
+            {
+              "originalPosition": 398,
+              "body": "BTW I heard directly from Russ that we'll get OIDs for KMAC-based KDFs.  If NIST doesn't assign them as he asked then LAMPS will.",
+              "createdAt": "2024-02-14T13:18:28Z",
+              "updatedAt": "2024-02-14T13:18:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc5w2AaE",
+          "commit": {
+            "abbreviatedOid": "905a010"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-21T13:31:35Z",
+          "updatedAt": "2024-02-21T13:31:35Z",
+          "comments": [
+            {
+              "originalPosition": 274,
+              "body": "Ugg, yeah, that really is copied directly from the KEMRecipientInfo section of 5990bis. \r\nUgg, ok, fine then.",
+              "createdAt": "2024-02-21T13:31:35Z",
+              "updatedAt": "2024-02-21T13:31:35Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOLQoLsc5ofKo7",
+      "title": "Switch to KMAC KDF",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/7",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-02T16:12:22Z",
+      "updatedAt": "2024-03-03T00:56:28Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "9035219f50b531ffc3c38989c44d3b53196716aa",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/kmac",
+      "headRefOid": "31ef408db2dc75972f6b759735d0d69c8f5eaf80",
+      "closedAt": "2024-03-03T00:56:28Z",
+      "mergedAt": "2024-03-03T00:56:28Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "d304bc061fd9cb87febe6d6a2a44fb4c67eb9725"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc5yAiL1",
+          "commit": {
+            "abbreviatedOid": "31ef408"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-02T21:08:28Z",
+          "updatedAt": "2024-03-02T21:08:28Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
