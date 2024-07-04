@@ -18,7 +18,6 @@ keyword:
  - KEMRecipientInfo
  - ML-KEM
  - Kyber
-submissionType: IETF
 category: std
 venue:
   group: "Limited Additional Mechanisms for PKIX and SMIME (lamps)"
@@ -245,7 +244,32 @@ The fields of the KEMRecipientInfo MUST have the following values:
 
 When ML-KEM is employed in CMS, the security levels of the different underlying components used within the KEMRecipientInfo structure SHOULD be consistent.
 
-### KDF
+### KDFs
+
+#### HKDF
+
+The HMAC-based Extract-and-Expand Key Derivation Function (HKDF) is defined in {{!RFC5869}}.
+
+The HKDF function is a composition of the HKDF-Extract and HKDF-Expand functions.
+
+~~~
+  KEK = HKDF(salt, IKM, info, L)
+      = HKDF-Expand(HKDF-Extract(salt, IKM), info, L)
+~~~
+
+HKDF(salt, IKM, info, L) takes the following parameters:
+
+> salt: optional salt value (a non-secret random value). In this document this parameter is unused, that is it is the zero-length string "".
+
+> IKM: input keying material. In this document this is the shared secret outputted from the Encapsulate() or Decapsulate() functions.  This corresponds to the IKM KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}.
+
+> info: optional context and application specific information. In this document this corresponds to the info KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo.
+
+> L: length of output keying material in octets. This corresponds to the L KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}, which is identified in the kekLength value from KEMRecipientInfo.
+
+HKDF may be used with SHA2-256 or SHA2-512 {{?FIPS180=NIST.FIPS.180-4}}. The object identifiers id-alg-hkdf-with-sha256 and id-alg-hkdf-with-sha512 are defined in {{!RFC8619}} (see {{sec-identifiers}}). The parameter field MUST be absent when one of these algorithm identifiers is used to specify the KDF for ML-KEM in KemRecipientInfo.
+
+#### KMAC
 
 KMAC128-KDF and KMAC256-KDF are KMAC-based KDFs specified for use in CMS in {{!I-D.ietf-lamps-cms-sha3-hash}}.  Here, KMAC# indicates the use of either KMAC128-KDF or KMAC256-KDF.
 
@@ -267,21 +291,23 @@ Since the customization label to KMAC# is not used, the parameter field MUST be 
 
 ### Components for ML-KEM in CMS
 
+An implementation MUST support at least one of KMAC# or HMAC as the KDF for ML-KEM in KemRecipientInfo. KMAC# is given as an option because ML-KEM uses SHA3 and SHAKE as internal functions, so an implementation may want to use these to reduce code size. HMAC is given as an option because SHA2 is widely supported and the CMS-level code may not have access to underlying KECCAK-based implementations.
+
 For ML-KEM-512, the following underlying components MUST be supported:
 
-> KDF: KMAC128-KDF using id-kmac128
+> KDF: KMAC128-KDF using id-kmac128 or HMAC with SHA2-256 using id-alg-hkdf-with-sha256
 
 > Key wrapping: 128-bit AES key wrapping using id-aes128-wrap {{!RFC3565}}
 
 For ML-KEM-768, the following underlying components MUST be supported:
 
-> KDF: KMAC256-KDF using id-kmac256
+> KDF: KMAC256-KDF using id-kmac256 or HMAC with SHA2-512 using id-alg-hkdf-with-sha512
 
 > Key wrapping: 256-bit AES key wrapping using id-aes256-wrap {{!RFC3565}}
 
 For ML-KEM-1024, the following underlying components MUST be supported:
 
-> KDF: KMAC256-KDF using id-kmac256
+> KDF: KMAC256-KDF using id-kmac256 or HMAC with SHA2-512 using id-alg-hkdf-with-sha512
 
 > Key wrapping: 256-bit AES key wrapping using id-aes256-wrap {{!RFC3565}}
 
@@ -321,23 +347,32 @@ The SMIMECapability SEQUENCE representing the ML-KEM Algorithm MUST include one 
 
 All identifiers used by ML-KEM in CMS are defined elsewhere but reproduced here for convenience:
 
-      id-TBD-NIST-KEM OBJECT IDENTIFIER ::= { TBD }
+~~~
+  id-TBD-NIST-KEM OBJECT IDENTIFIER ::= { TBD }
 
-      id-ML-KEM-512 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
-      id-ML-KEM-768 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
-      id-ML-KEM-1024 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
+  id-ML-KEM-512 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
+  id-ML-KEM-768 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
+  id-ML-KEM-1024 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
 
-      hashAlgs OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
-          us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 }
+  hashAlgs OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+      us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 }
 
-      id-kmac128 OBJECT IDENTIFIER ::= { hashAlgs 21 }
-      id-kmac256 OBJECT IDENTIFIER ::= { hashAlgs 22 }
+  id-alg-hkdf-with-sha256 OBJECT IDENTIFIER ::= { iso(1)
+      member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9)
+      smime(16) alg(3) 28 }
+  id-alg-hkdf-with-sha512 OBJECT IDENTIFIER ::= { iso(1)
+      member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9)
+      smime(16) alg(3) 30 }
 
-      aes OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16) us(840)
-          organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
+  id-kmac128 OBJECT IDENTIFIER ::= { hashAlgs 21 }
+  id-kmac256 OBJECT IDENTIFIER ::= { hashAlgs 22 }
 
-      id-aes128-wrap OBJECT IDENTIFIER ::= { aes 5 }
-      id-aes256-wrap OBJECT IDENTIFIER ::= { aes 45 }
+  aes OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16) us(840)
+      organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
+
+  id-aes128-wrap OBJECT IDENTIFIER ::= { aes 5 }
+  id-aes256-wrap OBJECT IDENTIFIER ::= { aes 45 }
+~~~
 
 # Security Considerations {#sec-security-considerations}
 
@@ -406,6 +441,8 @@ section to be completed
 
 \[EDNOTE: remove before publishing\]
 
+- draft-ietf-lamps-cms-kyber-04:
+   - Add HMAC with SHA2 KDF.
 - draft-ietf-lamps-cms-kyber-03:
    - Switch MTI KDF from HKDF to KMAC.
 - draft-ietf-lamps-cms-kyber-02:
