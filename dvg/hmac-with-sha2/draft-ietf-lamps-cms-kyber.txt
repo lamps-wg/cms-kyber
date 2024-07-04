@@ -367,7 +367,7 @@ Table of Contents
 2.2.2.  Components for ML-KEM in CMS
 
    An implementation MUST support at least one of KMAC# or HMAC as the
-   KDF for ML-KEM in KemRecipientInfo.  It is RECMMENDED that a CMS
+   KDF for ML-KEM in KemRecipientInfo.  It is RECOMMENDED that a CMS
    recipient supports both.  KMAC# is given as an option because ML-KEM
    uses SHA3 and SHAKE as internal functions, so an implementation may
    want to use these to reduce code size.  HMAC is given as an option
