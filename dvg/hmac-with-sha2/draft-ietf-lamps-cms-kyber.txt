@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 29 August 2024                                          Entrust
+Expires: 5 January 2025                                          Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                        26 February 2024
+                                                             4 July 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 August 2024.
+   This Internet-Draft will expire on 5 January 2025.
 
 Copyright Notice
 
@@ -85,6 +85,8 @@ Table of Contents
    2.  Use of the ML-KEM Algorithm in CMS
      2.1.  RecipientInfo Conventions
      2.2.  Underlying Components
+       2.2.1.  KDFs
+       2.2.2.  Components for ML-KEM in CMS
      2.3.  Certificate Conventions
      2.4.  SMIME Capabilities Attribute Conventions
    3.  Identifiers
@@ -287,37 +289,123 @@ Table of Contents
 
    When ML-KEM is employed in CMS, the security levels of the different
    underlying components used within the KEMRecipientInfo structure
-   should be consistent.
+   SHOULD be consistent.
 
-   [EDNOTE: if we get OIDs for KMAC-based KDFs, use those.  If we don't,
-   do we want to use KDF3 [ANS-X9.44] with SHA3 instead?]
+2.2.1.  KDFs
+
+2.2.1.1.  HKDF
+
+   The HMAC-based Extract-and-Expand Key Derivation Function (HKDF) is
+   defined in [RFC5869].
+
+   The HKDF function is a composition of the HKDF-Extract and HKDF-
+   Expand functions.
+
+     KEK = HKDF(salt, IKM, info, L)
+         = HKDF-Expand(HKDF-Extract(salt, IKM), info, L)
+
+   HKDF(salt, IKM, info, L) takes the following parameters:
+
+      salt: optional salt value (a non-secret random value).  In this
+      document this parameter is unused, that is it is the zero-length
+      string "".
+
+      IKM: input keying material.  In this document this is the shared
+      secret outputted from the Encapsulate() or Decapsulate()
+      functions.  This corresponds to the IKM KDF input from Section 5
+      of [I-D.ietf-lamps-cms-kemri].
+
+      info: optional context and application specific information.  In
+      this document this corresponds to the info KDF input from
+      Section 5 of [I-D.ietf-lamps-cms-kemri].  This is the ASN.1 DER
+      encoding of CMSORIforKEMOtherInfo.
+
+      L: length of output keying material in octets.  This corresponds
+      to the L KDF input from Section 5 of [I-D.ietf-lamps-cms-kemri],
+      which is identified in the kekLength value from KEMRecipientInfo.
+
+   HKDF may be used with SHA2-256 or SHA2-512 [FIPS180].  The object
+   identifiers id-alg-hkdf-with-sha256 and id-alg-hkdf-with-sha512 are
+   defined in [RFC8619] (see Section 3).  The parameter field MUST be
+   absent when one of these algorithm identifiers is used to specify the
+   KDF for ML-KEM in KemRecipientInfo.
+
+2.2.1.2.  KMAC
+
+   KMAC128-KDF and KMAC256-KDF are KMAC-based KDFs specified for use in
+   CMS in [I-D.ietf-lamps-cms-sha3-hash].  Here, KMAC# indicates the use
+   of either KMAC128-KDF or KMAC256-KDF.
+
+   KMAC#(K, X, L, S) takes the following parameters:
+
+      K: the input key-derivation key.  In this document this is the
+      shared secret outputted from the Encapsulate() or Decapsulate()
+      functions.  This corresponds to the IKM KDF input from Section 5
+      of [I-D.ietf-lamps-cms-kemri].
+
+      X: the context, corresponding to the info KDF input from Section 5
+      of [I-D.ietf-lamps-cms-kemri].  This is the ASN.1 DER encoding of
+      CMSORIforKEMOtherInfo.
+
+      L: the output length, in bits.  This corresponds to the L KDF
+      input from Section 5 of [I-D.ietf-lamps-cms-kemri], which is
+      identified in the kekLength value from KEMRecipientInfo.  The L
+      KDF input and kekLength values are specified in octets while this
+      L parameter is specified in bits.
+
+      S: the optional customization label.  In this document this
+      parameter is unused, that is it is the zero-length string "".
+
+   The object identifier for KMAC128-KDF is id-kmac128 (see Section 3).
+
+   The object identifier for KMAC256-KDF is id-kmac256 (see Section 3).
+
+   Since the customization label to KMAC# is not used, the parameter
+   field MUST be absent when id-kmac128 or id-kmac256 is used as part of
+   an algorithm identifier specifying the KDF to use for ML-KEM in
+   KemRecipientInfo.
+
+2.2.2.  Components for ML-KEM in CMS
+
+   An implementation MUST support at least one of KMAC# or HMAC as the
+   KDF for ML-KEM in KemRecipientInfo.  KMAC# is given as an option
+   because ML-KEM uses SHA3 and SHAKE as internal functions, so an
+   implementation may want to use these to reduce code size.  HMAC is
+   given as an option because SHA2 is widely supported and the CMS-level
+   code may not have access to underlying KECCAK-based implementations.
 
    For ML-KEM-512, the following underlying components MUST be
    supported:
 
-      KDF: id-alg-hkdf-with-sha3-256 [I-D.ietf-lamps-cms-sha3-hash]
+      KDF: KMAC128-KDF using id-kmac128 or HMAC with SHA2-256 using id-
+      alg-hkdf-with-sha256
 
-      Key wrapping: id-aes128-wrap [RFC3565]
+      Key wrapping: 128-bit AES key wrapping using id-aes128-wrap
+      [RFC3565]
 
    For ML-KEM-768, the following underlying components MUST be
    supported:
 
-      KDF: id-alg-hkdf-with-sha3-384 [I-D.ietf-lamps-cms-sha3-hash]
+      KDF: KMAC256-KDF using id-kmac256 or HMAC with SHA2-512 using id-
+      alg-hkdf-with-sha512
 
-      Key wrapping: id-aes256-wrap [RFC3565]
+      Key wrapping: 256-bit AES key wrapping using id-aes256-wrap
+      [RFC3565]
 
    For ML-KEM-1024, the following underlying components MUST be
    supported:
 
-      KDF: id-alg-hkdf-with-sha3-512 [I-D.ietf-lamps-cms-sha3-hash]
+      KDF: KMAC256-KDF using id-kmac256 or HMAC with SHA2-512 using id-
+      alg-hkdf-with-sha512
 
-      Key wrapping: id-aes256-wrap [RFC3565]
+      Key wrapping: 256-bit AES key wrapping using id-aes256-wrap
+      [RFC3565]
 
    The above object identifiers are reproduced for convenience in
    Section 3.
 
    An implementation MAY also support other key-derivation functions and
-   other key-encryption algorithms as well.
+   other key-encryption algorithms.
 
    If underlying components other than those specified above are used,
    then the following KDF requirements are in effect in addition to
@@ -373,15 +461,21 @@ Table of Contents
      id-ML-KEM-768 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
      id-ML-KEM-1024 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
 
-     id-alg OBJECT IDENTIFIER ::= { iso(1) member-body(2)
-              us(840) rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) 3 }
+     hashAlgs OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+         us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 }
 
-     id-alg-hkdf-with-sha3-256 OBJECT IDENTIFIER ::= { id-alg TBD }
-     id-alg-hkdf-with-sha3-384 OBJECT IDENTIFIER ::= { id-alg TBD }
-     id-alg-hkdf-with-sha3-512 OBJECT IDENTIFIER ::= { id-alg TBD }
+     id-alg-hkdf-with-sha256 OBJECT IDENTIFIER ::= { iso(1)
+         member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9)
+         smime(16) alg(3) 28 }
+     id-alg-hkdf-with-sha512 OBJECT IDENTIFIER ::= { iso(1)
+         member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9)
+         smime(16) alg(3) 30 }
+
+     id-kmac128 OBJECT IDENTIFIER ::= { hashAlgs 21 }
+     id-kmac256 OBJECT IDENTIFIER ::= { hashAlgs 22 }
 
      aes OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16) us(840)
-              organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
+         organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
 
      id-aes128-wrap OBJECT IDENTIFIER ::= { aes 5 }
      id-aes256-wrap OBJECT IDENTIFIER ::= { aes 45 }
@@ -402,17 +496,17 @@ Table of Contents
    consistent with the desired security level.  Several security levels
    have been identified in the NIST SP 800-57 Part 1
    [NIST.SP.800-57pt1r5].  To achieve 128-bit security, ML-KEM-512
-   SHOULD be used, the key-derivation function SHOULD make use of
-   SHA3-256, and the symmetric key-encryption algorithm SHOULD be AES
-   Key Wrap with a 128-bit key.  To achieve 192-bit security, ML-KEM-768
-   SHOULD be used, the key-derivation function SHOULD make use of
-   SHA3-384, and the symmetric key-encryption algorithm SHOULD be AES
-   Key Wrap with a 192-bit key or larger.  In this case AES Key Wrap
-   with a 256-bit key is typically used because AES-192 is not as
-   commonly deployed.  To achieve 256-bit security, ML-KEM-1024 SHOULD
-   be used, the key-derivation function SHOULD make use of SHA3-512, and
-   the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a
-   256-bit key.
+   SHOULD be used, the key-derivation function SHOULD provide at least
+   128 bits of security, and the symmetric key-encryption algorithm
+   SHOULD be AES Key Wrap with a 128-bit key.  To achieve 192-bit
+   security, ML-KEM-768 SHOULD be used, the key-derivation function
+   SHOULD provide at least 192 bits of security, and the symmetric key-
+   encryption algorithm SHOULD be AES Key Wrap with a 192-bit key or
+   larger.  In this case AES Key Wrap with a 256-bit key is typically
+   used because AES-192 is not as commonly deployed.  To achieve 256-bit
+   security, ML-KEM-1024 SHOULD be used, the key-derivation function
+   SHOULD provide at least 256 bits of security, and the symmetric key-
+   encryption algorithm SHOULD be AES Key Wrap with a 256-bit key.
 
    Provided all inputs are well-formed, the key establishment procedure
    of ML-KEM will never explicitly fail.  Specifically, the ML-
@@ -504,12 +598,6 @@ Table of Contents
 
 7.1.  Normative References
 
-   [ANS-X9.44]
-              American National Standards Institute, "Public Key
-              Cryptography Using Reversible Algorithms for the Financial
-              Services Industry: Transport of Symmetric Algorithm Keys
-              Using RSA", ANSI X9.44, 1993.
-
    [FIPS203]  "TBD", n.d..
 
    [FIPS203-ipd]
@@ -530,17 +618,18 @@ Table of Contents
    [I-D.ietf-lamps-cms-sha3-hash]
               Housley, R., "Use of the SHA3 One-way Hash Functions in
               the Cryptographic Message Syntax (CMS)", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-cms-sha3-hash-00, 28
-              November 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-cms-sha3-hash-00>.
+              Internet-Draft, draft-ietf-lamps-cms-sha3-hash-04, 16 May
+              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              lamps-cms-sha3-hash-04>.
 
    [I-D.ietf-lamps-kyber-certificates]
               Turner, S., Kampanakis, P., Massimo, J., and B.
               Westerbaan, "Internet X.509 Public Key Infrastructure -
-              Algorithm Identifiers for Kyber", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-kyber-certificates-02, 23
-              October 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-kyber-certificates-02>.
+              Algorithm Identifiers for Module-Lattice-Based Key-
+              Encapsulation Mechanism (ML-KEM)", Work in Progress,
+              Internet-Draft, draft-ietf-lamps-kyber-certificates-03, 3
+              March 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-lamps-kyber-certificates-03>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -567,6 +656,11 @@ Table of Contents
               RFC 5652, DOI 10.17487/RFC5652, September 2009,
               <https://www.rfc-editor.org/rfc/rfc5652>.
 
+   [RFC5869]  Krawczyk, H. and P. Eronen, "HMAC-based Extract-and-Expand
+              Key Derivation Function (HKDF)", RFC 5869,
+              DOI 10.17487/RFC5869, May 2010,
+              <https://www.rfc-editor.org/rfc/rfc5869>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
@@ -576,6 +670,11 @@ Table of Contents
               Message Specification", RFC 8551, DOI 10.17487/RFC8551,
               April 2019, <https://www.rfc-editor.org/rfc/rfc8551>.
 
+   [RFC8619]  Housley, R., "Algorithm Identifiers for the HMAC-based
+              Extract-and-Expand Key Derivation Function (HKDF)",
+              RFC 8619, DOI 10.17487/RFC8619, June 2019,
+              <https://www.rfc-editor.org/rfc/rfc8619>.
+
 7.2.  Informative References
 
    [CMVP]     National Institute of Standards and Technology,
@@ -583,20 +682,26 @@ Table of Contents
               <https://csrc.nist.gov/projects/cryptographic-module-
               validation-program>.
 
+   [FIPS180]  Dang, Q. H. and NIST, "Secure Hash Standard", NIST Federal
+              Information Processing Standards Publications 180-4,
+              DOI 10.6028/NIST.FIPS.180-4, July 2015,
+              <https://nvlpubs.nist.gov/nistpubs/FIPS/
+              NIST.FIPS.180-4.pdf>.
+
    [I-D.ietf-lamps-rfc5990bis]
               Housley, R. and S. Turner, "Use of the RSA-KEM Algorithm
               in the Cryptographic Message Syntax (CMS)", Work in
-              Progress, Internet-Draft, draft-ietf-lamps-rfc5990bis-04,
-              19 October 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-rfc5990bis-04>.
+              Progress, Internet-Draft, draft-ietf-lamps-rfc5990bis-08,
+              5 June 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-lamps-rfc5990bis-08>.
 
    [I-D.kampanakis-ml-kem-ikev2]
               Kampanakis, P. and G. Ravago, "Post-quantum Hybrid Key
               Exchange with ML-KEM in the Internet Key Exchange Protocol
               Version 2 (IKEv2)", Work in Progress, Internet-Draft,
-              draft-kampanakis-ml-kem-ikev2-02, 19 February 2024,
+              draft-kampanakis-ml-kem-ikev2-03, 29 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-kampanakis-
-              ml-kem-ikev2-02>.
+              ml-kem-ikev2-03>.
 
    [NIST-PQ]  National Institute of Standards and Technology, "Post-
               Quantum Cryptography Project", 20 December 2016,
@@ -619,7 +724,7 @@ Table of Contents
 Appendix A.  ASN.1 Module
 
    [EDNOTE: Do we need an ASN.1 module?  We haven't defined any new
-   ASN.1]
+   ASN.1.  Yes, see S/MIME ASN.1 changes to composite-kem draft]
 
 A.1.  Examples
 
@@ -629,6 +734,14 @@ A.1.  Examples
 Appendix B.  Revision History
 
    [EDNOTE: remove before publishing]
+
+   *  draft-ietf-lamps-cms-kyber-04:
+
+      -  Add HMAC with SHA2 KDF.
+
+   *  draft-ietf-lamps-cms-kyber-03:
+
+      -  Switch MTI KDF from HKDF to KMAC.
 
    *  draft-ietf-lamps-cms-kyber-02:
 

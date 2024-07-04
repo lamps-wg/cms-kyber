@@ -15,26 +15,25 @@
 
 
     " name="description">
-<meta content="xml2rfc 3.19.4" name="generator">
+<meta content="xml2rfc 3.22.0" name="generator">
 <meta content="Key Encapsulation Mechanism (KEM)" name="keyword">
 <meta content="KEMRecipientInfo" name="keyword">
 <meta content="ML-KEM" name="keyword">
 <meta content="Kyber" name="keyword">
 <meta content="draft-ietf-lamps-cms-kyber-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.19.4
-    Python 3.11.6
+  xml2rfc 3.22.0
+    Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
-    Jinja2 3.1.2
-    lxml 4.9.3
-    platformdirs 4.2.0
+    Jinja2 3.1.4
+    lxml 4.9.4
+    platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
-    requests 2.31.0
-    setuptools 68.2.2
-    six 1.16.0
+    requests 2.32.3
+    setuptools 69.5.1
     wcwidth 0.2.13
 -->
 <link href="draft-ietf-lamps-cms-kyber.xml" rel="alternate" type="application/rfc+xml">
@@ -1034,11 +1033,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ML-KEM in CMS</td>
-<td class="right">February 2024</td>
+<td class="right">July 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Prat, et al.</td>
-<td class="center">Expires 25 August 2024</td>
+<td class="center">Expires 5 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1051,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-cms-kyber-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-22" class="published">22 February 2024</time>
+<time datetime="2024-07-04" class="published">4 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-25">25 August 2024</time></dd>
+<dd class="expires"><time datetime="2025-01-05">5 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1113,7 +1112,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1167,6 +1166,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
                 <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-underlying-components" class="internal xref">Underlying Components</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2.2.1">
+                    <p id="section-toc.1-1.2.2.2.2.1.1"><a href="#section-2.2.1" class="auto internal xref">2.2.1</a>.  <a href="#name-kdfs" class="internal xref">KDFs</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2.2.2">
+                    <p id="section-toc.1-1.2.2.2.2.2.1"><a href="#section-2.2.2" class="auto internal xref">2.2.2</a>.  <a href="#name-components-for-ml-kem-in-cm" class="internal xref">Components for ML-KEM in CMS</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
                 <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-certificate-conventions" class="internal xref">Certificate Conventions</a></p>
@@ -1295,76 +1302,77 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
         <h3 id="name-cms-kemrecipientinfo-proces">
 <a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-cms-kemrecipientinfo-proces" class="section-name selfRef">CMS KEMRecipientInfo Processing Summary</a>
         </h3>
-<p id="section-1.4-1">To support the ML-KEM algorithm, the CMS originator <span class="bcp14">MUST</span> implement Encapsulate().<a href="#section-1.4-1" class="pilcrow">¶</a></p>
-<p id="section-1.4-2">Given a content-encryption key CEK, the ML-KEM Algorithm processing by the originator to produce the values that are carried in the CMS KEMRecipientInfo can be summarized as:<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+<p id="section-1.4-1">Processing ML-KEM with KEMRecipientInfo follows the same steps as Section 2 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<p id="section-1.4-2">To support the ML-KEM algorithm, the CMS originator <span class="bcp14">MUST</span> implement Encapsulate().<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+<p id="section-1.4-3">Given a content-encryption key CEK, the ML-KEM Algorithm processing by the originator to produce the values that are carried in the CMS KEMRecipientInfo can be summarized as:<a href="#section-1.4-3" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-3.1">
-            <p id="section-1.4-3.1.1">1. Obtain the shared secret and ciphertext using the Encapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM public key:<a href="#section-1.4-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-4.1">
+            <p id="section-1.4-4.1.1">1. Obtain the shared secret and ciphertext using the Encapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM public key:<a href="#section-1.4-4.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-4">
+<div class="alignLeft art-text artwork" id="section-1.4-5">
 <pre>
        (ct, ss) = Encapsulate(pk)
-</pre><a href="#section-1.4-4" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-5" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-5.1">
-            <p id="section-1.4-5.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.4-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-6.1">
+            <p id="section-1.4-6.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.4-6.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-6">
+<div class="alignLeft art-text artwork" id="section-1.4-7">
 <pre>
        KEK = KDF(ss)
-</pre><a href="#section-1.4-6" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-7" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-7.1">
-            <p id="section-1.4-7.1.1">3. Wrap the CEK with the KEK to obtain wrapped keying material WK:<a href="#section-1.4-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-8.1">
+            <p id="section-1.4-8.1.1">3. Wrap the CEK with the KEK to obtain wrapped keying material WK:<a href="#section-1.4-8.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-8">
+<div class="alignLeft art-text artwork" id="section-1.4-9">
 <pre>
        WK = WRAP(KEK, CEK)
-</pre><a href="#section-1.4-8" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-9.1">
-            <p id="section-1.4-9.1.1">4. The originator sends the ciphertext and WK to the recipient in the CMS KEMRecipientInfo structure.<a href="#section-1.4-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-10.1">
+            <p id="section-1.4-10.1.1">4. The originator sends the ciphertext and WK to the recipient in the CMS KEMRecipientInfo structure.<a href="#section-1.4-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-1.4-10">To support the ML-KEM algorithm, the CMS recipient <span class="bcp14">MUST</span> implement Decapsulate().<a href="#section-1.4-10" class="pilcrow">¶</a></p>
-<p id="section-1.4-11">The ML-KEM algorithm recipient processing of the values obtained from the KEMRecipientInfo structure can be summarized as:<a href="#section-1.4-11" class="pilcrow">¶</a></p>
+<p id="section-1.4-11">To support the ML-KEM algorithm, the CMS recipient <span class="bcp14">MUST</span> implement Decapsulate().<a href="#section-1.4-11" class="pilcrow">¶</a></p>
+<p id="section-1.4-12">The ML-KEM algorithm recipient processing of the values obtained from the KEMRecipientInfo structure can be summarized as:<a href="#section-1.4-12" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-12.1">
-            <p id="section-1.4-12.1.1">1. Obtain the shared secret using the Decapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM private key:<a href="#section-1.4-12.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-13.1">
+            <p id="section-1.4-13.1.1">1. Obtain the shared secret using the Decapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM private key:<a href="#section-1.4-13.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-13">
+<div class="alignLeft art-text artwork" id="section-1.4-14">
 <pre>
        ss = Decapsulate(sk, ct)
-</pre><a href="#section-1.4-13" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-14" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-14.1">
-            <p id="section-1.4-14.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.4-14.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-15.1">
+            <p id="section-1.4-15.1.1">2. Derive a key-encryption key KEK from the shared secret:<a href="#section-1.4-15.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-15">
+<div class="alignLeft art-text artwork" id="section-1.4-16">
 <pre>
        KEK = KDF(ss)
-</pre><a href="#section-1.4-15" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-16" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-16.1">
-            <p id="section-1.4-16.1.1">3. Unwrap the WK with the KEK to obtain content-encryption key CEK:<a href="#section-1.4-16.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-17.1">
+            <p id="section-1.4-17.1.1">3. Unwrap the WK with the KEK to obtain content-encryption key CEK:<a href="#section-1.4-17.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-1.4-17">
+<div class="alignLeft art-text artwork" id="section-1.4-18">
 <pre>
        CEK = UNWRAP(KEK, WK)
-</pre><a href="#section-1.4-17" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-18" class="pilcrow">¶</a>
 </div>
-<p id="section-1.4-18">Note that the KDF used to process the KEMRecipientInfo structure <span class="bcp14">MAY</span> be different from the KDF used in the ML-KEM algorithm.<a href="#section-1.4-18" class="pilcrow">¶</a></p>
+<p id="section-1.4-19">Note that the KDF used to process the KEMRecipientInfo structure <span class="bcp14">MAY</span> be different from the KDF used in the ML-KEM algorithm.<a href="#section-1.4-19" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1429,59 +1437,142 @@ The fields of the KEMRecipientInfo <span class="bcp14">MUST</span> have the foll
         <h3 id="name-underlying-components">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-underlying-components" class="section-name selfRef">Underlying Components</a>
         </h3>
-<p id="section-2.2-1">When ML-KEM is employed in CMS, the security levels of the different underlying components used within the KEMRecipientInfo structure should be consistent.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2-2">[EDNOTE: if we get OIDs for KMAC-based KDFs, use those. If we don't, do we want to use KDF3 <span>[<a href="#ANS-X9.44" class="cite xref">ANS-X9.44</a>]</span> with SHA3 instead?]<a href="#section-2.2-2" class="pilcrow">¶</a></p>
-<p id="section-2.2-3">For ML-KEM-512, the following underlying components <span class="bcp14">MUST</span> be supported:<a href="#section-2.2-3" class="pilcrow">¶</a></p>
+<p id="section-2.2-1">When ML-KEM is employed in CMS, the security levels of the different underlying components used within the KEMRecipientInfo structure <span class="bcp14">SHOULD</span> be consistent.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<div id="kdfs">
+<section id="section-2.2.1">
+          <h4 id="name-kdfs">
+<a href="#section-2.2.1" class="section-number selfRef">2.2.1. </a><a href="#name-kdfs" class="section-name selfRef">KDFs</a>
+          </h4>
+<div id="hkdf">
+<section id="section-2.2.1.1">
+            <h5 id="name-hkdf">
+<a href="#section-2.2.1.1" class="section-number selfRef">2.2.1.1. </a><a href="#name-hkdf" class="section-name selfRef">HKDF</a>
+            </h5>
+<p id="section-2.2.1.1-1">The HMAC-based Extract-and-Expand Key Derivation Function (HKDF) is defined in <span>[<a href="#RFC5869" class="cite xref">RFC5869</a>]</span>.<a href="#section-2.2.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.1-2">The HKDF function is a composition of the HKDF-Extract and HKDF-Expand functions.<a href="#section-2.2.1.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.2.1.1-3">
+<pre>
+  KEK = HKDF(salt, IKM, info, L)
+      = HKDF-Expand(HKDF-Extract(salt, IKM), info, L)
+</pre><a href="#section-2.2.1.1-3" class="pilcrow">¶</a>
+</div>
+<p id="section-2.2.1.1-4">HKDF(salt, IKM, info, L) takes the following parameters:<a href="#section-2.2.1.1-4" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.2-4.1">
-            <p id="section-2.2-4.1.1">KDF: id-alg-hkdf-with-sha3-256 <span>[<a href="#I-D.ietf-lamps-cms-sha3-hash" class="cite xref">I-D.ietf-lamps-cms-sha3-hash</a>]</span><a href="#section-2.2-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-2.2.1.1-5.1">
+                <p id="section-2.2.1.1-5.1.1">salt: optional salt value (a non-secret random value). In this document this parameter is unused, that is it is the zero-length string "".<a href="#section-2.2.1.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
+            </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.2-5.1">
-            <p id="section-2.2-5.1.1">Key wrapping: id-aes128-wrap <span>[<a href="#RFC3565" class="cite xref">RFC3565</a>]</span><a href="#section-2.2-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-2.2.1.1-6.1">
+                <p id="section-2.2.1.1-6.1.1">IKM: input keying material. In this document this is the shared secret outputted from the Encapsulate() or Decapsulate() functions.  This corresponds to the IKM KDF input from Section 5 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>.<a href="#section-2.2.1.1-6.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-<p id="section-2.2-6">For ML-KEM-768, the following underlying components <span class="bcp14">MUST</span> be supported:<a href="#section-2.2-6" class="pilcrow">¶</a></p>
+            </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.2-7.1">
-            <p id="section-2.2-7.1.1">KDF: id-alg-hkdf-with-sha3-384 <span>[<a href="#I-D.ietf-lamps-cms-sha3-hash" class="cite xref">I-D.ietf-lamps-cms-sha3-hash</a>]</span><a href="#section-2.2-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-2.2.1.1-7.1">
+                <p id="section-2.2.1.1-7.1.1">info: optional context and application specific information. In this document this corresponds to the info KDF input from Section 5 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo.<a href="#section-2.2.1.1-7.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
+            </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.2-8.1">
-            <p id="section-2.2-8.1.1">Key wrapping: id-aes256-wrap <span>[<a href="#RFC3565" class="cite xref">RFC3565</a>]</span><a href="#section-2.2-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-2.2.1.1-8.1">
+                <p id="section-2.2.1.1-8.1.1">L: length of output keying material in octets. This corresponds to the L KDF input from Section 5 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>, which is identified in the kekLength value from KEMRecipientInfo.<a href="#section-2.2.1.1-8.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-<p id="section-2.2-9">For ML-KEM-1024, the following underlying components <span class="bcp14">MUST</span> be supported:<a href="#section-2.2-9" class="pilcrow">¶</a></p>
+            </ul>
+<p id="section-2.2.1.1-9">HKDF may be used with SHA2-256 or SHA2-512 <span>[<a href="#FIPS180" class="cite xref">FIPS180</a>]</span>. The object identifiers id-alg-hkdf-with-sha256 and id-alg-hkdf-with-sha512 are defined in <span>[<a href="#RFC8619" class="cite xref">RFC8619</a>]</span> (see <a href="#sec-identifiers" class="auto internal xref">Section 3</a>). The parameter field <span class="bcp14">MUST</span> be absent when one of these algorithm identifiers is used to specify the KDF for ML-KEM in KemRecipientInfo.<a href="#section-2.2.1.1-9" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="kmac">
+<section id="section-2.2.1.2">
+            <h5 id="name-kmac">
+<a href="#section-2.2.1.2" class="section-number selfRef">2.2.1.2. </a><a href="#name-kmac" class="section-name selfRef">KMAC</a>
+            </h5>
+<p id="section-2.2.1.2-1">KMAC128-KDF and KMAC256-KDF are KMAC-based KDFs specified for use in CMS in <span>[<a href="#I-D.ietf-lamps-cms-sha3-hash" class="cite xref">I-D.ietf-lamps-cms-sha3-hash</a>]</span>.  Here, KMAC# indicates the use of either KMAC128-KDF or KMAC256-KDF.<a href="#section-2.2.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-2">KMAC#(K, X, L, S) takes the following parameters:<a href="#section-2.2.1.2-2" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.2-10.1">
-            <p id="section-2.2-10.1.1">KDF: id-alg-hkdf-with-sha3-512 <span>[<a href="#I-D.ietf-lamps-cms-sha3-hash" class="cite xref">I-D.ietf-lamps-cms-sha3-hash</a>]</span><a href="#section-2.2-10.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-2.2.1.2-3.1">
+                <p id="section-2.2.1.2-3.1.1">K: the input key-derivation key.  In this document this is the shared secret outputted from the Encapsulate() or Decapsulate() functions.  This corresponds to the IKM KDF input from Section 5 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>.<a href="#section-2.2.1.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
+            </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.2-11.1">
-            <p id="section-2.2-11.1.1">Key wrapping: id-aes256-wrap <span>[<a href="#RFC3565" class="cite xref">RFC3565</a>]</span><a href="#section-2.2-11.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-2.2.1.2-4.1">
+                <p id="section-2.2.1.2-4.1.1">X: the context, corresponding to the info KDF input from Section 5 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo.<a href="#section-2.2.1.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-<p id="section-2.2-12">The above object identifiers are reproduced for convenience in <a href="#sec-identifiers" class="auto internal xref">Section 3</a>.<a href="#section-2.2-12" class="pilcrow">¶</a></p>
-<p id="section-2.2-13">An implementation <span class="bcp14">MAY</span> also support other key-derivation functions and other key-encryption algorithms as well.<a href="#section-2.2-13" class="pilcrow">¶</a></p>
-<p id="section-2.2-14">If underlying components other than those specified above are used, then the following KDF requirements are in effect in addition to those asserted in <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>:<a href="#section-2.2-14" class="pilcrow">¶</a></p>
+            </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.2-15.1">
-            <p id="section-2.2-15.1.1">ML-KEM-512 <span class="bcp14">SHOULD</span> be used with a KDF capable of outputting a key with at least 128 bits of security and with a key wrapping algorithm with a key length of at least 128 bits.<a href="#section-2.2-15.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-2.2.1.2-5.1">
+                <p id="section-2.2.1.2-5.1.1">L: the output length, in bits.  This corresponds to the L KDF input from Section 5 of <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>, which is identified in the kekLength value from KEMRecipientInfo.  The L KDF input and kekLength values are specified in octets while this L parameter is specified in bits.<a href="#section-2.2.1.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
+            </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.2-16.1">
-            <p id="section-2.2-16.1.1">ML-KEM-768 <span class="bcp14">SHOULD</span> be used with a KDF capable of outputting a key with at least 192 bits of security and with a key wrapping algorithm with a key length of at least 192 bits.<a href="#section-2.2-16.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-2.2.1.2-6.1">
+                <p id="section-2.2.1.2-6.1.1">S: the optional customization label.  In this document this parameter is unused, that is it is the zero-length string "".<a href="#section-2.2.1.2-6.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
+            </ul>
+<p id="section-2.2.1.2-7">The object identifier for KMAC128-KDF is id-kmac128 (see <a href="#sec-identifiers" class="auto internal xref">Section 3</a>).<a href="#section-2.2.1.2-7" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-8">The object identifier for KMAC256-KDF is id-kmac256 (see <a href="#sec-identifiers" class="auto internal xref">Section 3</a>).<a href="#section-2.2.1.2-8" class="pilcrow">¶</a></p>
+<p id="section-2.2.1.2-9">Since the customization label to KMAC# is not used, the parameter field <span class="bcp14">MUST</span> be absent when id-kmac128 or id-kmac256 is used as part of an algorithm identifier specifying the KDF to use for ML-KEM in KemRecipientInfo.<a href="#section-2.2.1.2-9" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="components-for-ml-kem-in-cms">
+<section id="section-2.2.2">
+          <h4 id="name-components-for-ml-kem-in-cm">
+<a href="#section-2.2.2" class="section-number selfRef">2.2.2. </a><a href="#name-components-for-ml-kem-in-cm" class="section-name selfRef">Components for ML-KEM in CMS</a>
+          </h4>
+<p id="section-2.2.2-1">An implementation <span class="bcp14">MUST</span> support at least one of KMAC# or HMAC as the KDF for ML-KEM in KemRecipientInfo. KMAC# is given as an option because ML-KEM uses SHA3 and SHAKE as internal functions, so an implementation may want to use these to reduce code size. HMAC is given as an option because SHA2 is widely supported and the CMS-level code may not have access to underlying KECCAK-based implementations.<a href="#section-2.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-2">For ML-KEM-512, the following underlying components <span class="bcp14">MUST</span> be supported:<a href="#section-2.2.2-2" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.2-17.1">
-            <p id="section-2.2-17.1.1">ML-KEM-1024 <span class="bcp14">SHOULD</span> be used with a KDF capable of outputting a key with at least 256 bits of security and with a key wrapping algorithm with a key length of at least 256 bits.<a href="#section-2.2-17.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-2.2.2-3.1">
+              <p id="section-2.2.2-3.1.1">KDF: KMAC128-KDF using id-kmac128 or HMAC with SHA2-256 using id-alg-hkdf-with-sha256<a href="#section-2.2.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
+          </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-2.2.2-4.1">
+              <p id="section-2.2.2-4.1.1">Key wrapping: 128-bit AES key wrapping using id-aes128-wrap <span>[<a href="#RFC3565" class="cite xref">RFC3565</a>]</span><a href="#section-2.2.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-2.2.2-5">For ML-KEM-768, the following underlying components <span class="bcp14">MUST</span> be supported:<a href="#section-2.2.2-5" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-2.2.2-6.1">
+              <p id="section-2.2.2-6.1.1">KDF: KMAC256-KDF using id-kmac256 or HMAC with SHA2-512 using id-alg-hkdf-with-sha512<a href="#section-2.2.2-6.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-2.2.2-7.1">
+              <p id="section-2.2.2-7.1.1">Key wrapping: 256-bit AES key wrapping using id-aes256-wrap <span>[<a href="#RFC3565" class="cite xref">RFC3565</a>]</span><a href="#section-2.2.2-7.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-2.2.2-8">For ML-KEM-1024, the following underlying components <span class="bcp14">MUST</span> be supported:<a href="#section-2.2.2-8" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-2.2.2-9.1">
+              <p id="section-2.2.2-9.1.1">KDF: KMAC256-KDF using id-kmac256 or HMAC with SHA2-512 using id-alg-hkdf-with-sha512<a href="#section-2.2.2-9.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-2.2.2-10.1">
+              <p id="section-2.2.2-10.1.1">Key wrapping: 256-bit AES key wrapping using id-aes256-wrap <span>[<a href="#RFC3565" class="cite xref">RFC3565</a>]</span><a href="#section-2.2.2-10.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-2.2.2-11">The above object identifiers are reproduced for convenience in <a href="#sec-identifiers" class="auto internal xref">Section 3</a>.<a href="#section-2.2.2-11" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-12">An implementation <span class="bcp14">MAY</span> also support other key-derivation functions and other key-encryption algorithms.<a href="#section-2.2.2-12" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-13">If underlying components other than those specified above are used, then the following KDF requirements are in effect in addition to those asserted in <span>[<a href="#I-D.ietf-lamps-cms-kemri" class="cite xref">I-D.ietf-lamps-cms-kemri</a>]</span>:<a href="#section-2.2.2-13" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-2.2.2-14.1">
+              <p id="section-2.2.2-14.1.1">ML-KEM-512 <span class="bcp14">SHOULD</span> be used with a KDF capable of outputting a key with at least 128 bits of security and with a key wrapping algorithm with a key length of at least 128 bits.<a href="#section-2.2.2-14.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-2.2.2-15.1">
+              <p id="section-2.2.2-15.1.1">ML-KEM-768 <span class="bcp14">SHOULD</span> be used with a KDF capable of outputting a key with at least 192 bits of security and with a key wrapping algorithm with a key length of at least 192 bits.<a href="#section-2.2.2-15.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-2.2.2-16.1">
+              <p id="section-2.2.2-16.1.1">ML-KEM-1024 <span class="bcp14">SHOULD</span> be used with a KDF capable of outputting a key with at least 256 bits of security and with a key wrapping algorithm with a key length of at least 256 bits.<a href="#section-2.2.2-16.1.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-using-certs">
@@ -1519,15 +1610,21 @@ The fields of the KEMRecipientInfo <span class="bcp14">MUST</span> have the foll
   id-ML-KEM-768 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
   id-ML-KEM-1024 OBJECT IDENTIFIER ::= { id-TBD-NIST-KEM TBD }
 
-  id-alg OBJECT IDENTIFIER ::= { iso(1) member-body(2)
-           us(840) rsadsi(113549) pkcs(1) pkcs-9(9) smime(16) 3 }
+  hashAlgs OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16)
+      us(840) organization(1) gov(101) csor(3) nistAlgorithm(4) 2 }
 
-  id-alg-hkdf-with-sha3-256 OBJECT IDENTIFIER ::= { id-alg TBD }
-  id-alg-hkdf-with-sha3-384 OBJECT IDENTIFIER ::= { id-alg TBD }
-  id-alg-hkdf-with-sha3-512 OBJECT IDENTIFIER ::= { id-alg TBD }
+  id-alg-hkdf-with-sha256 OBJECT IDENTIFIER ::= { iso(1)
+      member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9)
+      smime(16) alg(3) 28 }
+  id-alg-hkdf-with-sha512 OBJECT IDENTIFIER ::= { iso(1)
+      member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-9(9)
+      smime(16) alg(3) 30 }
+
+  id-kmac128 OBJECT IDENTIFIER ::= { hashAlgs 21 }
+  id-kmac256 OBJECT IDENTIFIER ::= { hashAlgs 22 }
 
   aes OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16) us(840)
-           organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
+      organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
 
   id-aes128-wrap OBJECT IDENTIFIER ::= { aes 5 }
   id-aes256-wrap OBJECT IDENTIFIER ::= { aes 45 }
@@ -1542,7 +1639,7 @@ The fields of the KEMRecipientInfo <span class="bcp14">MUST</span> have the foll
       </h2>
 <p id="section-4-1">[EDNOTE: many of the security considerations below apply to ML-KEM in general and are not specific to ML-KEM within CMS. As this document and draft-ietf-lamps-kyber-certificates approach WGLC, the two Security Consideration sections should be harmonized and duplicate text removed.]<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The Security Considerations section of <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> applies to this specification as well.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in the NIST SP 800-57 Part 1 <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>. To achieve 128-bit security, ML-KEM-512 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> make use of SHA3-256, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> be AES Key Wrap with a 128-bit key. To achieve 192-bit security, ML-KEM-768 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> make use of SHA3-384, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> be AES Key Wrap with a 192-bit key or larger. In this case AES Key Wrap with a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> make use of SHA3-512, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> be AES Key Wrap with a 256-bit key.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-3">The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in the NIST SP 800-57 Part 1 <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>. To achieve 128-bit security, ML-KEM-512 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 128 bits of security, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> be AES Key Wrap with a 128-bit key. To achieve 192-bit security, ML-KEM-768 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 192 bits of security, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> be AES Key Wrap with a 192-bit key or larger. In this case AES Key Wrap with a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 256 bits of security, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> be AES Key Wrap with a 256-bit key.<a href="#section-4-3" class="pilcrow">¶</a></p>
 <p id="section-4-4">Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the ML-KEM.Encaps and ML-KEM.Decaps algorithms from <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol. However, it is possible (though extremely unlikely) that the process will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
 secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are provided in Table 1 [EDNOTE: make sure this doesn't change] of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> and reproduced here in <a href="#tab-fail" class="auto internal xref">Table 1</a>.<a href="#section-4-4" class="pilcrow">¶</a></p>
 <span id="name-ml-kem-decapsulation-failur"></span><div id="tab-fail">
@@ -1610,10 +1707,6 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="ANS-X9.44">[ANS-X9.44]</dt>
-        <dd>
-<span class="refAuthor">American National Standards Institute</span>, <span class="refTitle">"Public Key Cryptography Using Reversible Algorithms for the Financial Services Industry: Transport of Symmetric Algorithm Keys Using RSA"</span>, <span class="seriesInfo">ANSI X9.44</span>, <time datetime="1993" class="refDate">1993</time>. </dd>
-<dd class="break"></dd>
 <dt id="FIPS203">[FIPS203]</dt>
         <dd>
 <span class="refTitle">"TBD"</span>, <span>n.d.</span>. </dd>
@@ -1628,11 +1721,11 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
 <dd class="break"></dd>
 <dt id="I-D.ietf-lamps-cms-sha3-hash">[I-D.ietf-lamps-cms-sha3-hash]</dt>
         <dd>
-<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Use of the SHA3 One-way Hash Functions in the Cryptographic Message Syntax (CMS)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-cms-sha3-hash-00</span>, <time datetime="2023-11-28" class="refDate">28 November 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-cms-sha3-hash-00">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-cms-sha3-hash-00</a>&gt;</span>. </dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Use of the SHA3 One-way Hash Functions in the Cryptographic Message Syntax (CMS)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-cms-sha3-hash-04</span>, <time datetime="2024-05-16" class="refDate">16 May 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-cms-sha3-hash-04">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-cms-sha3-hash-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-lamps-kyber-certificates">[I-D.ietf-lamps-kyber-certificates]</dt>
         <dd>
-<span class="refAuthor">Turner, S.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Massimo, J.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure - Algorithm Identifiers for Kyber"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-kyber-certificates-02</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-02">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Turner, S.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Massimo, J.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure - Algorithm Identifiers for Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-kyber-certificates-03</span>, <time datetime="2024-03-03" class="refDate">3 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-03">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -1654,13 +1747,21 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
         <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">STD 70</span>, <span class="seriesInfo">RFC 5652</span>, <span class="seriesInfo">DOI 10.17487/RFC5652</span>, <time datetime="2009-09" class="refDate">September 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5652">https://www.rfc-editor.org/rfc/rfc5652</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC5869">[RFC5869]</dt>
+        <dd>
+<span class="refAuthor">Krawczyk, H.</span> and <span class="refAuthor">P. Eronen</span>, <span class="refTitle">"HMAC-based Extract-and-Expand Key Derivation Function (HKDF)"</span>, <span class="seriesInfo">RFC 5869</span>, <span class="seriesInfo">DOI 10.17487/RFC5869</span>, <time datetime="2010-05" class="refDate">May 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5869">https://www.rfc-editor.org/rfc/rfc5869</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8551">[RFC8551]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Schaad, J.</span>, <span class="refAuthor">Ramsdell, B.</span>, and <span class="refAuthor">S. Turner</span>, <span class="refTitle">"Secure/Multipurpose Internet Mail Extensions (S/MIME) Version 4.0 Message Specification"</span>, <span class="seriesInfo">RFC 8551</span>, <span class="seriesInfo">DOI 10.17487/RFC8551</span>, <time datetime="2019-04" class="refDate">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8551">https://www.rfc-editor.org/rfc/rfc8551</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8619">[RFC8619]</dt>
+      <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Algorithm Identifiers for the HMAC-based Extract-and-Expand Key Derivation Function (HKDF)"</span>, <span class="seriesInfo">RFC 8619</span>, <span class="seriesInfo">DOI 10.17487/RFC8619</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8619">https://www.rfc-editor.org/rfc/rfc8619</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1675,13 +1776,17 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Cryptographic Module Validation Program"</span>, <time datetime="2016" class="refDate">2016</time>, <span>&lt;<a href="https://csrc.nist.gov/projects/cryptographic-module-validation-program">https://csrc.nist.gov/projects/cryptographic-module-validation-program</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="FIPS180">[FIPS180]</dt>
+        <dd>
+<span class="refAuthor">Dang, Q. H.</span> and <span class="refAuthor">NIST</span>, <span class="refTitle">"Secure Hash Standard"</span>, <span class="seriesInfo">NIST Federal Information Processing Standards Publications 180-4</span>, <span class="seriesInfo">DOI 10.6028/NIST.FIPS.180-4</span>, <time datetime="2015-07" class="refDate">July 2015</time>, <span>&lt;<a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-lamps-rfc5990bis">[I-D.ietf-lamps-rfc5990bis]</dt>
         <dd>
-<span class="refAuthor">Housley, R.</span> and <span class="refAuthor">S. Turner</span>, <span class="refTitle">"Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-rfc5990bis-04</span>, <time datetime="2023-10-19" class="refDate">19 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-rfc5990bis-04">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-rfc5990bis-04</a>&gt;</span>. </dd>
+<span class="refAuthor">Housley, R.</span> and <span class="refAuthor">S. Turner</span>, <span class="refTitle">"Use of the RSA-KEM Algorithm in the Cryptographic Message Syntax (CMS)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-rfc5990bis-08</span>, <time datetime="2024-06-05" class="refDate">5 June 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-rfc5990bis-08">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-rfc5990bis-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.kampanakis-ml-kem-ikev2">[I-D.kampanakis-ml-kem-ikev2]</dt>
         <dd>
-<span class="refAuthor">Kampanakis, P.</span> and <span class="refAuthor">G. Ravago</span>, <span class="refTitle">"Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-kampanakis-ml-kem-ikev2-02</span>, <time datetime="2024-02-19" class="refDate">19 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-kampanakis-ml-kem-ikev2-02">https://datatracker.ietf.org/doc/html/draft-kampanakis-ml-kem-ikev2-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Kampanakis, P.</span> and <span class="refAuthor">G. Ravago</span>, <span class="refTitle">"Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-kampanakis-ml-kem-ikev2-03</span>, <time datetime="2024-03-29" class="refDate">29 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-kampanakis-ml-kem-ikev2-03">https://datatracker.ietf.org/doc/html/draft-kampanakis-ml-kem-ikev2-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NIST-PQ">[NIST-PQ]</dt>
         <dd>
@@ -1704,7 +1809,7 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
       <h2 id="name-asn1-module">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-asn1-module" class="section-name selfRef">ASN.1 Module</a>
       </h2>
-<p id="appendix-A-1">[EDNOTE: Do we need an ASN.1 module? We haven't defined any new ASN.1]<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">[EDNOTE: Do we need an ASN.1 module? We haven't defined any new ASN.1.  Yes, see S/MIME ASN.1 changes to composite-kem draft]<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <div id="examples">
 <section id="appendix-A.1">
         <h3 id="name-examples">
@@ -1728,38 +1833,54 @@ section to be completed
 <p id="appendix-B-1">[EDNOTE: remove before publishing]<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-2.1">
-          <p id="appendix-B-2.1.1">draft-ietf-lamps-cms-kyber-02:<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.1.1">draft-ietf-lamps-cms-kyber-04:<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-2.1.2.1">
-              <p id="appendix-B-2.1.2.1.1">Rearrange and rewrite to align with rfc5990bis and I-D.ietf-lamps-cms-kemri<a href="#appendix-B-2.1.2.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="appendix-B-2.1.2.2">
-              <p id="appendix-B-2.1.2.2.1">Move Revision History to end to avoid renumbering later<a href="#appendix-B-2.1.2.2.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="appendix-B-2.1.2.3">
-              <p id="appendix-B-2.1.2.3.1">Add Security Considerations<a href="#appendix-B-2.1.2.3.1" class="pilcrow">¶</a></p>
+              <p id="appendix-B-2.1.2.1.1">Add HMAC with SHA2 KDF.<a href="#appendix-B-2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
         <li class="normal" id="appendix-B-2.2">
-          <p id="appendix-B-2.2.1">draft-ietf-lamps-cms-kyber-01:<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.2.1">draft-ietf-lamps-cms-kyber-03:<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-2.2.2.1">
-              <p id="appendix-B-2.2.2.1.1">Details of the KEMRecipientInfo content when using Kyber;<a href="#appendix-B-2.2.2.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="appendix-B-2.2.2.2">
-              <p id="appendix-B-2.2.2.2.1">Editorial changes.<a href="#appendix-B-2.2.2.2.1" class="pilcrow">¶</a></p>
+              <p id="appendix-B-2.2.2.1.1">Switch MTI KDF from HKDF to KMAC.<a href="#appendix-B-2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
         <li class="normal" id="appendix-B-2.3">
-          <p id="appendix-B-2.3.1">draft-ietf-lamps-cms-kyber-00:<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.3.1">draft-ietf-lamps-cms-kyber-02:<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-2.3.2.1">
-              <p id="appendix-B-2.3.2.1.1">Use of KEMRecipientInfo to communicate algorithm info;<a href="#appendix-B-2.3.2.1.1" class="pilcrow">¶</a></p>
+              <p id="appendix-B-2.3.2.1.1">Rearrange and rewrite to align with rfc5990bis and I-D.ietf-lamps-cms-kemri<a href="#appendix-B-2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="appendix-B-2.3.2.2">
-              <p id="appendix-B-2.3.2.2.1">Editorial changes.<a href="#appendix-B-2.3.2.2.1" class="pilcrow">¶</a></p>
+              <p id="appendix-B-2.3.2.2.1">Move Revision History to end to avoid renumbering later<a href="#appendix-B-2.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-B-2.3.2.3">
+              <p id="appendix-B-2.3.2.3.1">Add Security Considerations<a href="#appendix-B-2.3.2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</li>
+        <li class="normal" id="appendix-B-2.4">
+          <p id="appendix-B-2.4.1">draft-ietf-lamps-cms-kyber-01:<a href="#appendix-B-2.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-B-2.4.2.1">
+              <p id="appendix-B-2.4.2.1.1">Details of the KEMRecipientInfo content when using Kyber;<a href="#appendix-B-2.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-B-2.4.2.2">
+              <p id="appendix-B-2.4.2.2.1">Editorial changes.<a href="#appendix-B-2.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</li>
+        <li class="normal" id="appendix-B-2.5">
+          <p id="appendix-B-2.5.1">draft-ietf-lamps-cms-kyber-00:<a href="#appendix-B-2.5.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-B-2.5.2.1">
+              <p id="appendix-B-2.5.2.1.1">Use of KEMRecipientInfo to communicate algorithm info;<a href="#appendix-B-2.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-B-2.5.2.2">
+              <p id="appendix-B-2.5.2.2.1">Editorial changes.<a href="#appendix-B-2.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </li>
