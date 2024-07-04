@@ -146,7 +146,7 @@ The KEM functions defined above correspond to the following functions in {{FIPS2
 
 > Decapsulate(): ML-KEM.Decaps() from section 6.3.
 
-All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and SHAKE512 internally. This informs the choice of KDF within this document.
+All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and SHAKE512 internally.
 
 <!-- End of ML-KEM section -->
 
