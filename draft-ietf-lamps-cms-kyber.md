@@ -90,7 +90,7 @@ informative:
     date: 2016
 --- abstract
 
-The Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM) Algorithm is a one-pass (store-and-forward) cryptographic mechanism for an originator to securely send keying material to a recipient using the recipient's ML-KEM public key. Three parameters sets for the ML-KEM Algorithm are specified by NIST in {{FIPS203-ipd}} \[EDNOTE: Change to {{FIPS203}} when it is published\]. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as specified in {{!I-D.ietf-lamps-cms-kemri}}.
+The Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM) algorithm is a one-pass (store-and-forward) cryptographic mechanism for an originator to securely send keying material to a recipient using the recipient's ML-KEM public key. Three parameters sets for the ML-KEM algorithm are specified by NIST in {{FIPS203-ipd}} \[EDNOTE: Change to {{FIPS203}} when it is published\]. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as specified in {{!I-D.ietf-lamps-cms-kemri}}.
 
 <!-- End of Abstract -->
 
@@ -109,128 +109,58 @@ Native support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!I-
 
 <!-- End of terminology section -->
 
-## KEMs {#sec-intro-kems}
-
-All KEM algorithms provides three functions: KeyGen(), Encapsulate(), and Decapsulate():
-
-KeyGen() -> (pk, sk):
-
-> Generate the public key (pk) and a private key (sk).
-
-Encapsulate(pk) -> (ct, ss):
-
-> Given the recipient's public key (pk), produce a ciphertext (ct) to be passed to the recipient and a shared secret (ss) for use by the originator.
-
-Decapsulate(sk, ct) -> ss:
-
-> Given the private key (sk) and the ciphertext (ct), produce the shared secret (ss) for the recipient.
-
-The main security property for KEMs standardized in the NIST Post-Quantum Cryptography Standardization Project {{NIST-PQ}} is indistinguishability under adaptive chosen ciphertext attacks (IND-CCA2), which means that shared secret values should be indistinguishable from random strings even given the ability to have arbitrary ciphertexts decapsulated. IND-CCA2 corresponds to security against an active attacker, and the public key / secret key pair can be treated as a long-term key or reused. A weaker security notion is indistinguishability under chosen plaintext attacks (IND-CPA), which means that the shared secret values should be indistinguishable from random strings given a copy of the public key. IND-CPA roughly corresponds to security against a passive attacker, and sometimes corresponds to one-time key exchange.
-
-IND-CCA2 is a desirable property of encryption mechanisms for CMS since encryption public keys are often long-term -- for example contained within X.509 certificates {{?RFC5280}} -- and certain uses of CMS could allow for the type of decryption oracle that forms the basis of an adaptive ciphertext attack.
-
-<!-- End of KEMs section -->
-
 ## ML-KEM {#sec-intro-ml-kem}
 
-ML-KEM is a lattice-based key encapsulation mechanism defined in {{FIPS203}}.
-\[EDNOTE: Not actually standardized yet, but will be by publication]
+ML-KEM is a lattice-based key encapsulation mechanism using Module Learning with Errors as its underlying primitive, which is a structured lattices variant that offers good performance and relatively small and balanced key and ciphertext sizes. ML-KEM was standardized with three parameter sets: ML-KEM-512, ML-KEM-768, and ML-KEM-1024. These were mapped by NIST to the three security levels defined in the NIST PQC Project, Level 1, 3, and 5. These levels correspond to the hardness of breaking AES-128, AES-192 and AES-256 respectively.
 
-ML-KEM is using Module Learning with Errors as its underlying primitive which is a structured lattices variant that offers good performance and relatively small and balanced key and ciphertext sizes. ML-KEM was standardized with three parameter sets: ML-KEM-512, ML-KEM-768, and ML-KEM-1024. These were mapped by NIST to the three security levels defined in the NIST PQC Project, Level 1, 3, and 5. These levels correspond to the hardness of breaking AES-128, AES-192 and AES-256 respectively.
+Like all KEM algorithms, ML-KEM provides three functions: KeyGen(), Encapsulate(), and Decapsulate().
+
+KeyGen() -> (pk, sk):
+: Generate the public key (pk) and a private key (sk).
+
+Encapsulate(pk) -> (ct, ss):
+: Given the recipient's public key (pk), produce a ciphertext (ct) to be passed to the recipient and a shared secret (ss) for use by the originator.
+
+Decapsulate(sk, ct) -> ss:
+: Given the private key (sk) and the ciphertext (ct), produce the shared secret (ss) for the recipient.
 
 The KEM functions defined above correspond to the following functions in {{FIPS203}}:
 
-> KeyGen(): ML-KEM.KeyGen() from section 6.1.
+KeyGen():
+: ML-KEM.KeyGen() from section 6.1.
 
-> Encapsulate(): ML-KEM.Encaps() from section 6.2.
+Encapsulate():
+: ML-KEM.Encaps() from section 6.2.
 
-> Decapsulate(): ML-KEM.Decaps() from section 6.3.
+Decapsulate():
+: ML-KEM.Decaps() from section 6.3.
 
 All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and SHAKE512 internally.
 
 <!-- End of ML-KEM section -->
 
-## CMS KEMRecipientInfo Processing Summary {#sec-intro-kemri}
-
-Processing ML-KEM with KEMRecipientInfo follows the same steps as Section 2 of {{!I-D.ietf-lamps-cms-kemri}}.
-
-To support the ML-KEM algorithm, the CMS originator MUST implement Encapsulate().
-
-Given a content-encryption key CEK, the ML-KEM Algorithm processing by the originator to produce the values that are carried in the CMS KEMRecipientInfo can be summarized as:
-
->
-1\. Obtain the shared secret and ciphertext using the Encapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM public key:
-
-~~~
-       (ct, ss) = Encapsulate(pk)
-~~~
-
->
-2\. Derive a key-encryption key KEK from the shared secret:
-
-~~~
-       KEK = KDF(ss)
-~~~
-
->
-3\. Wrap the CEK with the KEK to obtain wrapped keying material WK:
-
-~~~
-       WK = WRAP(KEK, CEK)
-~~~
-
->
-4\. The originator sends the ciphertext and WK to the recipient in the CMS KEMRecipientInfo structure.
-
-To support the ML-KEM algorithm, the CMS recipient MUST implement Decapsulate().
-
-The ML-KEM algorithm recipient processing of the values obtained from the KEMRecipientInfo structure can be summarized as:
-
->
-1\. Obtain the shared secret using the Decapsulate() function of the ML-KEM algorithm and the recipient's ML-KEM private key:
-
-~~~
-       ss = Decapsulate(sk, ct)
-~~~
-
->
-2\. Derive a key-encryption key KEK from the shared secret:
-
-~~~
-       KEK = KDF(ss)
-~~~
-
->
-3\. Unwrap the WK with the KEK to obtain content-encryption key CEK:
-
-~~~
-       CEK = UNWRAP(KEK, WK)
-~~~
-
-Note that the KDF used to process the KEMRecipientInfo structure MAY be different from the KDF used in the ML-KEM algorithm.
-
-<!-- End of processing-summary section -->
-
 <!-- End of introduction section -->
 
 # Use of the ML-KEM Algorithm in CMS {#sec-using}
 
-The ML-KEM Algorithm MAY be employed for one or more recipients in the CMS enveloped-data content type {{!RFC5652}}, the CMS authenticated-data content type {{!RFC5652}}, or the CMS authenticated-enveloped-data content type {{!RFC5083}}. In each case, the KEMRecipientInfo {{!I-D.ietf-lamps-cms-kemri}} is used with with the ML-KEM Algorithm to securely transfer the content-encryption key from the originator to the recipient.
+The ML-KEM algorithm MAY be employed for one or more recipients in the CMS enveloped-data content type {{!RFC5652}}, the CMS authenticated-data content type {{!RFC5652}}, or the CMS authenticated-enveloped-data content type {{!RFC5083}}. In each case, the KEMRecipientInfo {{!I-D.ietf-lamps-cms-kemri}} is used with the ML-KEM algorithm to securely transfer the content-encryption key from the originator to the recipient.
+
+Processing ML-KEM with KEMRecipientInfo follows the same steps as Section 2 of {{!I-D.ietf-lamps-cms-kemri}}. To support the ML-KEM algorithm, a CMS originator MUST implement the Encapsulate() function and a CMS responder MUST implement the Decapsulate() function.
 
 ## RecipientInfo Conventions {#sec-using-recipientInfo}
 
-When the ML-KEM Algorithm is employed for a recipient, the RecipientInfo alternative for that recipient MUST be OtherRecipientInfo using the KEMRecipientInfo structure as defined in {{!I-D.ietf-lamps-cms-kemri}}.
+When the ML-KEM algorithm is employed for a recipient, the RecipientInfo alternative for that recipient MUST be OtherRecipientInfo using the KEMRecipientInfo structure as defined in {{!I-D.ietf-lamps-cms-kemri}}.
 The fields of the KEMRecipientInfo MUST have the following values:
 
 > version is the syntax version number; it MUST be 0.
 
 > rid identifies the recipient's certificate or public key.
 
-> kem identifies the KEM algorithm ; it MUST contain one of id-ML-KEM-512, id-ML-KEM-768, or id-ML-KEM-1024. These identifiers are reproduced in {{sec-identifiers}}.
+> kem identifies the KEM algorithm; it MUST contain one of id-ML-KEM-512, id-ML-KEM-768, or id-ML-KEM-1024. These identifiers are reproduced in {{sec-identifiers}}.
 
 > kemct is the ciphertext produced for this recipient.
 
-> kdf identifies the key-derivation algorithm. Note that the KDF used for CMS RecipientInfo process MAY be different than the KDF used within the ML-KEM Algorithm.
+> kdf identifies the key-derivation algorithm. Note that the Key Derivation Function (KDF) used for CMS RecipientInfo process MAY be different than the KDF used within the ML-KEM algorithm.
 
 > kekLength is the size of the key-encryption key in octets.
 
@@ -244,44 +174,50 @@ The fields of the KEMRecipientInfo MUST have the following values:
 
 When ML-KEM is employed in CMS, the security levels of the different underlying components used within the KEMRecipientInfo structure SHOULD be consistent.
 
-### KDFs
-
-#### HKDF
+### Use of the HKDF-based Key Derivation Function
 
 The HMAC-based Extract-and-Expand Key Derivation Function (HKDF) is defined in {{!RFC5869}}.
 
 The HKDF function is a composition of the HKDF-Extract and HKDF-Expand functions.
 
 ~~~
-  KEK = HKDF(salt, IKM, info, L)
-      = HKDF-Expand(HKDF-Extract(salt, IKM), info, L)
+HKDF(salt, IKM, info, L)
+  = HKDF-Expand(HKDF-Extract(salt, IKM), info, L)
 ~~~
 
 HKDF(salt, IKM, info, L) takes the following parameters:
 
-> salt: optional salt value (a non-secret random value). In this document this parameter is unused, that is it is the zero-length string "".
+salt:
+: optional salt value (a non-secret random value). In this document this parameter is unused, that is it is the zero-length string "".
 
-> IKM: input keying material. In this document this is the shared secret outputted from the Encapsulate() or Decapsulate() functions.  This corresponds to the IKM KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}.
+IKM:
+: input keying material. In this document this is the shared secret outputted from the Encapsulate() or Decapsulate() functions.  This corresponds to the IKM KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}.
 
-> info: optional context and application specific information. In this document this corresponds to the info KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo.
+info:
+: optional context and application specific information. In this document this corresponds to the info KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo.
 
-> L: length of output keying material in octets. This corresponds to the L KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}, which is identified in the kekLength value from KEMRecipientInfo.
+L:
+: length of output keying material in octets. This corresponds to the L KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}, which is identified in the kekLength value from KEMRecipientInfo.
 
-HKDF may be used with SHA2-256 or SHA2-512 {{?FIPS180=NIST.FIPS.180-4}}. The object identifiers id-alg-hkdf-with-sha256 and id-alg-hkdf-with-sha512 are defined in {{!RFC8619}} (see {{sec-identifiers}}). The parameter field MUST be absent when one of these algorithm identifiers is used to specify the KDF for ML-KEM in KemRecipientInfo.
+HKDF may be used with different hash functions, including SHA2-256 or SHA2-512 {{?FIPS180=NIST.FIPS.180-4}}. The object identifiers id-alg-hkdf-with-sha256 and id-alg-hkdf-with-sha512 are defined in {{!RFC8619}} (see {{sec-identifiers}}), and specify the use of HKDF with SHA2-256 and SHA2-512 respectively. The parameter field MUST be absent when one of these algorithm identifiers is used to specify the KDF for ML-KEM in KemRecipientInfo.
 
-#### KMAC
+### Use of the KMAC-based Key Derivation Function
 
 KMAC128-KDF and KMAC256-KDF are KMAC-based KDFs specified for use in CMS in {{!I-D.ietf-lamps-cms-sha3-hash}}.  Here, KMAC# indicates the use of either KMAC128-KDF or KMAC256-KDF.
 
 KMAC#(K, X, L, S) takes the following parameters:
 
-> K: the input key-derivation key.  In this document this is the shared secret outputted from the Encapsulate() or Decapsulate() functions.  This corresponds to the IKM KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}.
+K:
+: the input key-derivation key.  In this document this is the shared secret outputted from the Encapsulate() or Decapsulate() functions.  This corresponds to the IKM KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}.
 
-> X: the context, corresponding to the info KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo.
+X:
+: the context, corresponding to the info KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo.
 
-> L: the output length, in bits.  This corresponds to the L KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}, which is identified in the kekLength value from KEMRecipientInfo.  The L KDF input and kekLength values are specified in octets while this L parameter is specified in bits.
+L:
+: the output length, in bits.  This corresponds to the L KDF input from Section 5 of {{!I-D.ietf-lamps-cms-kemri}}, which is identified in the kekLength value from KEMRecipientInfo.  The L KDF input and kekLength values are specified in octets while this L parameter is specified in bits.
 
-> S: the optional customization label.  In this document this parameter is unused, that is it is the zero-length string "".
+S:
+: the optional customization label.  In this document this parameter is unused, that is it is the zero-length string "".
 
 The object identifier for KMAC128-KDF is id-kmac128 (see {{sec-identifiers}}).
 
@@ -291,7 +227,7 @@ Since the customization label to KMAC# is not used, the parameter field MUST be 
 
 ### Components for ML-KEM in CMS
 
-An implementation MUST support at least one of KMAC# or HMAC as the KDF for ML-KEM in KemRecipientInfo.  It is RECOMMENDED that a CMS recipient supports both. KMAC# is given as an option because ML-KEM uses SHA3 and SHAKE as internal functions, so an implementation may want to use these to reduce code size. HMAC is given as an option because SHA2 is widely supported and the CMS-level code may not have access to underlying KECCAK-based implementations.
+An implementation MUST support at least one of KMAC# or HMAC as the KDF for ML-KEM in KemRecipientInfo.  It is RECOMMENDED that a CMS recipient supports both. KMAC# is given as an option because ML-KEM uses SHA3 and SHAKE as internal functions, so an implementation may want to use these to reduce code size. HMAC is given as an option because SHA2 is widely supported and the CMS-level code may not have access to underlying KECCAK-based implementations. Note that the KDF used to process the KEMRecipientInfo structure MAY be different from the KDF used in the ML-KEM algorithm.
 
 For ML-KEM-512, the following underlying components MUST be supported:
 
@@ -329,15 +265,15 @@ If underlying components other than those specified above are used, then the fol
 
 The conventions specified in this section augment {{!RFC5280}}.
 
-A recipient who employs the ML-KEM Algorithm with a certificate MUST identify the public key in the certificate using the id-ML-KEM-512, id-ML-KEM-768, or id-ML-KEM-1024 object identifiers following the conventions specified in {{!I-D.ietf-lamps-kyber-certificates}} and reproduced in {{sec-identifiers}}.
+A recipient who employs the ML-KEM algorithm with a certificate MUST identify the public key in the certificate using the id-ML-KEM-512, id-ML-KEM-768, or id-ML-KEM-1024 object identifiers following the conventions specified in {{!I-D.ietf-lamps-kyber-certificates}} and reproduced in {{sec-identifiers}}.
 
 In particular, the key usage certificate extension MUST only contain keyEncipherment (Section 4.2.1.3 of {{!RFC5280}}).
 
 ## SMIME Capabilities Attribute Conventions {#sec-using-smime-caps}
 
-Section 2.5.2 of {{!RFC8551}} defines the SMIMECapabilities attribute to announce a partial list of algorithms that an S/MIME implementation can support. When constructing a CMS signed-data content type {{!RFC5652}}, a compliant implementation MAY include the SMIMECapabilities attribute that announces support for one or more of the ML-KEM Algorithm identifiers.
+Section 2.5.2 of {{!RFC8551}} defines the SMIMECapabilities attribute to announce a partial list of algorithms that an S/MIME implementation can support. When constructing a CMS signed-data content type {{!RFC5652}}, a compliant implementation MAY include the SMIMECapabilities attribute that announces support for one or more of the ML-KEM algorithm identifiers.
 
-The SMIMECapability SEQUENCE representing the ML-KEM Algorithm MUST include one of the ML-KEM object identifiers in the capabilityID field. When the one of the ML-KEM object identifiers appears in the capabilityID field, the parameters MUST NOT be present.
+The SMIMECapability SEQUENCE representing the ML-KEM algorithm MUST include one of the ML-KEM object identifiers in the capabilityID field. When the one of the ML-KEM object identifiers appears in the capabilityID field, the parameters MUST NOT be present.
 
 <!-- End of smime-capabilities-attribute-conventions section -->
 
@@ -368,7 +304,7 @@ All identifiers used by ML-KEM in CMS are defined elsewhere but reproduced here 
   id-kmac256 OBJECT IDENTIFIER ::= { hashAlgs 22 }
 
   aes OBJECT IDENTIFIER ::= { joint-iso-itu-t(2) country(16) us(840)
-      organization(1) gov(101) csor(3)_ nistAlgorithms(4) 1 }
+      organization(1) gov(101) csor(3) nistAlgorithms(4) 1 }
 
   id-aes128-wrap OBJECT IDENTIFIER ::= { aes 5 }
   id-aes256-wrap OBJECT IDENTIFIER ::= { aes 45 }
@@ -378,7 +314,7 @@ All identifiers used by ML-KEM in CMS are defined elsewhere but reproduced here 
 
 \[EDNOTE: many of the security considerations below apply to ML-KEM in general and are not specific to ML-KEM within CMS. As this document and draft-ietf-lamps-kyber-certificates approach WGLC, the two Security Consideration sections should be harmonized and duplicate text removed.]
 
-The Security Considerations section of {{!I-D.ietf-lamps-kyber-certificates}} applies to this specification as well.
+The Security Considerations sections of {{!I-D.ietf-lamps-kyber-certificates}} and {{!I-D.ietf-lamps-cms-kemri}} apply to this specification as well.
 
 The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in the NIST SP 800-57 Part 1 {{?NIST.SP.800-57pt1r5}}. To achieve 128-bit security, ML-KEM-512 SHOULD be used, the key-derivation function SHOULD provide at least 128 bits of security, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 128-bit key. To achieve 192-bit security, ML-KEM-768 SHOULD be used, the key-derivation function SHOULD provide at least 192 bits of security, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 192-bit key or larger. In this case AES Key Wrap with a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 SHOULD be used, the key-derivation function SHOULD provide at least 256 bits of security, and the symmetric key-encryption algorithm SHOULD be AES Key Wrap with a 256-bit key.
 
@@ -396,7 +332,7 @@ Implementations MUST protect the ML-KEM private key, the key-encryption key, the
 
 Additional considerations related to key management may be found in {{?NIST.SP.800-57pt1r5}}.
 
-The security of the ML-KEM Algorithm depends on a quality random number generator. For further discussion on random number generation, see {{?RFC4086}}.
+The security of the ML-KEM algorithm depends on a quality random number generator. For further discussion on random number generation, see {{?RFC4086}}.
 
 ML-KEM encapsulation and decapsulation only outputs a shared secret and ciphertext. Implementations SHOULD NOT use intermediate values directly for any purpose.
 
@@ -420,7 +356,7 @@ Within the CMS, algorithms are identified by object identifiers (OIDs). All of t
 
 This document borrows heavily from {{?I-D.ietf-lamps-rfc5990bis}}, {{FIPS203}}, and {{?I-D.kampanakis-ml-kem-ikev2}}. Thanks go to the authors of those documents. "Copying always makes things easier and less error prone" - RFC8411.
 
-Thanks to Carl Wallace for the detailed review and interoperability testing.
+Thanks to Carl Wallace and Jonathan Hammel for the detailed review and Carl Wallace for interoperability testing.
 
 <!-- End of acknowledgements section -->
 
@@ -428,7 +364,13 @@ Thanks to Carl Wallace for the detailed review and interoperability testing.
 
 # ASN.1 Module
 
-\[EDNOTE: Do we need an ASN.1 module? We haven't defined any new ASN.1.  Yes, see S/MIME ASN.1 changes to composite-kem draft]
+RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-cms-kemri].
+
+~~~
+<CODE BEGINS>
+{::include CMS-KYBER-2024.asn}
+<CODE ENDS>
+~~~
 
 ## Examples
 
@@ -443,6 +385,11 @@ section to be completed
 
 - draft-ietf-lamps-cms-kyber-04:
    - Add HMAC with SHA2 KDF.
+   - Address Jonathan Hammell's review:
+     - Remove section introducing KEMs, move relevant bits to ML-KEM section
+     - Remove kemri processing summary, move relevant bits elsewhere
+     - Minor editorial changes
+   - ASN.1 module
 - draft-ietf-lamps-cms-kyber-03:
    - Switch MTI KDF from HKDF to KMAC.
 - draft-ietf-lamps-cms-kyber-02:
