@@ -291,7 +291,7 @@ Since the customization label to KMAC# is not used, the parameter field MUST be 
 
 ### Components for ML-KEM in CMS
 
-An implementation MUST support at least one of KMAC# or HMAC as the KDF for ML-KEM in KemRecipientInfo. KMAC# is given as an option because ML-KEM uses SHA3 and SHAKE as internal functions, so an implementation may want to use these to reduce code size. HMAC is given as an option because SHA2 is widely supported and the CMS-level code may not have access to underlying KECCAK-based implementations.
+An implementation MUST support at least one of KMAC# or HMAC as the KDF for ML-KEM in KemRecipientInfo.  It is RECMMENDED that a CMS recipient supports both. KMAC# is given as an option because ML-KEM uses SHA3 and SHAKE as internal functions, so an implementation may want to use these to reduce code size. HMAC is given as an option because SHA2 is widely supported and the CMS-level code may not have access to underlying KECCAK-based implementations.
 
 For ML-KEM-512, the following underlying components MUST be supported:
 
