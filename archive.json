@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-04T00:33:57.277016+00:00",
+  "timestamp": "2024-07-07T00:37:51.797195+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -55,15 +55,15 @@
       "id": "I_kwDOLQoLsc6AFSgy",
       "title": "Is \"CMS KEMRecipientInfo Processing Summary\" section needed?",
       "url": "https://github.com/lamps-wg/cms-kyber/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Section 1.4 \"CMS KEMRecipientInfo Processing Summary\" was copied from rfc5990bis.  Section 2 in cms-kemri is a more complete statement of the process, so is our section needed?\r\n\r\nIf we keep it, in the AuthenticatedData case the key that is transfered is a MAC key, not a CEK.",
       "createdAt": "2024-02-22T11:39:12Z",
-      "updatedAt": "2024-03-18T14:56:59Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-05T14:18:06Z",
+      "closedAt": "2024-07-05T14:18:06Z",
       "comments": [
         {
           "author": "danvangeest",
@@ -159,15 +159,15 @@
       "id": "I_kwDOLQoLsc6CriSj",
       "title": "KMAC OR HKDF-with-SHA2-*",
       "url": "https://github.com/lamps-wg/cms-kyber/issues/8",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "KMAC uses SHAKE (SHA3).  HKDF-with-SHA2-* uses SHA2.\r\n\r\nCurrently the draft specifies KMAC as the only MTI KDF algorithm.  There was a concern from LAMPS (Deb Cooley) that some implementations might not have access to SHA3/KMAC at the CMS level.  That is, SHA3 may only be at the crypto level (maybe even in an HSM or TPM) since ML-KEM requires it, but many other things don't.  On the other hand, low-resource devices may want to only support SHA3 and not SHA2.\r\n\r\nIt was mentioned in LAMPS IETF 119 that we could give the option for either to be supported, with good reasoning to it doesn't get challenged by IESG.\r\n\r\nSuggested text, before I have time to actually write a PR:\r\n\r\n```\r\nOne of KMAC{128,256} or HKDF-with-SHA{256,512} MUST be supported.  It is RECOMMENDED that both be supported.\r\n```\r\n\r\nand then specific details for each of the security variants.",
       "createdAt": "2024-03-18T14:55:51Z",
-      "updatedAt": "2024-03-18T14:55:51Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-05T14:17:51Z",
+      "closedAt": "2024-07-05T14:17:51Z",
       "comments": []
     },
     {
@@ -175,15 +175,15 @@
       "id": "I_kwDOLQoLsc6CrkK1",
       "title": "ASN.1",
       "url": "https://github.com/lamps-wg/cms-kyber/issues/9",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add ASN.1 with SMIMECaps. See composite-kems CMS section and ASN.1.\r\n\r\nSomeone needs to define a KEM-ALGORITHM for ML-KEM, I think it should be the kyber-certificates, but tracking it here just in case.",
       "createdAt": "2024-03-18T14:58:53Z",
-      "updatedAt": "2024-03-18T14:58:53Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-05T14:18:15Z",
+      "closedAt": "2024-07-05T14:18:15Z",
       "comments": []
     },
     {
@@ -191,15 +191,15 @@
       "id": "I_kwDOLQoLsc6C70jq",
       "title": "Address Jonathan Hammell's review",
       "url": "https://github.com/lamps-wg/cms-kyber/issues/10",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/spasm/puobAXZ71oE3RZG2O6S2O9zwamA/\r\n",
       "createdAt": "2024-03-20T05:57:29Z",
-      "updatedAt": "2024-03-20T05:57:29Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-05T14:17:58Z",
+      "closedAt": "2024-07-05T14:17:58Z",
       "comments": []
     },
     {
@@ -212,9 +212,9 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-cek-hkdf-sha256/ requires HKDF-with-SHA256 for its mitigation.  Are there any use cases where this mitigation wouldn't be implemented?  If not, this essentially means that HKDF and SHA2 is required in CMS.  Does this mean that cms-kyber should just switch its MTI KDF to only HKDF and remote the requirement for KMAC?",
+      "body": "https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-cek-hkdf-sha256/ requires HKDF-with-SHA256 for its mitigation.  Are there any use cases where this mitigation wouldn't be implemented?  If not, this essentially means that HKDF and SHA2 is required in CMS.  Does this mean that cms-kyber should just switch its MTI KDF to only HKDF and remove the requirement for KMAC?",
       "createdAt": "2024-03-20T06:02:13Z",
-      "updatedAt": "2024-03-20T06:02:13Z",
+      "updatedAt": "2024-07-04T07:40:23Z",
       "closedAt": null,
       "comments": []
     }
@@ -472,6 +472,70 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOLQoLsc50aUTT",
+      "title": "Add HMAC with SHA2 as a KDF, jhammell's review, ASN.1",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/12",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Jonathan's review: https://mailarchive.ietf.org/arch/msg/spasm/puobAXZ71oE3RZG2O6S2O9zwamA/",
+      "createdAt": "2024-07-04T07:56:22Z",
+      "updatedAt": "2024-07-05T14:13:13Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "d304bc061fd9cb87febe6d6a2a44fb4c67eb9725",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/hmac-with-sha2",
+      "headRefOid": "6f3abb5c5f6bc8f1fb8210449eea8555111f798f",
+      "closedAt": "2024-07-05T14:13:13Z",
+      "mergedAt": "2024-07-05T14:13:13Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "ea8d9cbf73ecbe6274a78761114427e631cea48b"
+      },
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixes #8\r\nFixes #10 \r\nFixes #2 \r\nFixes #9",
+          "createdAt": "2024-07-04T08:04:01Z",
+          "updatedAt": "2024-07-05T14:09:40Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOLQoLsc50cjTa",
+      "title": "Jonathan Hammell's review and ASN.1 module.",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/13",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Review: https://mailarchive.ietf.org/arch/msg/spasm/puobAXZ71oE3RZG2O6S2O9zwamA/\r\n\r\ncloses #9 and #10 ",
+      "createdAt": "2024-07-04T13:21:30Z",
+      "updatedAt": "2024-07-04T13:23:34Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "dvg/hmac-with-sha2",
+      "baseRefOid": "1db5db95051f02c08012fe1afc6485d8b857ef9c",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/jhammell_review",
+      "headRefOid": "6f3abb5c5f6bc8f1fb8210449eea8555111f798f",
+      "closedAt": "2024-07-04T13:23:34Z",
+      "mergedAt": "2024-07-04T13:23:34Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "6f3abb5c5f6bc8f1fb8210449eea8555111f798f"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
