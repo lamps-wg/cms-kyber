@@ -60,7 +60,7 @@ author:
       city: Paris
       country: France
       code: 75005
-      email: daniel.vangeest.ietf@gmail.com
+      email: daniel.vangeest@cryptonext-security.com
 
 
 normative:
