@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 10 March 2025                                           Entrust
+Expires: 23 March 2025                                           Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                        6 September 2024
+                                                       19 September 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 March 2025.
+   This Internet-Draft will expire on 23 March 2025.
 
 Copyright Notice
 
@@ -619,9 +619,9 @@ Table of Contents
               Kampanakis, P. and G. Ravago, "Post-quantum Hybrid Key
               Exchange with ML-KEM in the Internet Key Exchange Protocol
               Version 2 (IKEv2)", Work in Progress, Internet-Draft,
-              draft-kampanakis-ml-kem-ikev2-06, 30 August 2024,
+              draft-kampanakis-ml-kem-ikev2-08, 18 September 2024,
               <https://datatracker.ietf.org/doc/html/draft-kampanakis-
-              ml-kem-ikev2-06>.
+              ml-kem-ikev2-08>.
 
    [NIST-PQ]  National Institute of Standards and Technology, "Post-
               Quantum Cryptography Project", 20 December 2016,
@@ -762,4 +762,4 @@ Authors' Addresses
    16, Boulevard Saint-Germain
    75005 Paris
    France
-   Email: daniel.vangeest.ietf@gmail.com
+   Email: daniel.vangeest@cryptonext-security.com
