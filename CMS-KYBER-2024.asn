@@ -22,9 +22,18 @@ IMPORTS
     FROM CMSAesRsaesOaep-2009
        { iso(1) member-body(2) us(840) rsadsi(113549)
        pkcs(1) pkcs-9(9) smime(16) modules(0)
-       id-mod-cms-aes-02(38) };
+       id-mod-cms-aes-02(38) }
 
--- ML-KEM Algorithm
+  id-alg-ml-kem-512, id-alg-ml-kem-768, id-alg-ml-kem-1024,
+  pk-ml-kem-512, pk-ml-kem-768, pk-ml-kem-1024
+    FROM X509-ML-KEM-2024
+       { iso(1) identified-organization(3) dod(6)
+         internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
+         id-mod-x509-ml-kem-2024(TBD2) };
+
+--
+-- ML-KEM Key Encapsulation Mechanism Algorithms
+--
 
 kema-ml-kem-512 KEM-ALGORITHM ::= {
    IDENTIFIER id-alg-ml-kem-512

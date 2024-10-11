@@ -244,7 +244,7 @@ The SMIMECapability SEQUENCE representing the ML-KEM algorithm MUST include one 
 
 # Identifiers {#sec-identifiers}
 
-All identifiers used by ML-KEM in CMS are defined elsewhere but reproduced here for convenience:
+All identifiers used to indicate ML-KEM within CMS are defined elsewhere but reproduced here for convenience:
 
 ~~~
   nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-ccitt(2)
@@ -306,9 +306,7 @@ Parties MAY gain assurance that implementations are correct through formal imple
 
 # IANA Considerations {#sec-iana-considerations}
 
-None.
-
-Within the CMS, algorithms are identified by object identifiers (OIDs). All of the OIDs used in this document were assigned in other IETF documents, in ISO/IEC standards documents, or by the National Institute of Standards and Technology (NIST).
+For the ASN.1 Module in {{asn1}}, IANA is requested to assign an object identifier (OID) for the module identifier (TBD1) with a Description of "id-mod-cms-ml-kem-2024". The OID for the module should be allocated in the "SMI Security for S/MIME Module Identifier" registry (1.2.840.113549.1.9.16.0).
 
 <!-- End of iana-considerations section -->
 
@@ -322,7 +320,9 @@ Thanks to Carl Wallace and Jonathan Hammel for the detailed review and Carl Wall
 
 --- back
 
-# ASN.1 Module
+# ASN.1 Module {#asn1}
+
+RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates].
 
 ~~~
 <CODE BEGINS>
