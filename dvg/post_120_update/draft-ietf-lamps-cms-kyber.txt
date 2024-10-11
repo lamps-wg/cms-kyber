@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 13 April 2025                                           Entrust
+Expires: 14 April 2025                                           Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                         10 October 2024
+                                                         11 October 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 April 2025.
+   This Internet-Draft will expire on 14 April 2025.
 
 Copyright Notice
 
@@ -315,8 +315,8 @@ Table of Contents
 
 3.  Identifiers
 
-   All identifiers used by ML-KEM in CMS are defined elsewhere but
-   reproduced here for convenience:
+   All identifiers used to indicate ML-KEM within CMS are defined
+   elsewhere but reproduced here for convenience:
 
      nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-ccitt(2)
          country(16) us(840) organization(1) gov(101) csor(3)
@@ -434,12 +434,11 @@ Table of Contents
 
 5.  IANA Considerations
 
-   None.
-
-   Within the CMS, algorithms are identified by object identifiers
-   (OIDs).  All of the OIDs used in this document were assigned in other
-   IETF documents, in ISO/IEC standards documents, or by the National
-   Institute of Standards and Technology (NIST).
+   For the ASN.1 Module in Appendix A, IANA is requested to assign an
+   object identifier (OID) for the module identifier (TBD1) with a
+   Description of "id-mod-cms-ml-kem-2024".  The OID for the module
+   should be allocated in the "SMI Security for S/MIME Module
+   Identifier" registry (1.2.840.113549.1.9.16.0).
 
 6.  Acknowledgements
 
@@ -571,6 +570,9 @@ Table of Contents
 
 Appendix A.  ASN.1 Module
 
+   RFC EDITOR: Please replace TBD2 with the value assigned by IANA
+   during the publication of [I-D.ietf-lamps-kyber-certificates].
+
    <CODE BEGINS>
    CMS-ML-KEM-2024
    { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
@@ -596,9 +598,18 @@ Appendix A.  ASN.1 Module
        FROM CMSAesRsaesOaep-2009
           { iso(1) member-body(2) us(840) rsadsi(113549)
           pkcs(1) pkcs-9(9) smime(16) modules(0)
-          id-mod-cms-aes-02(38) };
+          id-mod-cms-aes-02(38) }
 
-   -- ML-KEM Algorithm
+     id-alg-ml-kem-512, id-alg-ml-kem-768, id-alg-ml-kem-1024,
+     pk-ml-kem-512, pk-ml-kem-768, pk-ml-kem-1024
+       FROM X509-ML-KEM-2024
+          { iso(1) identified-organization(3) dod(6)
+            internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
+            id-mod-x509-ml-kem-2024(TBD2) };
+
+   --
+   -- ML-KEM Key Encapsulation Mechanism Algorithms
+   --
 
    kema-ml-kem-512 KEM-ALGORITHM ::= {
       IDENTIFIER id-alg-ml-kem-512
