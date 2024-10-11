@@ -1,3 +1,4 @@
+DEPS_FILES := CMS-KYBER-2024.asn
 LIBDIR := lib
 include $(LIBDIR)/main.mk
 
