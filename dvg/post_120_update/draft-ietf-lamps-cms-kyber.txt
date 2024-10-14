@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 14 April 2025                                           Entrust
+Expires: 17 April 2025                                           Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                         11 October 2024
+                                                         14 October 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 April 2025.
+   This Internet-Draft will expire on 17 April 2025.
 
 Copyright Notice
 
@@ -369,16 +369,16 @@ Table of Contents
    of ML-KEM will never explicitly fail.  Specifically, the ML-
    KEM.Encaps and ML-KEM.Decaps algorithms from [FIPS203] will always
    output a value with the same data type as a shared secret key, and
-   will never output an error or failure symbol.  However, it is
-   possible (though extremely unlikely) that the process will fail in
-   the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different
-   outputs, even though both of them are behaving honestly and no
-   adversarial interference is present.  In this case, the sender and
-   recipient clearly did not succeed in producing a shared secret key.
-   This event is called a decapsulation failure.  Estimates for the
-   decapsulation failure probability (or rate) for each of the ML-KEM
-   parameter sets are provided in Table 1 of [FIPS203] and reproduced
-   here in Table 1.
+   will never output an error or failure symbol for well-formed inputs.
+   However, it is possible (though extremely unlikely) that the process
+   will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will
+   produce different outputs, even though both of them are behaving
+   honestly and no adversarial interference is present.  In this case,
+   the sender and recipient clearly did not succeed in producing a
+   shared secret key.  This event is called a decapsulation failure.
+   Estimates for the decapsulation failure probability (or rate) for
+   each of the ML-KEM parameter sets are provided in Table 1 of
+   [FIPS203] and reproduced here in Table 1.
 
               +===============+============================+
               | Parameter set | Decapsulation failure rate |
@@ -390,7 +390,7 @@ Table of Contents
               | ML-KEM-1024   | 2^(-174.8)                 |
               +---------------+----------------------------+
 
-               Table 1: ML-KEM decapsulation failures rates
+               Table 1: ML-KEM decapsulation failure rates
 
    Implementations MUST protect the ML-KEM private key, the key-
    encryption key, the content-encryption key, message-authentication
@@ -583,6 +583,12 @@ Appendix A.  ASN.1 Module
    EXPORTS ALL;
 
    IMPORTS
+     SMIME-CAPS
+       FROM AlgorithmInformation-2009  -- RFC 5912 [X509ASN1]
+         { iso(1) identified-organization(3) dod(6) internet(1)
+           security(5) mechanisms(5) pkix(7) id-mod(0)
+           id-mod-algorithmInformation-02(58) }
+
      KEM-ALGORITHM
        FROM KEMAlgorithmInformation-2023  -- [RFC 9629]
           { iso(1) identified-organization(3) dod(6) internet(1)
