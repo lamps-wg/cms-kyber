@@ -88,6 +88,7 @@ informative:
       org: National Institute of Standards and Technology
     title: "Cryptographic Module Validation Program"
     date: 2016
+  RFC5911:
 --- abstract
 
 The Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM) algorithm is a one-pass (store-and-forward) cryptographic mechanism for an originator to securely send keying material to a recipient using the recipient's ML-KEM public key. Three parameters sets for the ML-KEM algorithm are specified by NIST in {{FIPS203}}. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as specified in {{!RFC9629}}.
@@ -99,7 +100,7 @@ The Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM) algorithm is a one
 
 # Introduction {#sec-introduction}
 
-ML-KEM is an IND-CCA2-secure key-encapsulation mechanism (KEM) standardized in {{FIPS203}} by the US NIST PQC Project {{NIST-PQ}}.
+ML-KEM is an IND-CCA2-secure key-encapsulation mechanism (KEM) standardized in {{FIPS203}} by the US NIST PQC Project {{NIST-PQ}}. Prior to standardization, the alorithm was known as Kyber.  ML-KEM and Kyber are not compatible.
 
 Native support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!RFC9629}}, which defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the direct use of ML-KEM in the KEMRecipientInfo structure in CMS using each of the three parameter sets from {{FIPS203}}, namely MK-KEM-512, ML-KEM-768, and ML-KEM-1024.  It does not address or preclude the use of ML-KEM as part of any hybrid scheme.
 
