@@ -103,7 +103,7 @@ Table of Contents
 
    ML-KEM is an IND-CCA2-secure key-encapsulation mechanism (KEM)
    standardized in [FIPS203] by the US NIST PQC Project [NIST-PQ].
-   Prior to standardization, the alorithm was known as Kyber.  ML-KEM
+   Prior to standardization, the algorithm was known as Kyber.  ML-KEM
    and Kyber are not compatible.
 
    Native support for Key Encapsulation Mechanisms (KEMs) was added to
