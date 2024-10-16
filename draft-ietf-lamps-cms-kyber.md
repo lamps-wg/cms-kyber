@@ -64,13 +64,7 @@ author:
 
 
 normative:
-  FIPS203: # TODO: just use NIST.FIPS.203 when bib.ietf.org is updated
-      title: "Module-Lattice-based Key-Encapsulation Mechanism Standard"
-      date: 2024-08-13
-      target: https://doi.org/10.6028/NIST.FIPS.203
-      author:
-        org: National Institute of Standards and Technology (NIST)
-      seriesinfo: FIPS PUB 203
+  FIPS203: DOI.10.6028/NIST.FIPS.203
   RFC8551:
 
 # <!-- EDNOTE: full syntax for this defined here: https://github.com/cabo/kramdown-rfc2629 -->
