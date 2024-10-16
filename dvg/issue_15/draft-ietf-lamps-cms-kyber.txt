@@ -454,10 +454,10 @@ Table of Contents
 
 7.1.  Normative References
 
-   [FIPS203]  National Institute of Standards and Technology (NIST),
-              "Module-Lattice-based Key-Encapsulation Mechanism
-              Standard", FIPS PUB 203 , 13 August 2024,
-              <https://doi.org/10.6028/NIST.FIPS.203>.
+   [FIPS203]  "Module-Lattice-Based Key-Encapsulation Mechanism
+              Standard", National Institute of Standards and Technology,
+              DOI 10.6028/nist.fips.203, August 2024,
+              <https://doi.org/10.6028/nist.fips.203>.
 
    [I-D.ietf-lamps-kyber-certificates]
               Turner, S., Kampanakis, P., Massimo, J., and B.
