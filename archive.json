@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-15T00:40:48.517941+00:00",
+  "timestamp": "2024-10-17T00:40:14.053397+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -119,16 +119,24 @@
       "id": "I_kwDOLQoLsc6AX2lx",
       "title": "Add examples",
       "url": "https://github.com/lamps-wg/cms-kyber/issues/5",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "See Appendices C and D of https://datatracker.ietf.org/doc/draft-ietf-lamps-rfc5990bis/ for examples.\r\n\r\nWe probably don't need a SMIMECapabilities Examples section because our encoding is much simpler that for RSA-KEM.",
       "createdAt": "2024-02-26T09:55:31Z",
-      "updatedAt": "2024-02-26T09:55:31Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-10-16T08:37:10Z",
+      "closedAt": "2024-10-16T08:37:09Z",
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Done with #14 ",
+          "createdAt": "2024-10-16T08:37:10Z",
+          "updatedAt": "2024-10-16T08:37:10Z"
+        }
+      ]
     },
     {
       "number": 6,
@@ -207,15 +215,39 @@
       "id": "I_kwDOLQoLsc6C71y7",
       "title": "More KMAC vs HKDF",
       "url": "https://github.com/lamps-wg/cms-kyber/issues/11",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-cek-hkdf-sha256/ requires HKDF-with-SHA256 for its mitigation.  Are there any use cases where this mitigation wouldn't be implemented?  If not, this essentially means that HKDF and SHA2 is required in CMS.  Does this mean that cms-kyber should just switch its MTI KDF to only HKDF and remove the requirement for KMAC?",
       "createdAt": "2024-03-20T06:02:13Z",
-      "updatedAt": "2024-07-04T07:40:23Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-16T08:37:33Z",
+      "closedAt": "2024-10-16T08:37:33Z",
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "done with #14 ",
+          "createdAt": "2024-10-16T08:37:33Z",
+          "updatedAt": "2024-10-16T08:37:33Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOLQoLsc6aXKkT",
+      "title": "ML-KEM description in abstract",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/15",
+      "state": "CLOSED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Deirdre pinged me privately to complain about the abstract:\r\n\r\n\r\n\u201cThe Module-Lattice-based Key-Encapsulation Mechanism (ML-KEM)\r\n   algorithm is a one-pass (store-and-forward) cryptographic mechanism\r\n   for an originator to securely send keying material to a recipient\r\n   using the recipient's ML-KEM public key.\r\n\r\nI agree that when combined with CMS and KEMRI, you get a one-pass store-and-forward construct \u2013 IE the encrypted CMS payload and all the crypto stuff go together in the same message. But ML-KEM by itself is not a store-and-forward; it\u2019s a KEM.\r\n\r\nI suggest instead just borrowing the abstract off draft-ietf-lamps-kyber-certificates:\r\n\r\n\u201cModule-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a\r\n   quantum-resistant key-encapsulation mechanism (KEM).  This document\r\n   specifies conventions for using ML-KEM within the Cryptographic Message Syntax (CMS).",
+      "createdAt": "2024-10-15T20:05:35Z",
+      "updatedAt": "2024-10-16T14:46:27Z",
+      "closedAt": "2024-10-16T14:46:27Z",
       "comments": []
     }
   ],
@@ -542,24 +574,26 @@
       "id": "PR_kwDOLQoLsc5-Pw8J",
       "title": "Dvg/post 120 update",
       "url": "https://github.com/lamps-wg/cms-kyber/pull/14",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-10T16:24:25Z",
-      "updatedAt": "2024-10-14T10:22:05Z",
+      "updatedAt": "2024-10-15T14:53:42Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "dbedbe20dc7c20542a39fd333b4c6976105e3e47",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/post_120_update",
       "headRefOid": "4e16867b08357203847efdf26e69625a68432420",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-10-15T14:53:42Z",
+      "mergedAt": "2024-10-15T14:53:42Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "909e5d7c3b05801e5052fb626dd4348d19d00a5c"
+      },
       "comments": [],
       "reviews": [
         {
@@ -581,6 +615,48 @@
               "updatedAt": "2024-10-11T08:26:00Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOLQoLsc5-yrZ3",
+      "title": "Fix abstract",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/16",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #15",
+      "createdAt": "2024-10-16T08:41:03Z",
+      "updatedAt": "2024-10-16T14:46:26Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "26aa28f67832564d29e51b3825ce381c16bfa6c3",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/issue_15",
+      "headRefOid": "fc42d9258e2f6e7a120d37b18ce8969311b70341",
+      "closedAt": "2024-10-16T14:46:26Z",
+      "mergedAt": "2024-10-16T14:46:26Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "26374a44cb8f5f27a1a50c09c70ac7caa374121f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc6Na60l",
+          "commit": {
+            "abbreviatedOid": "fc42d92"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-16T14:16:57Z",
+          "updatedAt": "2024-10-16T14:16:57Z",
+          "comments": []
         }
       ]
     }
