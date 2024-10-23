@@ -586,8 +586,8 @@ Appendix A.  ASN.1 Module
 
    RFC EDITOR: Please replace TBD2 with the value assigned by IANA
    during the publication of [I-D.ietf-lamps-kyber-certificates].  Also
-   please replace [I-D.ietf-lamps-kyber-certificates] in the module a
-   reference to the published RFC.
+   please replace [I-D.ietf-lamps-kyber-certificates] in the module with
+   a reference to the published RFC.
 
    <CODE BEGINS>
    CMS-ML-KEM-2024
