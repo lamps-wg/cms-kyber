@@ -66,6 +66,17 @@ author:
 normative:
   FIPS203: DOI.10.6028/NIST.FIPS.203
   RFC8551:
+  X680:
+    target: https://www.itu.int/rec/T-REC-X.680
+    title: >
+      Information technology - Abstract Syntax Notation One (ASN.1):
+      Specification of basic notation
+    date: 2021-02
+    author:
+    -  org: ITU-T
+    seriesinfo:
+      ITU-T Recommendation: X.680
+      ISO/IEC: 8824-1:2021
 
 # <!-- EDNOTE: full syntax for this defined here: https://github.com/cabo/kramdown-rfc2629 -->
 
@@ -317,7 +328,9 @@ Thanks to Carl Wallace and Jonathan Hammel for the detailed review and Carl Wall
 
 # ASN.1 Module {#asn1}
 
-RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates].
+This appendix includes the ASN.1 module {{X680}} for ML-KEM. This module imports objects from {{RFC5911}}, {{RFC9629}}, {{RFC8619}}, {{I-D.ietf-lamps-kyber-certificates}}.
+
+RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates]. Also please replace [I-D.ietf-lamps-kyber-certificates] in the module with a reference to the published RFC.
 
 ~~~
 <CODE BEGINS>
