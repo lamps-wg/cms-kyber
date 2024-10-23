@@ -580,7 +580,7 @@ Table of Contents
 
 Appendix A.  ASN.1 Module
 
-   This appendix includes the ASN.1 module [X680] for the ML-KEM.  This
+   This appendix includes the ASN.1 module [X680] for ML-KEM.  This
    module imports objects from [RFC5911], [RFC9629], [RFC8619],
    [I-D.ietf-lamps-kyber-certificates].
 
