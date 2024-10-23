@@ -330,7 +330,7 @@ Thanks to Carl Wallace and Jonathan Hammel for the detailed review and Carl Wall
 
 This appendix includes the ASN.1 module {{X680}} for the ML-KEM. This module imports objects from {{RFC5911}}, {{RFC9629}}, {{RFC8619}}, {{I-D.ietf-lamps-kyber-certificates}}.
 
-RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates] Also please replace [I-D.ietf-lamps-kyber-certificates] in the module a reference to the published RFC.
+RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates]. Also please replace [I-D.ietf-lamps-kyber-certificates] in the module a reference to the published RFC.
 
 ~~~
 <CODE BEGINS>
