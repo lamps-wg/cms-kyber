@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 19 April 2025                                           Entrust
+Expires: 26 April 2025                                           Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                         16 October 2024
+                                                         23 October 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -39,7 +39,7 @@ About This Document
    https://www.ietf.org/mailman/listinfo/spasm/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/lamps-wg/kyber-certificates.
+   https://github.com/lamps-wg/cms-kyber.
 
 Status of This Memo
 
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 April 2025.
+   This Internet-Draft will expire on 26 April 2025.
 
 Copyright Notice
 
