@@ -1596,8 +1596,12 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
 <span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Algorithm Identifiers for the HMAC-based Extract-and-Expand Key Derivation Function (HKDF)"</span>, <span class="seriesInfo">RFC 8619</span>, <span class="seriesInfo">DOI 10.17487/RFC8619</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8619">https://www.rfc-editor.org/rfc/rfc8619</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9629">[RFC9629]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Gray, J.</span>, and <span class="refAuthor">T. Okubo</span>, <span class="refTitle">"Using Key Encapsulation Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">RFC 9629</span>, <span class="seriesInfo">DOI 10.17487/RFC9629</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9629">https://www.rfc-editor.org/rfc/rfc9629</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="X680">[X680]</dt>
+      <dd>
+<span class="refAuthor">ITU-T</span>, <span class="refTitle">"Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation"</span>, <span class="seriesInfo">ITU-T Recommendation X.680</span>, <span class="seriesInfo">ISO/IEC 8824-1:2021</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.itu.int/rec/T-REC-X.680">https://www.itu.int/rec/T-REC-X.680</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1650,8 +1654,9 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
       <h2 id="name-asn1-module">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-asn1-module" class="section-name selfRef">ASN.1 Module</a>
       </h2>
-<p id="appendix-A-1">RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<div class="breakable sourcecode" id="appendix-A-2">
+<p id="appendix-A-1">This appendix includes the ASN.1 module <span>[<a href="#X680" class="cite xref">X680</a>]</span> for ML-KEM. This module imports objects from <span>[<a href="#RFC5911" class="cite xref">RFC5911</a>]</span>, <span>[<a href="#RFC9629" class="cite xref">RFC9629</a>]</span>, <span>[<a href="#RFC8619" class="cite xref">RFC8619</a>]</span>, <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span>. Also please replace <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> in the module with a reference to the published RFC.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<div class="breakable sourcecode" id="appendix-A-3">
 <pre>&lt;CODE BEGINS&gt;
 CMS-ML-KEM-2024
 { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
@@ -1680,14 +1685,14 @@ IMPORTS
          pkcs-9(9) smime(16) modules(0) id-mod-hkdf-oid-2019(68) }
 
   kwa-aes128-wrap, kwa-aes256-wrap
-    FROM CMSAesRsaesOaep-2009
+    FROM CMSAesRsaesOaep-2009  -- [RFC5911]
        { iso(1) member-body(2) us(840) rsadsi(113549)
        pkcs(1) pkcs-9(9) smime(16) modules(0)
        id-mod-cms-aes-02(38) }
 
   id-alg-ml-kem-512, id-alg-ml-kem-768, id-alg-ml-kem-1024,
   pk-ml-kem-512, pk-ml-kem-768, pk-ml-kem-1024
-    FROM X509-ML-KEM-2024
+    FROM X509-ML-KEM-2024 -- [I-D.ietf-lamps-kyber-certificates]]
        { iso(1) identified-organization(3) dod(6)
          internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
          id-mod-x509-ml-kem-2024(TBD2) };
@@ -1730,7 +1735,7 @@ SMimeCapsSet SMIME-CAPS ::=
 
 END
 
-&lt;CODE ENDS&gt;</pre><a href="#appendix-A-2" class="pilcrow">¶</a>
+&lt;CODE ENDS&gt;</pre><a href="#appendix-A-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
