@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-22T00:41:04.027918+00:00",
+  "timestamp": "2024-10-24T00:40:20.842007+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -110,9 +110,17 @@
       "labels": [],
       "body": "Harmonize Security Considerations section between this and draft-ietf-lamps-kyber-certificates.",
       "createdAt": "2024-02-26T09:50:54Z",
-      "updatedAt": "2024-02-26T09:50:54Z",
+      "updatedAt": "2024-10-23T13:03:56Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Agreed. I went for the refer to [draft-sfluhrer-cfrg-ml-kem-security-considerations](https://datatracker.ietf.org/doc/draft-sfluhrer-cfrg-ml-kem-security-considerations/), but that might be overkill. At a minimum, it adds a dependency. Also, not sure how the IESG will react to an informative reference for all of the security considerations.",
+          "createdAt": "2024-10-23T13:03:55Z",
+          "updatedAt": "2024-10-23T13:03:55Z"
+        }
+      ]
     },
     {
       "number": 5,
@@ -249,6 +257,30 @@
       "updatedAt": "2024-10-16T14:46:27Z",
       "closedAt": "2024-10-16T14:46:27Z",
       "comments": []
+    },
+    {
+      "number": 18,
+      "id": "I_kwDOLQoLsc6be7yS",
+      "title": "Check examples",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/18",
+      "state": "OPEN",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "While doing the examples, see [here](https://github.com/lamps-wg/kyber-certificates/pull/58/files) and [here](https://github.com/lamps-wg/kyber-certificates/pull/61), I noticed that they private key in this I-D seems to be lot bigger than the certificates examples.  Is the private key here just the seed?",
+      "createdAt": "2024-10-23T13:16:54Z",
+      "updatedAt": "2024-10-23T17:07:34Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "You are right.  I made these examples before kyber-certificates specified use of the seed,  In fact, my crypto library developer has pushed back against using the private key seed, so when kyber-certificates is updated I'll have something to show him to prove it's a requirement.",
+          "createdAt": "2024-10-23T17:07:33Z",
+          "updatedAt": "2024-10-23T17:07:33Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -656,6 +688,198 @@
           "body": "",
           "createdAt": "2024-10-16T14:16:57Z",
           "updatedAt": "2024-10-16T14:16:57Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOLQoLsc5_jfM5",
+      "title": "fix repo link",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/17",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Point to right repo ;)",
+      "createdAt": "2024-10-23T05:50:39Z",
+      "updatedAt": "2024-10-23T08:58:01Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "26374a44cb8f5f27a1a50c09c70ac7caa374121f",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "seanturner-repo-link",
+      "headRefOid": "b41ea8c209c3911ac60cfbd4e0273da5ee5de67a",
+      "closedAt": "2024-10-23T08:58:00Z",
+      "mergedAt": "2024-10-23T08:58:00Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "177c82cc7ac62ebe8b5ebc8d32faece7a389d1d3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOLQoLsc5_n6vH",
+      "title": "Update workflow",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/19",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Updating workflow to v4.",
+      "createdAt": "2024-10-23T14:06:43Z",
+      "updatedAt": "2024-10-23T16:50:19Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "177c82cc7ac62ebe8b5ebc8d32faece7a389d1d3",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "seanturner-update-workflow",
+      "headRefOid": "c5121ffa2c78232dd8cff9f039649668d2c295af",
+      "closedAt": "2024-10-23T16:50:19Z",
+      "mergedAt": "2024-10-23T16:50:18Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "1d0c8aec1004874b2daf1e19070c3addca02a05e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc6Oa-KB",
+          "commit": {
+            "abbreviatedOid": "c5121ff"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-23T16:50:13Z",
+          "updatedAt": "2024-10-23T16:50:13Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOLQoLsc5_oYg9",
+      "title": "Add ASN.1 Info",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/20",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Include information about where module imports from. Make ASN.1 normative ref.",
+      "createdAt": "2024-10-23T14:51:54Z",
+      "updatedAt": "2024-10-23T16:52:34Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "177c82cc7ac62ebe8b5ebc8d32faece7a389d1d3",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "seanturner-asn1-info",
+      "headRefOid": "dbfd01095b6fe48f13cdc99c887ab6ccd1ffc8a5",
+      "closedAt": "2024-10-23T16:52:34Z",
+      "mergedAt": "2024-10-23T16:52:34Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "ab3d4ae22566215169c8b09d51baa6c40e87a5c4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc6OZkQP",
+          "commit": {
+            "abbreviatedOid": "a7332a4"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-23T14:54:34Z",
+          "updatedAt": "2024-10-23T14:54:35Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "```suggestion\r\nRFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates] Also please replace [I-D.ietf-lamps-kyber-certificates] in the module a reference to the published RFC.\r\n```",
+              "createdAt": "2024-10-23T14:54:34Z",
+              "updatedAt": "2024-10-23T14:54:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc6OZlvq",
+          "commit": {
+            "abbreviatedOid": "9b89bbe"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-23T14:55:23Z",
+          "updatedAt": "2024-10-23T14:55:23Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\nRFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates]. Also please replace [I-D.ietf-lamps-kyber-certificates] in the module a reference to the published RFC.\r\n```",
+              "createdAt": "2024-10-23T14:55:23Z",
+              "updatedAt": "2024-10-23T14:55:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc6OZvoI",
+          "commit": {
+            "abbreviatedOid": "6e4339d"
+          },
+          "author": "seanturner",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-23T15:05:09Z",
+          "updatedAt": "2024-10-23T15:05:09Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\nRFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates]. Also please replace [I-D.ietf-lamps-kyber-certificates] in the module with a reference to the published RFC.\r\n```",
+              "createdAt": "2024-10-23T15:05:09Z",
+              "updatedAt": "2024-10-23T15:05:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc6OaU57",
+          "commit": {
+            "abbreviatedOid": "ed78d23"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-23T15:47:39Z",
+          "updatedAt": "2024-10-23T15:47:40Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\nThis appendix includes the ASN.1 module {{X680}} for ML-KEM. This module imports objects from {{RFC5911}}, {{RFC9629}}, {{RFC8619}}, {{I-D.ietf-lamps-kyber-certificates}}.\r\n```",
+              "createdAt": "2024-10-23T15:47:39Z",
+              "updatedAt": "2024-10-23T15:47:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc6Oa_Wz",
+          "commit": {
+            "abbreviatedOid": "dbfd010"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-23T16:52:28Z",
+          "updatedAt": "2024-10-23T16:52:28Z",
           "comments": []
         }
       ]
