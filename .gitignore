@@ -5,8 +5,10 @@
 *.txt
 *.upload
 *~
+.includes.mk
 .tags
 /*-[0-9][0-9].xml
+/.*.mk
 /.gems/
 /.refcache
 /.targets.mk
@@ -21,4 +23,3 @@ draft-ietf-lamps-cms-kyber.xml
 package-lock.json
 report.xml
 !requirements.txt
-.includes.mk
