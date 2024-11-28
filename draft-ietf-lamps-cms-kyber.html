@@ -15,20 +15,20 @@
 
 
     " name="description">
-<meta content="xml2rfc 3.23.2" name="generator">
+<meta content="xml2rfc 3.24.0" name="generator">
 <meta content="Key Encapsulation Mechanism (KEM)" name="keyword">
 <meta content="KEMRecipientInfo" name="keyword">
 <meta content="ML-KEM" name="keyword">
 <meta content="Kyber" name="keyword">
 <meta content="draft-ietf-lamps-cms-kyber-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.23.2
+  xml2rfc 3.24.0
     Python 3.12.7
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
-    lxml 4.9.4
+    lxml 5.3.0
     platformdirs 4.3.6
     pycountry 22.3.5
     PyYAML 6.0.1
@@ -170,31 +170,6 @@
 }
 
 @font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
   font-family: 'Oxygen Mono';
   font-style: normal;
   font-weight: 400;
@@ -211,6 +186,77 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --background-color: #fff;
@@ -223,6 +269,7 @@
   --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
   --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
   scrollbar-color: #bbb #eee;
 }
 body {
@@ -240,9 +287,15 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Cabin Condensed", sans-serif;
-  font-weight: 600;
+  font-family: var(--font-title);
+  font-weight: 680;
   margin: 0.8em 0 0.3em;
   font-size-adjust: 0.5;
   color: var(--title-color);
@@ -271,6 +324,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -348,25 +402,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -374,38 +429,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
-}
-dl.olPercent {
-  --indent: 5ch;
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
 dl > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
 }
-dl.dlNewline > dt {
-  float: none;
-}
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -469,6 +525,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -523,6 +580,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -537,6 +595,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -567,9 +635,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -609,26 +679,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -639,9 +711,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -649,47 +718,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 2px 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -697,21 +767,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -733,6 +815,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -743,7 +826,31 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
@@ -754,9 +861,6 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -769,17 +873,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -790,14 +894,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -805,11 +908,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -838,20 +941,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -894,9 +989,6 @@ hr.addr {
   td {
     border-top: 1px solid #ddd;
   }
-  .toplink {
-    display: none;
-  }
 }
 
 @page :first {
@@ -919,82 +1011,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
 }
 
 /* Dark mode. */
@@ -1033,11 +1049,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ML-KEM in CMS</td>
-<td class="right">October 2024</td>
+<td class="right">November 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Prat, et al.</td>
-<td class="center">Expires 26 April 2025</td>
+<td class="center">Expires 1 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-cms-kyber-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-23" class="published">23 October 2024</time>
+<time datetime="2024-11-28" class="published">28 November 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-26">26 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-01">1 June 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1112,7 +1128,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 26 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1479,9 +1495,10 @@ HKDF(salt, IKM, info, L)
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-4-1">The Security Considerations sections of <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> and <span>[<a href="#RFC9629" class="cite xref">RFC9629</a>]</span> apply to this specification as well.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in NIST SP 800-57 Part 1 <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>. To achieve 128-bit security, ML-KEM-512 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 128 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 128 bits. To achieve 192-bit security, ML-KEM-768 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 192 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 192 bits. In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 256 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 256 bits.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the ML-KEM.Encaps and ML-KEM.Decaps algorithms from <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol for well-formed inputs. However, it is possible (though extremely unlikely) that the process will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
-secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are provided in Table 1 of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> and reproduced here in <a href="#tab-fail" class="auto internal xref">Table 1</a>.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-2">For ML-KEM specific security considerations refer to <span>[<a href="#I-D.sfluhrer-cfrg-ml-kem-security-considerations" class="cite xref">I-D.sfluhrer-cfrg-ml-kem-security-considerations</a>]</span>.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in NIST SP 800-57 Part 1 <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>. To achieve 128-bit security, ML-KEM-512 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 128 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 128 bits. To achieve 192-bit security, ML-KEM-768 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 192 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 192 bits. In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 256 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 256 bits.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the ML-KEM.Encaps and ML-KEM.Decaps algorithms from <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol for well-formed inputs. However, it is possible (though extremely unlikely) that the process will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
+secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are provided in Table 1 of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> and reproduced here in <a href="#tab-fail" class="auto internal xref">Table 1</a>.<a href="#section-4-4" class="pilcrow">¶</a></p>
 <span id="name-ml-kem-decapsulation-failur"></span><div id="tab-fail">
 <table class="center" id="table-1">
         <caption>
@@ -1510,13 +1527,13 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
         </tbody>
       </table>
 </div>
-<p id="section-4-5">Implementations <span class="bcp14">MUST</span> protect the ML-KEM private key, the key-encryption key, the content-encryption key, message-authentication key, and the content-authenticated-encryption key. Disclosure of the ML-KEM private key could result in the compromise of all messages protected with that key. Disclosure of the key-encryption key, the content-encryption key, or the content-authenticated-encryption key could result in compromise of the associated encrypted content. Disclosure of the key-encryption key, the message-authentication key, or the content-authenticated-encryption key could allow modification of the associated authenticated content.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<p id="section-4-6">Additional considerations related to key management may be found in <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>.<a href="#section-4-6" class="pilcrow">¶</a></p>
-<p id="section-4-7">The security of the ML-KEM algorithm depends on a quality random number generator. For further discussion on random number generation, see <span>[<a href="#RFC4086" class="cite xref">RFC4086</a>]</span>.<a href="#section-4-7" class="pilcrow">¶</a></p>
-<p id="section-4-8">ML-KEM encapsulation and decapsulation only outputs a shared secret and ciphertext. Implementations <span class="bcp14">SHOULD NOT</span> use intermediate values directly for any purpose.<a href="#section-4-8" class="pilcrow">¶</a></p>
-<p id="section-4-9">Implementations <span class="bcp14">SHOULD NOT</span> reveal information about intermediate values or calculations, whether by timing or other "side channels", otherwise an opponent may be able to determine information about the keying data and/or the recipient's private key. Although not all intermediate information may be useful to an opponent, it is preferable to conceal as much information as is practical, unless analysis specifically indicates that the information would not be useful to an opponent.<a href="#section-4-9" class="pilcrow">¶</a></p>
-<p id="section-4-10">Generally, good cryptographic practice employs a given ML-KEM key pair in only one scheme. This practice avoids the risk that vulnerability in one scheme may compromise the security of the other, and may be essential to maintain provable security.<a href="#section-4-10" class="pilcrow">¶</a></p>
-<p id="section-4-11">Parties <span class="bcp14">MAY</span> gain assurance that implementations are correct through formal implementation validation, such as the NIST Cryptographic Module Validation Program (CMVP) <span>[<a href="#CMVP" class="cite xref">CMVP</a>]</span>.<a href="#section-4-11" class="pilcrow">¶</a></p>
+<p id="section-4-6">Implementations <span class="bcp14">MUST</span> protect the ML-KEM private key, the key-encryption key, the content-encryption key, message-authentication key, and the content-authenticated-encryption key. Disclosure of the ML-KEM private key could result in the compromise of all messages protected with that key. Disclosure of the key-encryption key, the content-encryption key, or the content-authenticated-encryption key could result in compromise of the associated encrypted content. Disclosure of the key-encryption key, the message-authentication key, or the content-authenticated-encryption key could allow modification of the associated authenticated content.<a href="#section-4-6" class="pilcrow">¶</a></p>
+<p id="section-4-7">Additional considerations related to key management may be found in <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>.<a href="#section-4-7" class="pilcrow">¶</a></p>
+<p id="section-4-8">The security of the ML-KEM algorithm depends on a quality random number generator. For further discussion on random number generation, see <span>[<a href="#RFC4086" class="cite xref">RFC4086</a>]</span>.<a href="#section-4-8" class="pilcrow">¶</a></p>
+<p id="section-4-9">ML-KEM encapsulation and decapsulation only outputs a shared secret and ciphertext. Implementations <span class="bcp14">SHOULD NOT</span> use intermediate values directly for any purpose.<a href="#section-4-9" class="pilcrow">¶</a></p>
+<p id="section-4-10">Implementations <span class="bcp14">SHOULD NOT</span> reveal information about intermediate values or calculations, whether by timing or other "side channels", otherwise an opponent may be able to determine information about the keying data and/or the recipient's private key. Although not all intermediate information may be useful to an opponent, it is preferable to conceal as much information as is practical, unless analysis specifically indicates that the information would not be useful to an opponent.<a href="#section-4-10" class="pilcrow">¶</a></p>
+<p id="section-4-11">Generally, good cryptographic practice employs a given ML-KEM key pair in only one scheme. This practice avoids the risk that vulnerability in one scheme may compromise the security of the other, and may be essential to maintain provable security.<a href="#section-4-11" class="pilcrow">¶</a></p>
+<p id="section-4-12">Parties <span class="bcp14">MAY</span> gain assurance that implementations are correct through formal implementation validation, such as the NIST Cryptographic Module Validation Program (CMVP) <span>[<a href="#CMVP" class="cite xref">CMVP</a>]</span>.<a href="#section-4-12" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-iana-considerations">
@@ -1533,7 +1550,7 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
 <p id="section-6-1">This document borrows heavily from <span>[<a href="#I-D.ietf-lamps-rfc5990bis" class="cite xref">I-D.ietf-lamps-rfc5990bis</a>]</span>, <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>, and <span>[<a href="#I-D.kampanakis-ml-kem-ikev2" class="cite xref">I-D.kampanakis-ml-kem-ikev2</a>]</span>. Thanks go to the authors of those documents. "Copying always makes things easier and less error prone" - RFC8411.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">Thanks to Carl Wallace and Jonathan Hammel for the detailed review and Carl Wallace for interoperability testing.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-2">Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the detailed review and Carl Wallace for interoperability testing.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
@@ -1549,11 +1566,11 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
 <dl class="references">
 <dt id="FIPS203">[FIPS203]</dt>
         <dd>
-<span class="refTitle">"Module-Lattice-Based Key-Encapsulation Mechanism Standard"</span>, <span class="refContent">National Institute of Standards and Technology</span>, <span class="seriesInfo">DOI 10.6028/nist.fips.203</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/nist.fips.203">https://doi.org/10.6028/nist.fips.203</a>&gt;</span>. </dd>
+<span class="refTitle">"Module-lattice-based key-encapsulation mechanism standard"</span>, <span class="refContent">National Institute of Standards and Technology (U.S.)</span>, <span class="seriesInfo">DOI 10.6028/nist.fips.203</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/nist.fips.203">https://doi.org/10.6028/nist.fips.203</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-lamps-kyber-certificates">[I-D.ietf-lamps-kyber-certificates]</dt>
         <dd>
-<span class="refAuthor">Turner, S.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Massimo, J.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure - Algorithm Identifiers for Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-kyber-certificates-04</span>, <time datetime="2024-09-20" class="refDate">20 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-04">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-04</a>&gt;</span>. </dd>
+<span class="refAuthor">Turner, S.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Massimo, J.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-kyber-certificates-06</span>, <time datetime="2024-11-04" class="refDate">4 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-06">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -1626,7 +1643,11 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
 <dd class="break"></dd>
 <dt id="I-D.kampanakis-ml-kem-ikev2">[I-D.kampanakis-ml-kem-ikev2]</dt>
         <dd>
-<span class="refAuthor">Kampanakis, P.</span> and <span class="refAuthor">G. Ravago</span>, <span class="refTitle">"Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-kampanakis-ml-kem-ikev2-08</span>, <time datetime="2024-09-18" class="refDate">18 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-kampanakis-ml-kem-ikev2-08">https://datatracker.ietf.org/doc/html/draft-kampanakis-ml-kem-ikev2-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Kampanakis, P.</span> and <span class="refAuthor">G. Ravago</span>, <span class="refTitle">"Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-kampanakis-ml-kem-ikev2-09</span>, <time datetime="2024-11-04" class="refDate">4 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-kampanakis-ml-kem-ikev2-09">https://datatracker.ietf.org/doc/html/draft-kampanakis-ml-kem-ikev2-09</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.sfluhrer-cfrg-ml-kem-security-considerations">[I-D.sfluhrer-cfrg-ml-kem-security-considerations]</dt>
+        <dd>
+<span class="refAuthor">Fluhrer, S.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Milner, K.</span>, and <span class="refAuthor">D. Shiu</span>, <span class="refTitle">"ML-KEM Security Considerations"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-sfluhrer-cfrg-ml-kem-security-considerations-02</span>, <time datetime="2024-11-19" class="refDate">19 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-sfluhrer-cfrg-ml-kem-security-considerations-02">https://datatracker.ietf.org/doc/html/draft-sfluhrer-cfrg-ml-kem-security-considerations-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NIST-PQ">[NIST-PQ]</dt>
         <dd>
@@ -1692,7 +1713,7 @@ IMPORTS
 
   id-alg-ml-kem-512, id-alg-ml-kem-768, id-alg-ml-kem-1024,
   pk-ml-kem-512, pk-ml-kem-768, pk-ml-kem-1024
-    FROM X509-ML-KEM-2024 -- [I-D.ietf-lamps-kyber-certificates]]
+    FROM X509-ML-KEM-2024 -- [I-D.ietf-lamps-kyber-certificates]
        { iso(1) identified-organization(3) dod(6)
          internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
          id-mod-x509-ml-kem-2024(TBD2) };
@@ -1769,159 +1790,166 @@ in an attempt to simplify the example.<a href="#appendix-B-3" class="pilcrow">¶
 <p id="appendix-B.1-1">Alice obtains Bob's ML-KEM-512 public key:<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.1-2">
 <pre>
-  -----BEGIN PUBLIC KEY-----
-  MIIDMjALBglghkgBZQMEBAEDggMhACTnc6B5UOyymOxQLDt8PzI2vIHkccIGsy1b
-  uI6EZ4UVHbHHpbRRv3mZwW7AEu+YEbpcB6kkZ28jUTHWFfYIIIeUbq6hMa/nRcLT
-  UPYcjTwBK+dRU1UbmfTHCdtrF3U0hyB7tXsBo6tTeQWCpP7LBrYxmAFBhp2JuUx6
-  MO+TpIWVHVzyzS2UE4MEBQ/HDGWyCgL6WRKGRdrEfBc2Wg7loCc7RDjoOqWGYPcV
-  n2HCLPVhemLWAeCRE0wcLUPSvUzhKZsrRk4cfSi5eZB7Dze4olQ8NFGiJ8WMi+Y3
-  xjiTW/w6X/Y7bC+zf8JLFcn7jOvQNM85PXp4j3KIiXSnCAv1OEUDZO5peP0QQUU1
-  CxvQQjxCj+kGHZ/EaKeFy7QD0Crhl69xccB0dMzZMgQFmynLv5kZd0Z4SuSkANQ8
-  ymtoLDvMqyHznseJS68ru+ZRn88KkVMosF4UkhKjphLXASHQU5RyquuBORUGLY/q
-  DXQSyCJ8AHAlzCYwEUdpqGzsMo84bB72AyN5LNL3mxZaQnxAuREpQIO8w13IREfG
-  HEPbHDJVZBXqCcD2wBWllJk4Fjn3b0uid62UfZLARoNCvakIkT+wUv68FS+WGVoY
-  zbvYqqPSpJg5GRrTT8KUDwLscRkBVPIDctMWFD20yppmL9iLSwPkrz/1xhbgEqdA
-  HGG2kt8XdkIRmEZ2IeLUJeiDPPGCi4zlywkbNpgIHajQriGcNQnoQWQZG3vWe0n2
-  ZGuHoF/lPZ0awi6roL7ZOWaysXSBYRv5DiXTP3EFD2lQGDMDECjQPUw2yMXBDRFY
-  pYPAeuEGfXMhl8EDgcuie/06oy45kOxxiud6r8q2b9hnH5YzGjJLYSygm9jAhQrQ
-  a80GWUdVHvvElgZLs7uEFHhKtgcFbYmDH4GaiLVLMo70cSpDdDXmdVc0J9mEOsSk
-  ac5ztj+mgj7qfCkib6QXeAMCmSnASKugi9iSAEEmXalmN5Jksh75YlozJM0xyDTZ
-  k5SqKn5seA97Y+ExjOJXOEzcsXhHV9vc/9HTgFGXNv+Lbj8u+q4i4NDoWIntY5eM
-  +u9k28Eo
-  -----END PUBLIC KEY-----
+-----BEGIN PUBLIC KEY-----
+MIIDMjALBglghkgBZQMEBAEDggMhADmVgV5ZfRBDVc8pqlMzyTJRhp1bzb5IcST2
+Ari2pmwWxHYWSK12XPXYAGtRXpBafwrAdrDGLvoygVPnylcBaZ8TBfHmvG+QsOSb
+aTUSts6ZKouAFt38GmYsfj+WGcvYad13GvMIlszVkYrGy3dGbF53mZbWf/mqvJdQ
+Pyx7fi0ADYZFD7GAfKTKvaRlgloxx4mht6SRqzhydl0yDQtxkg+iE8lAk0Frg7gS
+Tmn2XmLLUADcw3qpoP/3OXDEdy81fSQYnKb1MFVowOI3ajdipoxgXlY8XSCVcuD8
+dTLKKUcpU1VntfxBPF6HktJGRTbMgI+YrddGZPFBVm+QFqkKVBgpqYoEZM5BqLtE
+wtT6PCwglGByjvFKGnxMm5jRIgO0zDUpFgqasteDj3/2tTrgWqMafWRrevpsRZMl
+JqPDdVYZvplMIRwqMcBbNEeDbLIVC+GCna5rBMVTXP9Ubjkrp5dBFyD5JPSQpaxU
+lfITVtVQt4KmTBaItrZVvMeEIZekNML2Vjtbfwmni8xIgjJ4NWHRb0y6tnVUAAUH
+gVcMZmBLgXrRJSKUc26LAYYaS1p0UZuLb+UUiaUHI5Llh2JscTd2V10zgGocjicy
+r5fCaA9RZmMxxOuLvAQxxPloMtrxs8RVKPuhU/bHixwZhwKUfM0zdyekb7U7oR3l
+y0GRNGhZUWy2rXJADzzyCbI2rvNaWArIfrPjD6/WaXPKin3SZ1r0H3oXthQzzRr4
+D3cIhp9mVIhJeYCxrBCgzctjagDthoGzXkKRJMqANQcluF+DperDpKPMFgCQPmUp
+NWC5szblrw1SnawaBIEZMCy3qbzBELlIUb8CEX8ZncSFqFK3Rz8JuDGmgx1bVMC3
+kNIlz2u5LZRiomzbM92lEjx6rw4moLg2Ve6ii/OoB0clAY/WuuS2Ac9huqtxp6PT
+UZejQ+dLSicsEl1UCJZCbYW3lY07OKa6mH7DciXHtEzbEt3kU5tKsII2NoPwS/eg
+nMXEHf6DChsWLgsyQzQ2LwhKFEZ3IzRLrdAA+NjFN8SPmY8FMHzr0e3guBw7xZoG
+WhttY7Js
+-----END PUBLIC KEY-----
 </pre><a href="#appendix-B.1-2" class="pilcrow">¶</a>
 </div>
 <p id="appendix-B.1-3">Bob's ML-KEM-512 public key has the following key identifier:<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.1-4">
 <pre>
-  5017165E720D05D70CFDA5F47B54BD5008C3ABE1
+599788C37AED400EE405D1B2A3366AB17D824A51
 </pre><a href="#appendix-B.1-4" class="pilcrow">¶</a>
 </div>
 <p id="appendix-B.1-5">Alice generates a shared secret and ciphertext using Bob's ML-KEM-512 public key, derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256, randomly generates a 128-bit content-encryption key, uses AES-128-KEYWRAP to encrypt the content-encryption key with the key-encryption key, encrypts the plaintext content with the content-encryption key and encodes the EnvelopedData (using KEMRecipientInfo) and ContentInfo, and then sends the result to Bob.<a href="#appendix-B.1-5" class="pilcrow">¶</a></p>
 <p id="appendix-B.1-6">The Base64-encoded result is:<a href="#appendix-B.1-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.1-7">
 <pre>
-  MIID4AYJKoZIhvcNAQcDoIID0TCCA80CAQMxggOIpIIDhAYLKoZIhvcNAQkQDQMw
-  ggNzAgEAgBRQFxZecg0F1wz9pfR7VL1QCMOr4TALBglghkgBZQMEBAEEggMAqXwh
-  xkJt/Vd+oSOSIDXM8851hXdyECMaHp2hnWGL2JohQ38wE82Yg4GC3YfU8F/kA6EZ
-  yK5p96HnJsXRfg3dzxprhf7QX4/UNo6v7nwk1JEP5cCwmuMOnbZfeKPb1Mr4qilG
-  hlwjpq/r6fR9rZmGOyBG0ZDAQVNlNzgPqnlgK1V/DGYf6KAfWscdjRGs8xHMeRJg
-  7vLDSz9A/u1Cu2dZWIMKzwK5snTK2FbOAYerTfDDBnYNoQFpcgoWOFN45SYDTvgb
-  2n9sUxWHovMRKlF6j6f9UVa0uqHYzoIXaLU3R9f0LxUVSV6bJ3hQp87t2l3E5ysd
-  k3pmqsKkHhBWltJSJeRjjELSDUYs8AuW7D0TnLH0Jt/q0XG7zm1C2cWhJ5oTij10
-  yr4qf38mwbG9R1dAbkrtchxl8Rl9v0OJZgfUHJLuSVMTYAb6n3Ltc4tN8qIia3cy
-  Lg+wan2CjnXA3fKGDMMWhvaH0GRirItKumKBXg11MuG8PjLm/neUX2MIE+3hzDBB
-  GBqSI586EZAx+WgWEhn7sLKlbm8wZtY5jfaqobusj3hN/RxCzFtplq6e3H7tEpFv
-  mblF9lSPNpeA06Tj+PXZxXjgupj4gRp+fsjcVheG/syt5MuiFuTG7xdDtWyU7K3e
-  8ZBo+zSUysipy4QEFlrBo+tMvhyDffyOd/qaaQnT0cv2ctEU6OeshZ1+J+ptDmx7
-  6K3WH+k9etrcwUTmblJn8FDM3czM7fC+XScB5CrNyl9C+W1TN/NzMxaXRQcWuDyJ
-  3jRWXmtJEGksg489cJAv1QbZXQmDlarrwq/01Tb7PWbE1QjfRQ627p3ZtAmK6zf7
-  wZ8m8ZhoVMRA7qoEd3wfDxmdv4AgGvKILntG3WPgEYpF37qJbHbD6FQqhJXN2kx1
-  FUDtsYCmiXB/3+MSz3HDbmXJvC7oxVmpM7YQHWYsrmRE1xDZcQl5IOUHo6yjjDvI
-  iAsbmd7BCbanMK8Izysi1Whkw/hjQIuBfi6lH4ykkhN1d9U0Ebn3OZ625WmEMA0G
-  CyqGSIb3DQEJEAMcAgEgMAsGCWCGSAFlAwQBLQQoxaMpy4QqMaoK3B0wFDbqmvAW
-  Kuo1hZIymSqlgVuw9FRNxbWvSMp24TA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEq
-  BBB7U/4MxliKkV8ho6ZJIm9UgBDzlQzo0SLI9+VS4VoV1mvr
+-----BEGIN CMS-----
+MIID8gYLKoZIhvcNAQkQARegggPhMIID3QIBADGCA4ikggOEBgsqhkiG9w0BCRAN
+AzCCA3MCAQCAFFmXiMN67UAO5AXRsqM2arF9gkpRMAsGCWCGSAFlAwQEAQSCAwDz
+6kG2NhIUhlAHMA3HCeC8G9o0Ey8HMa//d2N7a7e92ba+Xrwfp9NKfiwH3r26CvqG
+Aj5LgU/hbzNkFGw1AfgXDQTcpHEjfPB2R/x6OxiuV6KPxOjqHbjDvyRoclHHrGfG
+i4uBkgPSAXrBlzXop9n7F4sxae2grAJIWX8sl/Vs6BRcKmuAIXbriZTQnEoojgyr
+ncDz3owBMBdLvA7STNEJ9vt3WaGV07/3qjSCHsxynDwWpiHYwf3Q++/VlZNrPnzZ
+B/ulQtAWweHxgTpvX0k8WnCKSl9S5qGIMK2Tc4KBMSqb02pkSMDV/YEKCwPyFgIO
+hEleCys+umJmUAbGm0cmH0Kev0sHAnYvg02uebvK2xFW6uboTy0Txj8okoy5sP6h
+mRekF6qgrEEa3/CjkSAxW9iv986h64UUU0cWZeEaEl0eYR6LOf3e16ZPSYDC8Xo7
+VjAZvYuf8QuLlqDCw73Rp+PT+fkFqfY4dxGXwZYMU/UOuQqi2IsT86W8gmsQPhEv
+7EvSScX8TJSDsrQOVrGoHc5OymRmuepkn17ORYyrR8iKEDVJEDCGesJbgcCoi2VT
+LFdDYOzMn1T6gSsmyg3KGWLqdn8csG/mPjKblyBmlYbM8KT4ICqQx1nBngGUfMIV
++v4wY9s0vcLSTBI5QCbgPRrIzz0B97sZdcp29uXA4Qlz2riuRpn38up1G90BGxvo
+lukVQ8djNhhGgC60UJwA3bRn+O2xo/cSBkMSLJIIqA5QSY+zcPu90MqvN1JFkbO6
+YJQbtuFvQ9hAmHJNrWRaXRGLJuH8gxUhG2bhOn5jjtgmVdKHx8gFDxHs13IQMHAU
+//u5JHvJOnC8HLWPIbMTXa0giC7H22Gf7GMdYVG0pNr37wEJkfd7D4OKM5S0fXH3
+4moC701Bgypt0D+inpqd+Vdyzylg5KkkoLcQqiE1tAPYc2FCSJNhZe/xA4/WOkoO
+HS6/FvFcNaIxkwmNDl9BM4J+Zv4zxqcrqjSUuRM9r/IepBU22+EltUGXug15v+Mw
+DQYLKoZIhvcNAQkQAxwCASAwCwYJYIZIAWUDBAEtBCgSWjJGbANW6249qJezunw8
+TekPnqeXQxQsCApolNdBREvHJzVFD8fxMDoGCSqGSIb3DQEHATAeBglghkgBZQME
+AS4wEQQM09P1v4RTaKUfxd6/AgEQgA0W/2sAf/+wpWYbxab8BBAcFxeZJbrC7Ifl
+jQHB7vah
+-----END CMS-----
 </pre><a href="#appendix-B.1-7" class="pilcrow">¶</a>
 </div>
 <p id="appendix-B.1-8">This result decodes to:<a href="#appendix-B.1-8" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.1-9">
 <pre>
-    0 992: SEQUENCE {
-    4   9:   OBJECT IDENTIFIER envelopedData (1 2 840 113549 1 7 3)
-  15 977:   [0] {
-  19 973:     SEQUENCE {
-  23   1:       INTEGER 3
-  26 904:       SET {
-  30 900:         [4] {
-  34  11:           OBJECT IDENTIFIER '1 2 840 113549 1 9 16 13 3'
-  47 883:           SEQUENCE {
-  51   1:             INTEGER 0
-  54  20:             [0]
-        :         50 17 16 5E 72 0D 05 D7 0C FD A5 F4 7B 54 BD 50
-        :         08 C3 AB E1
-  76  11:             SEQUENCE {
-  78   9:               OBJECT IDENTIFIER '2 16 840 1 101 3 4 4 1'
-        :               }
-  89 768:             OCTET STRING
-        :         A9 7C 21 C6 42 6D FD 57 7E A1 23 92 20 35 CC F3
-        :         CE 75 85 77 72 10 23 1A 1E 9D A1 9D 61 8B D8 9A
-        :         21 43 7F 30 13 CD 98 83 81 82 DD 87 D4 F0 5F E4
-        :         03 A1 19 C8 AE 69 F7 A1 E7 26 C5 D1 7E 0D DD CF
-        :         1A 6B 85 FE D0 5F 8F D4 36 8E AF EE 7C 24 D4 91
-        :         0F E5 C0 B0 9A E3 0E 9D B6 5F 78 A3 DB D4 CA F8
-        :         AA 29 46 86 5C 23 A6 AF EB E9 F4 7D AD 99 86 3B
-        :         20 46 D1 90 C0 41 53 65 37 38 0F AA 79 60 2B 55
-        :         7F 0C 66 1F E8 A0 1F 5A C7 1D 8D 11 AC F3 11 CC
-        :         79 12 60 EE F2 C3 4B 3F 40 FE ED 42 BB 67 59 58
-        :         83 0A CF 02 B9 B2 74 CA D8 56 CE 01 87 AB 4D F0
-        :         C3 06 76 0D A1 01 69 72 0A 16 38 53 78 E5 26 03
-        :         4E F8 1B DA 7F 6C 53 15 87 A2 F3 11 2A 51 7A 8F
-        :         A7 FD 51 56 B4 BA A1 D8 CE 82 17 68 B5 37 47 D7
-        :         F4 2F 15 15 49 5E 9B 27 78 50 A7 CE ED DA 5D C4
-        :         E7 2B 1D 93 7A 66 AA C2 A4 1E 10 56 96 D2 52 25
-        :         E4 63 8C 42 D2 0D 46 2C F0 0B 96 EC 3D 13 9C B1
-        :         F4 26 DF EA D1 71 BB CE 6D 42 D9 C5 A1 27 9A 13
-        :         8A 3D 74 CA BE 2A 7F 7F 26 C1 B1 BD 47 57 40 6E
-        :         4A ED 72 1C 65 F1 19 7D BF 43 89 66 07 D4 1C 92
-        :         EE 49 53 13 60 06 FA 9F 72 ED 73 8B 4D F2 A2 22
-        :         6B 77 32 2E 0F B0 6A 7D 82 8E 75 C0 DD F2 86 0C
-        :         C3 16 86 F6 87 D0 64 62 AC 8B 4A BA 62 81 5E 0D
-        :         75 32 E1 BC 3E 32 E6 FE 77 94 5F 63 08 13 ED E1
-        :         CC 30 41 18 1A 92 23 9F 3A 11 90 31 F9 68 16 12
-        :         19 FB B0 B2 A5 6E 6F 30 66 D6 39 8D F6 AA A1 BB
-        :         AC 8F 78 4D FD 1C 42 CC 5B 69 96 AE 9E DC 7E ED
-        :         12 91 6F 99 B9 45 F6 54 8F 36 97 80 D3 A4 E3 F8
-        :         F5 D9 C5 78 E0 BA 98 F8 81 1A 7E 7E C8 DC 56 17
-        :         86 FE CC AD E4 CB A2 16 E4 C6 EF 17 43 B5 6C 94
-        :         EC AD DE F1 90 68 FB 34 94 CA C8 A9 CB 84 04 16
-        :         5A C1 A3 EB 4C BE 1C 83 7D FC 8E 77 FA 9A 69 09
-        :         D3 D1 CB F6 72 D1 14 E8 E7 AC 85 9D 7E 27 EA 6D
-        :         0E 6C 7B E8 AD D6 1F E9 3D 7A DA DC C1 44 E6 6E
-        :         52 67 F0 50 CC DD CC CC ED F0 BE 5D 27 01 E4 2A
-        :         CD CA 5F 42 F9 6D 53 37 F3 73 33 16 97 45 07 16
-        :         B8 3C 89 DE 34 56 5E 6B 49 10 69 2C 83 8F 3D 70
-        :         90 2F D5 06 D9 5D 09 83 95 AA EB C2 AF F4 D5 36
-        :         FB 3D 66 C4 D5 08 DF 45 0E B6 EE 9D D9 B4 09 8A
-        :         EB 37 FB C1 9F 26 F1 98 68 54 C4 40 EE AA 04 77
-        :         7C 1F 0F 19 9D BF 80 20 1A F2 88 2E 7B 46 DD 63
-        :         E0 11 8A 45 DF BA 89 6C 76 C3 E8 54 2A 84 95 CD
-        :         DA 4C 75 15 40 ED B1 80 A6 89 70 7F DF E3 12 CF
-        :         71 C3 6E 65 C9 BC 2E E8 C5 59 A9 33 B6 10 1D 66
-        :         2C AE 64 44 D7 10 D9 71 09 79 20 E5 07 A3 AC A3
-        :         8C 3B C8 88 0B 1B 99 DE C1 09 B6 A7 30 AF 08 CF
-        :         2B 22 D5 68 64 C3 F8 63 40 8B 81 7E 2E A5 1F 8C
-        :         A4 92 13 75 77 D5 34 11 B9 F7 39 9E B6 E5 69 84
-  861  13:             SEQUENCE {
-  863  11:               OBJECT IDENTIFIER
-        :                 hkdfWithSha256 (1 2 840 113549 1 9 16 3 28)
-        :               }
-  876   1:             INTEGER 32
-  879  11:             SEQUENCE {
-  881   9:               OBJECT IDENTIFIER
-        :                 aes256-wrap (2 16 840 1 101 3 4 1 45)
-        :               }
-  892  40:             OCTET STRING
-        :         C5 A3 29 CB 84 2A 31 AA 0A DC 1D 30 14 36 EA 9A
-        :         F0 16 2A EA 35 85 92 32 99 2A A5 81 5B B0 F4 54
-        :         4D C5 B5 AF 48 CA 76 E1
-        :             }
-        :           }
-        :         }
-  934  60:       SEQUENCE {
-  936   9:         OBJECT IDENTIFIER data (1 2 840 113549 1 7 1)
-  947  29:         SEQUENCE {
-  949   9:           OBJECT IDENTIFIER
-        :             aes256-CBC (2 16 840 1 101 3 4 1 42)
-  960  16:           OCTET STRING
-        :         7B 53 FE 0C C6 58 8A 91 5F 21 A3 A6 49 22 6F 54
-        :           }
-  978  16:         [0]
-        :         F3 95 0C E8 D1 22 C8 F7 E5 52 E1 5A 15 D6 6B EB
-        :         }
-        :       }
-        :     }
-        :   }
+   0 1010: SEQUENCE {
+   4   11:  OBJECT IDENTIFIER
+         :   authEnvelopedData (1 2 840 113549 1 9 16 1 23)
+  17  993:  [0] {
+  21  989:   SEQUENCE {
+  25    1:    INTEGER 0
+  28  904:    SET {
+  32  900:     [4] {
+  36   11:      OBJECT IDENTIFIER '1 2 840 113549 1 9 16 13 3'
+  49  883:      SEQUENCE {
+  53    1:       INTEGER 0
+  56   20:       [0]
+         :    59 97 88 C3 7A ED 40 0E E4 05 D1 B2 A3 36 6A B1
+         :    7D 82 4A 51
+  78   11:       SEQUENCE {
+  80    9:        OBJECT IDENTIFIER '2 16 840 1 101 3 4 4 1'
+         :         }
+  91  768:       OCTET STRING
+         :    F3 EA 41 B6 36 12 14 86 50 07 30 0D C7 09 E0 BC
+         :    1B DA 34 13 2F 07 31 AF FF 77 63 7B 6B B7 BD D9
+         :    B6 BE 5E BC 1F A7 D3 4A 7E 2C 07 DE BD BA 0A FA
+         :    86 02 3E 4B 81 4F E1 6F 33 64 14 6C 35 01 F8 17
+         :    0D 04 DC A4 71 23 7C F0 76 47 FC 7A 3B 18 AE 57
+         :    A2 8F C4 E8 EA 1D B8 C3 BF 24 68 72 51 C7 AC 67
+         :    C6 8B 8B 81 92 03 D2 01 7A C1 97 35 E8 A7 D9 FB
+         :    17 8B 31 69 ED A0 AC 02 48 59 7F 2C 97 F5 6C E8
+         :    14 5C 2A 6B 80 21 76 EB 89 94 D0 9C 4A 28 8E 0C
+         :    AB 9D C0 F3 DE 8C 01 30 17 4B BC 0E D2 4C D1 09
+         :    F6 FB 77 59 A1 95 D3 BF F7 AA 34 82 1E CC 72 9C
+         :    3C 16 A6 21 D8 C1 FD D0 FB EF D5 95 93 6B 3E 7C
+         :    D9 07 FB A5 42 D0 16 C1 E1 F1 81 3A 6F 5F 49 3C
+         :    5A 70 8A 4A 5F 52 E6 A1 88 30 AD 93 73 82 81 31
+         :    2A 9B D3 6A 64 48 C0 D5 FD 81 0A 0B 03 F2 16 02
+         :    0E 84 49 5E 0B 2B 3E BA 62 66 50 06 C6 9B 47 26
+         :    1F 42 9E BF 4B 07 02 76 2F 83 4D AE 79 BB CA DB
+         :    11 56 EA E6 E8 4F 2D 13 C6 3F 28 92 8C B9 B0 FE
+         :    A1 99 17 A4 17 AA A0 AC 41 1A DF F0 A3 91 20 31
+         :    5B D8 AF F7 CE A1 EB 85 14 53 47 16 65 E1 1A 12
+         :    5D 1E 61 1E 8B 39 FD DE D7 A6 4F 49 80 C2 F1 7A
+         :    3B 56 30 19 BD 8B 9F F1 0B 8B 96 A0 C2 C3 BD D1
+         :    A7 E3 D3 F9 F9 05 A9 F6 38 77 11 97 C1 96 0C 53
+         :    F5 0E B9 0A A2 D8 8B 13 F3 A5 BC 82 6B 10 3E 11
+         :    2F EC 4B D2 49 C5 FC 4C 94 83 B2 B4 0E 56 B1 A8
+         :    1D CE 4E CA 64 66 B9 EA 64 9F 5E CE 45 8C AB 47
+         :    C8 8A 10 35 49 10 30 86 7A C2 5B 81 C0 A8 8B 65
+         :    53 2C 57 43 60 EC CC 9F 54 FA 81 2B 26 CA 0D CA
+         :    19 62 EA 76 7F 1C B0 6F E6 3E 32 9B 97 20 66 95
+         :    86 CC F0 A4 F8 20 2A 90 C7 59 C1 9E 01 94 7C C2
+         :    15 FA FE 30 63 DB 34 BD C2 D2 4C 12 39 40 26 E0
+         :    3D 1A C8 CF 3D 01 F7 BB 19 75 CA 76 F6 E5 C0 E1
+         :    09 73 DA B8 AE 46 99 F7 F2 EA 75 1B DD 01 1B 1B
+         :    E8 96 E9 15 43 C7 63 36 18 46 80 2E B4 50 9C 00
+         :    DD B4 67 F8 ED B1 A3 F7 12 06 43 12 2C 92 08 A8
+         :    0E 50 49 8F B3 70 FB BD D0 CA AF 37 52 45 91 B3
+         :    BA 60 94 1B B6 E1 6F 43 D8 40 98 72 4D AD 64 5A
+         :    5D 11 8B 26 E1 FC 83 15 21 1B 66 E1 3A 7E 63 8E
+         :    D8 26 55 D2 87 C7 C8 05 0F 11 EC D7 72 10 30 70
+         :    14 FF FB B9 24 7B C9 3A 70 BC 1C B5 8F 21 B3 13
+         :    5D AD 20 88 2E C7 DB 61 9F EC 63 1D 61 51 B4 A4
+         :    DA F7 EF 01 09 91 F7 7B 0F 83 8A 33 94 B4 7D 71
+         :    F7 E2 6A 02 EF 4D 41 83 2A 6D D0 3F A2 9E 9A 9D
+         :    F9 57 72 CF 29 60 E4 A9 24 A0 B7 10 AA 21 35 B4
+         :    03 D8 73 61 42 48 93 61 65 EF F1 03 8F D6 3A 4A
+         :    0E 1D 2E BF 16 F1 5C 35 A2 31 93 09 8D 0E 5F 41
+         :    33 82 7E 66 FE 33 C6 A7 2B AA 34 94 B9 13 3D AF
+         :    F2 1E A4 15 36 DB E1 25 B5 41 97 BA 0D 79 BF E3
+ 863   13:       SEQUENCE {
+ 865   11:        OBJECT IDENTIFIER
+         :         hkdfWithSha256 (1 2 840 113549 1 9 16 3 28)
+         :         }
+ 878    1:       INTEGER 32
+ 881   11:       SEQUENCE {
+ 883    9:        OBJECT IDENTIFIER
+         :         aes256-wrap (2 16 840 1 101 3 4 1 45)
+         :         }
+ 894   40:       OCTET STRING
+         :    12 5A 32 46 6C 03 56 EB 6E 3D A8 97 B3 BA 7C 3C
+         :    4D E9 0F 9E A7 97 43 14 2C 08 0A 68 94 D7 41 44
+         :    4B C7 27 35 45 0F C7 F1
+         :        }
+         :       }
+         :      }
+ 936   58:    SEQUENCE {
+ 938    9:     OBJECT IDENTIFIER data (1 2 840 113549 1 7 1)
+ 949   30:     SEQUENCE {
+ 951    9:      OBJECT IDENTIFIER
+         :       aes256-GCM (2 16 840 1 101 3 4 1 46)
+ 962   17:      SEQUENCE {
+ 964   12:       OCTET STRING D3 D3 F5 BF 84 53 68 A5 1F C5 DE BF
+ 978    1:       INTEGER 16
+         :        }
+         :       }
+ 981   13:     [0] 16 FF 6B 00 7F FF B0 A5 66 1B C5 A6 FC
+         :      }
+ 996   16:    OCTET STRING
+         :    1C 17 17 99 25 BA C2 EC 87 E5 8D 01 C1 EE F6 A1
+         :     }
+         :    }
+         :   }
 </pre><a href="#appendix-B.1-9" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1934,49 +1962,16 @@ in an attempt to simplify the example.<a href="#appendix-B-3" class="pilcrow">¶
 <p id="appendix-B.2-1">Bob's ML-KEM-512 private key:<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.2-2">
 <pre>
-  -----BEGIN PRIVATE KEY-----
-  MIIGdAIBADALBglghkgBZQMEBAEEggZgccN7jmIdwnCzfWgVxgIPofRkZ+qPP+Jn
-  e7kd/wBvcwFsqygTliNHMixSTSc4OckHLmuehHZcpOc+mKNGyMu+flEy73GrpjrB
-  L/Q/WaS7Vxe665MIbDKCqhJJS2AFguuYDBWGOxuCZYSQhawoAfR0OAkA5RoihgMH
-  OKAx+6F0V8VJLFyj2yuVpNqOn2J3/bJ+DAMZv/ki2TcNoiEI/ZBfO0iEOKmso1tG
-  p0A+96odcQOM0Bw2ATrJBpubaMFsK5y9Trgl6fJjwQI2eidnYcxC0ME6fVqNRWrK
-  RDk3+jBiPkBzMOdJIsemNYeIwKu/ZpCbn8guTogI0tscIDiciXQwBbNp0HePdasB
-  f4FklaESWfzO2XNyI8x/7nyBn2OJQrup6ec1BjKphuA5saBPnpW4D8UMJaVeCdq7
-  7jVBdQwJDcUzWMGe0JpDGAJTqtONrPg0xyplcGQDoiGklDJhEuS5uDUgkaM27bJT
-  FiDJxeGM9fZenJG129pCOwcTnud3yjeMsKmQ1joFjPuF4WxJsTE7BZWO9joX3oR+
-  BVcrsua7ndarRDmY2LzIXWguTtulaEUkPre5l2dZpnFBv1sBEVASk+RBW8AxckcQ
-  ZdIBX8QyRtgZbdVd6gy/nVhWnGcbFKEfEZY69ZlTZHG4SScdALmRfMdV2DB+i+XC
-  GQZYVaeamzUa5EFqtGwPi/tz+AeZEHESs/YMamZplGBr5eCTthsZi9NZs5is1dFE
-  avMnXKbN7oWBTYyKeOFFDph+RSCNlnnH5hKtFHWsPMZqVVaD7TAT8mYuhOq1gGKE
-  mHlPTJNlPom1LbRiUktp9yWB9fQ5c9C5IrLPnMCIhqdcZ/a0zlHELyZ3DPNeSepD
-  lBSuUacgClq7FNuV2LMgsbFqiVLD1bSVYzRLAAOac/Z1EZDCyPu9vlglAH3G5SLF
-  mypxVtST1XQ91gkurfwksUK13vSif6miRvV9gFwb+5d2kJIjdJAcKilDi5TL7+wQ
-  YYN9qGkYCNuVYDMVRCI0VEIHjise4KZaJOdzoHlQ7LKY7FAsO3w/Mja8geRxwgaz
-  LVu4joRnhRUdsceltFG/eZnBbsAS75gRulwHqSRnbyNRMdYV9gggh5RurqExr+dF
-  wtNQ9hyNPAEr51FTVRuZ9McJ22sXdTSHIHu1ewGjq1N5BYKk/ssGtjGYAUGGnYm5
-  THow75OkhZUdXPLNLZQTgwQFD8cMZbIKAvpZEoZF2sR8FzZaDuWgJztEOOg6pYZg
-  9xWfYcIs9WF6YtYB4JETTBwtQ9K9TOEpmytGThx9KLl5kHsPN7iiVDw0UaInxYyL
-  5jfGOJNb/Dpf9jtsL7N/wksVyfuM69A0zzk9eniPcoiJdKcIC/U4RQNk7ml4/RBB
-  RTULG9BCPEKP6QYdn8Rop4XLtAPQKuGXr3FxwHR0zNkyBAWbKcu/mRl3RnhK5KQA
-  1DzKa2gsO8yrIfOex4lLryu75lGfzwqRUyiwXhSSEqOmEtcBIdBTlHKq64E5FQYt
-  j+oNdBLIInwAcCXMJjARR2mobOwyjzhsHvYDI3ks0vebFlpCfEC5ESlAg7zDXchE
-  R8YcQ9scMlVkFeoJwPbAFaWUmTgWOfdvS6J3rZR9ksBGg0K9qQiRP7BS/rwVL5YZ
-  WhjNu9iqo9KkmDkZGtNPwpQPAuxxGQFU8gNy0xYUPbTKmmYv2ItLA+SvP/XGFuAS
-  p0AcYbaS3xd2QhGYRnYh4tQl6IM88YKLjOXLCRs2mAgdqNCuIZw1CehBZBkbe9Z7
-  SfZka4egX+U9nRrCLqugvtk5ZrKxdIFhG/kOJdM/cQUPaVAYMwMQKNA9TDbIxcEN
-  EVilg8B64QZ9cyGXwQOBy6J7/TqjLjmQ7HGK53qvyrZv2GcfljMaMkthLKCb2MCF
-  CtBrzQZZR1Ue+8SWBkuzu4QUeEq2BwVtiYMfgZqItUsyjvRxKkN0NeZ1VzQn2YQ6
-  xKRpznO2P6aCPup8KSJvpBd4AwKZKcBIq6CL2JIAQSZdqWY3kmSyHvliWjMkzTHI
-  NNmTlKoqfmx4D3tj4TGM4lc4TNyxeEdX29z/0dOAUZc2/4tuPy76riLg0OhYie1j
-  l4z672TbwSjZpZyRy7PJw/1ddylMqPKx+8P8zUDASMuBWGXxUXFXnH57d4puN9tR
-  8okk0ej2GS/mY8DijpX4g0XMQ0RECPq4
-  -----END PRIVATE KEY-----
+-----BEGIN PRIVATE KEY-----
+MFICAQAwCwYJYIZIAWUDBAQBBEAAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRob
+HB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/
+-----END PRIVATE KEY-----
 </pre><a href="#appendix-B.2-2" class="pilcrow">¶</a>
 </div>
 <p id="appendix-B.2-3">Bob decapsulates the ciphertext in the KEMRecipientInfo to get the ML-KEM-512 shared secret, derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256, uses AES-128-KEYWRAP to decrypt the content-encryption key with the key-encryption key, and decrypts the encrypted contents with the content-encryption key, revealing the plaintext content:<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-B.2-4">
 <pre>
-  Hello, world!
+Hello, world!
 </pre><a href="#appendix-B.2-4" class="pilcrow">¶</a>
 </div>
 </section>
