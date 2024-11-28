@@ -1,6 +1,6 @@
-# Use of KYBER in the Cryptographic Message Syntax (CMS)
+# Use of ML-KEM in the Cryptographic Message Syntax (CMS)
 
-This is the working area for the IETF [LAMPS Working Group](https://datatracker.ietf.org/wg/lamps/documents/) Internet-Draft, "Use of KYBER in the Cryptographic Message Syntax (CMS)".
+This is the working area for the IETF [LAMPS Working Group](https://datatracker.ietf.org/wg/lamps/documents/) Internet-Draft, "Use of ML-KEM in the Cryptographic Message Syntax (CMS)".
 
 * [Editor's Copy](https://lamps-wg.github.io/cms-kyber/#go.draft-ietf-lamps-cms-kyber.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-kyber)
