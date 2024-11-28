@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-26T00:43:19.719430+00:00",
+  "timestamp": "2024-11-28T00:43:44.131526+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -880,6 +880,66 @@
           "body": "",
           "createdAt": "2024-10-23T16:52:28Z",
           "updatedAt": "2024-10-23T16:52:28Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOLQoLsc6DVN4g",
+      "title": "Update examples to use key seed, minor cleanup",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/21",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-27T12:29:14Z",
+      "updatedAt": "2024-11-27T19:17:21Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "ab3d4ae22566215169c8b09d51baa6c40e87a5c4",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/key_seed",
+      "headRefOid": "f62b50e7f674482eaf58c56002bf4cead66eee4a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc6S6zAS",
+          "commit": {
+            "abbreviatedOid": "e9ddcd7"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-27T12:30:50Z",
+          "updatedAt": "2024-11-27T12:30:50Z",
+          "comments": [
+            {
+              "originalPosition": 55,
+              "body": "```suggestion\r\nrm ML-KEM-512.pem\r\n\r\n```",
+              "createdAt": "2024-11-27T12:30:50Z",
+              "updatedAt": "2024-11-27T12:30:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc6S-Tl9",
+          "commit": {
+            "abbreviatedOid": "f62b50e"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-27T19:17:21Z",
+          "updatedAt": "2024-11-27T19:17:21Z",
           "comments": []
         }
       ]
