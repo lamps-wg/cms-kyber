@@ -1,4 +1,11 @@
-DEPS_FILES := CMS-KYBER-2024.asn
+DEPS_FILES := \
+	CMS-KYBER-2024.asn \
+	./example/ML-KEM-512.pub \
+	./example/ML-KEM-512.keyid \
+	./example/ML-KEM-512.cms \
+	./example/ML-KEM-512.cms.txt \
+	./example/ML-KEM-512.priv \
+	./example/decrypted.txt
 LIBDIR := lib
 include $(LIBDIR)/main.mk
 
