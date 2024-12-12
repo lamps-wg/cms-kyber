@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-10T00:45:30.751282+00:00",
+  "timestamp": "2024-12-12T00:44:17.423456+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -110,7 +110,7 @@
       "labels": [],
       "body": "Harmonize Security Considerations section between this and draft-ietf-lamps-kyber-certificates.",
       "createdAt": "2024-02-26T09:50:54Z",
-      "updatedAt": "2024-10-23T13:03:56Z",
+      "updatedAt": "2024-12-11T15:16:03Z",
       "closedAt": null,
       "comments": [
         {
@@ -263,15 +263,15 @@
       "id": "I_kwDOLQoLsc6be7yS",
       "title": "Check examples",
       "url": "https://github.com/lamps-wg/cms-kyber/issues/18",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "seanturner",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "While doing the examples, see [here](https://github.com/lamps-wg/kyber-certificates/pull/58/files) and [here](https://github.com/lamps-wg/kyber-certificates/pull/61), I noticed that they private key in this I-D seems to be lot bigger than the certificates examples.  Is the private key here just the seed?",
       "createdAt": "2024-10-23T13:16:54Z",
-      "updatedAt": "2024-10-23T17:07:34Z",
-      "closedAt": null,
+      "updatedAt": "2024-12-11T15:16:15Z",
+      "closedAt": "2024-12-11T15:16:14Z",
       "comments": [
         {
           "author": "danvangeest",
@@ -279,6 +279,13 @@
           "body": "You are right.  I made these examples before kyber-certificates specified use of the seed,  In fact, my crypto library developer has pushed back against using the private key seed, so when kyber-certificates is updated I'll have something to show him to prove it's a requirement.",
           "createdAt": "2024-10-23T17:07:33Z",
           "updatedAt": "2024-10-23T17:07:33Z"
+        },
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed in #21 ",
+          "createdAt": "2024-12-11T15:16:14Z",
+          "updatedAt": "2024-12-11T15:16:14Z"
         }
       ]
     }
