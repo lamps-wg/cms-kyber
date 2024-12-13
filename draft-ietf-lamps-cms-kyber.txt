@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 1 June 2025                                             Entrust
+Expires: 16 June 2025                                            Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                        28 November 2024
+                                                        13 December 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 June 2025.
+   This Internet-Draft will expire on 16 June 2025.
 
 Copyright Notice
 
@@ -92,9 +92,10 @@ Table of Contents
      7.1.  Normative References
      7.2.  Informative References
    Appendix A.  ASN.1 Module
-   Appendix B.  ML-KEM CMS Enveloped-Data Example
-     B.1.  Originator CMS Processing
-     B.2.  Recipient CMS Processing
+   Appendix B.  Security Strengths
+   Appendix C.  ML-KEM CMS Enveloped-Data Example
+     C.1.  Originator CMS Processing
+     C.2.  Recipient CMS Processing
    Authors' Addresses
 
 1.  Introduction
@@ -348,7 +349,7 @@ Table of Contents
    [I-D.ietf-lamps-kyber-certificates] and [RFC9629] apply to this
    specification as well.
 
-   For ML-KEM specific security considerations refer to
+   For ML-KEM-specific security considerations refer to
    [I-D.sfluhrer-cfrg-ml-kem-security-considerations].
 
    The ML-KEM variant and the underlying components need to be selected
@@ -679,7 +680,33 @@ Appendix A.  ASN.1 Module
    END
    <CODE ENDS>
 
-Appendix B.  ML-KEM CMS Enveloped-Data Example
+Appendix B.  Security Strengths
+
+   Instead of defining the strength of a quantum algorithm in a
+   traditional manner using the imprecise notion of bits of security,
+   NIST has defined security levels by picking a reference scheme, which
+   NIST expects to offer notable levels of resistance to both quantum
+   and classical attack.  To wit, a KEM algorithm that achieves NIST PQC
+   security must require computational resources to break IND-CCA2
+   security comparable or greater than that required for key search on
+   AES-128, AES-192, and AES-256 for Levels 1, 3, and 5, respectively.
+   Levels 2 and 4 use collision search for SHA-256 and SHA-384 as
+   reference.
+
+     +=======+===============+========+========+============+========+
+     | Level | Parameter Set | Encap. | Decap. | Ciphertext | Secret |
+     |       |               | Key    | Key    |            |        |
+     +=======+===============+========+========+============+========+
+     | 1     | ML-KEM-512    | 800    | 1632   | 768        | 32     |
+     +-------+---------------+--------+--------+------------+--------+
+     | 3     | ML-KEM-768    | 1184   | 2400   | 1952       | 32     |
+     +-------+---------------+--------+--------+------------+--------+
+     | 5     | ML-KEM-1024   | 1568   | 3168   | 2592       | 32     |
+     +-------+---------------+--------+--------+------------+--------+
+
+                Table 2: ML-KEM security strengths and sized
+
+Appendix C.  ML-KEM CMS Enveloped-Data Example
 
    This example shows the establishment of an AES-128 content-encryption
    key using:
@@ -695,7 +722,7 @@ Appendix B.  ML-KEM CMS Enveloped-Data Example
    private key as well as the recipient's private key.  This is omitted
    in an attempt to simplify the example.
 
-B.1.  Originator CMS Processing
+C.1.  Originator CMS Processing
 
    Alice obtains Bob's ML-KEM-512 public key:
 
@@ -862,7 +889,7 @@ B.1.  Originator CMS Processing
             :    }
             :   }
 
-B.2.  Recipient CMS Processing
+C.2.  Recipient CMS Processing
 
    Bob's ML-KEM-512 private key:
 
