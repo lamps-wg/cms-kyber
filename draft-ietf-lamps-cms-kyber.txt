@@ -92,7 +92,7 @@ Table of Contents
      7.1.  Normative References
      7.2.  Informative References
    Appendix A.  ASN.1 Module
-   Appendix B.  Security Strengths
+   Appendix B.  Parameter Set Security and Sizes
    Appendix C.  ML-KEM CMS Enveloped-Data Example
      C.1.  Originator CMS Processing
      C.2.  Recipient CMS Processing
@@ -680,7 +680,7 @@ Appendix A.  ASN.1 Module
    END
    <CODE ENDS>
 
-Appendix B.  Security Strengths
+Appendix B.  Parameter Set Security and Sizes
 
    Instead of defining the strength of a quantum algorithm in a
    traditional manner using the imprecise notion of bits of security,
@@ -704,7 +704,8 @@ Appendix B.  Security Strengths
      | 5     | ML-KEM-1024   | 1568   | 3168   | 2592       | 32     |
      +-------+---------------+--------+--------+------------+--------+
 
-                Table 2: ML-KEM security strengths and sized
+            Table 2: Mapping between NIST Security Level, ML-KEM
+                     parameter set, and sizes in bytes
 
 Appendix C.  ML-KEM CMS Enveloped-Data Example
 
