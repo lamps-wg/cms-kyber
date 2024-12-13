@@ -283,7 +283,7 @@ All identifiers used to indicate ML-KEM within CMS are defined elsewhere but rep
 
 The Security Considerations sections of {{!I-D.ietf-lamps-kyber-certificates}} and {{!RFC9629}} apply to this specification as well.
 
-For ML-KEM specific security considerations refer to {{?I-D.sfluhrer-cfrg-ml-kem-security-considerations}}.
+For ML-KEM-specific security considerations refer to {{?I-D.sfluhrer-cfrg-ml-kem-security-considerations}}.
 
 The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in NIST SP 800-57 Part 1 {{?NIST.SP.800-57pt1r5}}. To achieve 128-bit security, ML-KEM-512 SHOULD be used, the key-derivation function SHOULD provide at least 128 bits of preimage strength, and the symmetric key-encryption algorithm SHOULD have a security strength of at least 128 bits. To achieve 192-bit security, ML-KEM-768 SHOULD be used, the key-derivation function SHOULD provide at least 192 bits of preimage strength, and the symmetric key-encryption algorithm SHOULD have a security strength of at least 192 bits. In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 SHOULD be used, the key-derivation function SHOULD provide at least 256 bits of preimage strength, and the symmetric key-encryption algorithm SHOULD have a security strength of at least 256 bits.
 
@@ -340,6 +340,25 @@ RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publi
 {::include CMS-KYBER-2024.asn}
 <CODE ENDS>
 ~~~
+
+# Security Strengths {#arnold}
+
+Instead of defining the strength of a quantum algorithm in a traditional
+manner using the imprecise notion of bits of security, NIST has
+defined security levels by picking a reference scheme, which
+NIST expects to offer notable levels of resistance to both quantum and
+classical attack.  To wit, a KEM algorithm that achieves NIST PQC
+security must require computational resources to break IND-CCA2
+security comparable or greater than that required for key search
+on AES-128, AES-192, and AES-256 for Levels 1, 3, and 5, respectively.
+Levels 2 and 4 use collision search for SHA-256 and SHA-384 as reference.
+
+| Level | Parameter Set | Encap. Key | Decap. Key | Ciphertext | Secret |
+|-      |-              |-           |-           |-           |-       |
+| 1     | ML-KEM-512    | 800        | 1632       | 768        | 32     |
+| 3     | ML-KEM-768    | 1184       | 2400       | 1952       | 32     |
+| 5     | ML-KEM-1024   | 1568       | 3168       | 2592       | 32     |
+{: #tab-strengths title="ML-KEM security strengths and sized"}
 
 # ML-KEM CMS Enveloped-Data Example
 
