@@ -341,7 +341,7 @@ RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publi
 <CODE ENDS>
 ~~~
 
-# Security Strengths {#arnold}
+# Parameter Set Security and Sizes {#arnold}
 
 Instead of defining the strength of a quantum algorithm in a traditional
 manner using the imprecise notion of bits of security, NIST has
@@ -358,7 +358,7 @@ Levels 2 and 4 use collision search for SHA-256 and SHA-384 as reference.
 | 1     | ML-KEM-512    | 800        | 1632       | 768        | 32     |
 | 3     | ML-KEM-768    | 1184       | 2400       | 1952       | 32     |
 | 5     | ML-KEM-1024   | 1568       | 3168       | 2592       | 32     |
-{: #tab-strengths title="ML-KEM security strengths and sized"}
+{: #tab-strengths title="Mapping between NIST Security Level, ML-KEM parameter set, and sizes in bytes"}
 
 # ML-KEM CMS Enveloped-Data Example
 
