@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 31 May 2025                                             Entrust
+Expires: 12 July 2024                                            Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                        27 November 2024
+                                                          9 January 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -19,11 +19,11 @@ Abstract
    Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a
    quantum-resistant key-encapsulation mechanism (KEM).  Three
    parameters sets for the ML-KEM algorithm are specified by NIST in
-   [FIPS203].  In order of increasing security strength (and decreasing
+   FIPS 203.  In order of increasing security strength (and decreasing
    performance), these parameter sets are ML-KEM-512, ML-KEM-768, and
    ML-KEM-1024.  This document specifies the conventions for using ML-
-   KEM with the Cryptographic Message Syntax (CMS) using
-   KEMRecipientInfo as specified in [RFC9629].
+   KEM with the Cryptographic Message Syntax (CMS) using the
+   KEMRecipientInfo structure.
 
 About This Document
 
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 May 2025.
+   This Internet-Draft will expire on 12 July 2024.
 
 Copyright Notice
 
@@ -92,9 +92,10 @@ Table of Contents
      7.1.  Normative References
      7.2.  Informative References
    Appendix A.  ASN.1 Module
-   Appendix B.  ML-KEM CMS Enveloped-Data Example
-     B.1.  Originator CMS Processing
-     B.2.  Recipient CMS Processing
+   Appendix B.  Parameter Set Security and Sizes
+   Appendix C.  ML-KEM CMS Enveloped-Data Example
+     C.1.  Originator CMS Processing
+     C.2.  Recipient CMS Processing
    Authors' Addresses
 
 1.  Introduction
@@ -290,6 +291,10 @@ Table of Contents
 
    The conventions specified in this section augment [RFC5280].
 
+      |  RFC EDITOR: Please replace the following reference to
+      |  [I-D.ietf-lamps-kyber-certificates] with a reference to the
+      |  published RFC.
+
    A recipient who employs the ML-KEM algorithm with a certificate MUST
    identify the public key in the certificate using the id-alg-ml-kem-
    512, id-alg-ml-kem-768, or id-alg-ml-kem-1024 object identifiers
@@ -344,11 +349,15 @@ Table of Contents
 
 4.  Security Considerations
 
+      |  RFC EDITOR: Please replace the following reference to
+      |  [I-D.ietf-lamps-kyber-certificates] with a reference to the
+      |  published RFC.
+
    The Security Considerations sections of
    [I-D.ietf-lamps-kyber-certificates] and [RFC9629] apply to this
    specification as well.
 
-   For ML-KEM specific security considerations refer to
+   For ML-KEM-specific security considerations refer to
    [I-D.sfluhrer-cfrg-ml-kem-security-considerations].
 
    The ML-KEM variant and the underlying components need to be selected
@@ -467,9 +476,9 @@ Table of Contents
               Westerbaan, "Internet X.509 Public Key Infrastructure -
               Algorithm Identifiers for the Module-Lattice-Based Key-
               Encapsulation Mechanism (ML-KEM)", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-kyber-certificates-06, 4
-              November 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-kyber-certificates-06>.
+              Internet-Draft, draft-ietf-lamps-kyber-certificates-07, 7
+              January 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-lamps-kyber-certificates-07>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -591,14 +600,14 @@ Table of Contents
 
 Appendix A.  ASN.1 Module
 
+      |  RFC EDITOR: Please replace TBD2 with the value assigned by IANA
+      |  during the publication of [I-D.ietf-lamps-kyber-certificates].
+      |  Also please replace [I-D.ietf-lamps-kyber-certificates] here
+      |  and in the module with a reference to the published RFC.
+
    This appendix includes the ASN.1 module [X680] for ML-KEM.  This
    module imports objects from [RFC5911], [RFC9629], [RFC8619],
    [I-D.ietf-lamps-kyber-certificates].
-
-   RFC EDITOR: Please replace TBD2 with the value assigned by IANA
-   during the publication of [I-D.ietf-lamps-kyber-certificates].  Also
-   please replace [I-D.ietf-lamps-kyber-certificates] in the module with
-   a reference to the published RFC.
 
    <CODE BEGINS>
    CMS-ML-KEM-2024
@@ -679,12 +688,39 @@ Appendix A.  ASN.1 Module
    END
    <CODE ENDS>
 
-Appendix B.  ML-KEM CMS Enveloped-Data Example
+Appendix B.  Parameter Set Security and Sizes
+
+   Instead of defining the strength of a quantum algorithm in a
+   traditional manner using the imprecise notion of bits of security,
+   NIST has defined security levels by picking a reference scheme, which
+   NIST expects to offer notable levels of resistance to both quantum
+   and classical attack.  To wit, a KEM algorithm that achieves NIST PQC
+   security must require computational resources to break IND-CCA2
+   security comparable or greater than that required for key search on
+   AES-128, AES-192, and AES-256 for Levels 1, 3, and 5, respectively.
+   Levels 2 and 4 use collision search for SHA-256 and SHA-384 as
+   reference.
+
+     +=======+===============+========+========+============+========+
+     | Level | Parameter Set | Encap. | Decap. | Ciphertext | Secret |
+     |       |               | Key    | Key    |            |        |
+     +=======+===============+========+========+============+========+
+     | 1     | ML-KEM-512    | 800    | 1632   | 768        | 32     |
+     +-------+---------------+--------+--------+------------+--------+
+     | 3     | ML-KEM-768    | 1184   | 2400   | 1952       | 32     |
+     +-------+---------------+--------+--------+------------+--------+
+     | 5     | ML-KEM-1024   | 1568   | 3168   | 2592       | 32     |
+     +-------+---------------+--------+--------+------------+--------+
+
+            Table 2: Mapping between NIST Security Level, ML-KEM
+                     parameter set, and sizes in bytes
+
+Appendix C.  ML-KEM CMS Enveloped-Data Example
 
    This example shows the establishment of an AES-128 content-encryption
    key using:
 
-   *  ML-DSA-512 and HKDF with SHA-256;
+   *  ML-KEM-512;
 
    *  KEMRecipientInfo key derivation using HKDF with SHA-256; and
 
@@ -695,7 +731,7 @@ Appendix B.  ML-KEM CMS Enveloped-Data Example
    private key as well as the recipient's private key.  This is omitted
    in an attempt to simplify the example.
 
-B.1.  Originator CMS Processing
+C.1.  Originator CMS Processing
 
    Alice obtains Bob's ML-KEM-512 public key:
 
@@ -862,7 +898,7 @@ B.1.  Originator CMS Processing
             :    }
             :   }
 
-B.2.  Recipient CMS Processing
+C.2.  Recipient CMS Processing
 
    Bob's ML-KEM-512 private key:
 

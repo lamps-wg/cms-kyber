@@ -9,29 +9,29 @@
 <meta content="Mike Ounsworth" name="author">
 <meta content="Daniel Van Geest" name="author">
 <meta content="
-       Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant key-encapsulation mechanism (KEM). Three parameters sets for the ML-KEM algorithm are specified by NIST in  . In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as specified in  . 
+       Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant key-encapsulation mechanism (KEM). Three parameters sets for the ML-KEM algorithm are specified by NIST in FIPS 203. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using the KEMRecipientInfo structure. 
        
 
 
 
     " name="description">
-<meta content="xml2rfc 3.24.0" name="generator">
+<meta content="xml2rfc 3.25.0" name="generator">
 <meta content="Key Encapsulation Mechanism (KEM)" name="keyword">
 <meta content="KEMRecipientInfo" name="keyword">
 <meta content="ML-KEM" name="keyword">
 <meta content="Kyber" name="keyword">
 <meta content="draft-ietf-lamps-cms-kyber-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.24.0
-    Python 3.12.7
+  xml2rfc 3.25.0
+    Python 3.12.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
+    Jinja2 3.1.5
     lxml 5.3.0
     platformdirs 4.3.6
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
     setuptools 70.3.0
     wcwidth 0.2.13
@@ -543,7 +543,11 @@ figcaption, caption {
   }
   pre, svg {
     display: inline-block;
-    overflow-x: auto;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
   }
   pre {
     max-width: 100%;
@@ -1049,11 +1053,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ML-KEM in CMS</td>
-<td class="right">November 2024</td>
+<td class="right">January 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Prat, et al.</td>
-<td class="center">Expires 31 May 2025</td>
+<td class="center">Expires 12 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-cms-kyber-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-11-27" class="published">27 November 2024</time>
+<time datetime="2024-01-09" class="published">9 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-05-31">31 May 2025</time></dd>
+<dd class="expires"><time datetime="2024-07-12">12 July 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1092,7 +1096,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Use of ML-KEM in the Cryptographic Message Syntax (CMS)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant key-encapsulation mechanism (KEM). Three parameters sets for the ML-KEM algorithm are specified by NIST in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using KEMRecipientInfo as specified in <span>[<a href="#RFC9629" class="cite xref">RFC9629</a>]</span>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant key-encapsulation mechanism (KEM). Three parameters sets for the ML-KEM algorithm are specified by NIST in FIPS 203. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using the KEMRecipientInfo structure.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1128,7 +1132,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 12 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1220,18 +1224,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-asn1-module" class="internal xref">ASN.1 Module</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-ml-kem-cms-enveloped-data-e" class="internal xref">ML-KEM CMS Enveloped-Data Example</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-originator-cms-processing" class="internal xref">Originator CMS Processing</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-parameter-set-security-and-" class="internal xref">Parameter Set Security and Sizes</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-recipient-cms-processing" class="internal xref">Recipient CMS Processing</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-ml-kem-cms-enveloped-data-e" class="internal xref">ML-KEM CMS Enveloped-Data Example</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#appendix-C.1" class="auto internal xref">C.1</a>.  <a href="#name-originator-cms-processing" class="internal xref">Originator CMS Processing</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#appendix-C.2" class="auto internal xref">C.2</a>.  <a href="#name-recipient-cms-processing" class="internal xref">Recipient CMS Processing</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1439,8 +1446,11 @@ HKDF(salt, IKM, info, L)
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-certificate-conventions" class="section-name selfRef">Certificate Conventions</a>
         </h3>
 <p id="section-2.3-1">The conventions specified in this section augment <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
-<p id="section-2.3-2">A recipient who employs the ML-KEM algorithm with a certificate <span class="bcp14">MUST</span> identify the public key in the certificate using the id-alg-ml-kem-512, id-alg-ml-kem-768, or id-alg-ml-kem-1024 object identifiers following the conventions specified in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
-<p id="section-2.3-3">In particular, the key usage certificate extension <span class="bcp14">MUST</span> only contain keyEncipherment (<span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.3" class="relref">Section 4.2.1.3</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>).<a href="#section-2.3-3" class="pilcrow">¶</a></p>
+<aside id="section-2.3-2">
+          <p id="section-2.3-2.1">RFC EDITOR: Please replace the following reference to <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> with a reference to the published RFC.<a href="#section-2.3-2.1" class="pilcrow">¶</a></p>
+</aside>
+<p id="section-2.3-3">A recipient who employs the ML-KEM algorithm with a certificate <span class="bcp14">MUST</span> identify the public key in the certificate using the id-alg-ml-kem-512, id-alg-ml-kem-768, or id-alg-ml-kem-1024 object identifiers following the conventions specified in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
+<p id="section-2.3-4">In particular, the key usage certificate extension <span class="bcp14">MUST</span> only contain keyEncipherment (<span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.3" class="relref">Section 4.2.1.3</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>).<a href="#section-2.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-using-smime-caps">
@@ -1494,11 +1504,14 @@ HKDF(salt, IKM, info, L)
       <h2 id="name-security-considerations">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-4-1">The Security Considerations sections of <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> and <span>[<a href="#RFC9629" class="cite xref">RFC9629</a>]</span> apply to this specification as well.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">For ML-KEM specific security considerations refer to <span>[<a href="#I-D.sfluhrer-cfrg-ml-kem-security-considerations" class="cite xref">I-D.sfluhrer-cfrg-ml-kem-security-considerations</a>]</span>.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in NIST SP 800-57 Part 1 <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>. To achieve 128-bit security, ML-KEM-512 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 128 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 128 bits. To achieve 192-bit security, ML-KEM-768 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 192 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 192 bits. In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 256 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 256 bits.<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4">Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the ML-KEM.Encaps and ML-KEM.Decaps algorithms from <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol for well-formed inputs. However, it is possible (though extremely unlikely) that the process will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
-secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are provided in Table 1 of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> and reproduced here in <a href="#tab-fail" class="auto internal xref">Table 1</a>.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<aside id="section-4-1">
+        <p id="section-4-1.1">RFC EDITOR: Please replace the following reference to <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> with a reference to the published RFC.<a href="#section-4-1.1" class="pilcrow">¶</a></p>
+</aside>
+<p id="section-4-2">The Security Considerations sections of <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> and <span>[<a href="#RFC9629" class="cite xref">RFC9629</a>]</span> apply to this specification as well.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">For ML-KEM-specific security considerations refer to <span>[<a href="#I-D.sfluhrer-cfrg-ml-kem-security-considerations" class="cite xref">I-D.sfluhrer-cfrg-ml-kem-security-considerations</a>]</span>.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in NIST SP 800-57 Part 1 <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>. To achieve 128-bit security, ML-KEM-512 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 128 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 128 bits. To achieve 192-bit security, ML-KEM-768 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 192 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 192 bits. In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 <span class="bcp14">SHOULD</span> be used, the key-derivation function <span class="bcp14">SHOULD</span> provide at least 256 bits of preimage strength, and the symmetric key-encryption algorithm <span class="bcp14">SHOULD</span> have a security strength of at least 256 bits.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5">Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the ML-KEM.Encaps and ML-KEM.Decaps algorithms from <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol for well-formed inputs. However, it is possible (though extremely unlikely) that the process will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
+secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are provided in Table 1 of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> and reproduced here in <a href="#tab-fail" class="auto internal xref">Table 1</a>.<a href="#section-4-5" class="pilcrow">¶</a></p>
 <span id="name-ml-kem-decapsulation-failur"></span><div id="tab-fail">
 <table class="center" id="table-1">
         <caption>
@@ -1527,13 +1540,13 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
         </tbody>
       </table>
 </div>
-<p id="section-4-6">Implementations <span class="bcp14">MUST</span> protect the ML-KEM private key, the key-encryption key, the content-encryption key, message-authentication key, and the content-authenticated-encryption key. Disclosure of the ML-KEM private key could result in the compromise of all messages protected with that key. Disclosure of the key-encryption key, the content-encryption key, or the content-authenticated-encryption key could result in compromise of the associated encrypted content. Disclosure of the key-encryption key, the message-authentication key, or the content-authenticated-encryption key could allow modification of the associated authenticated content.<a href="#section-4-6" class="pilcrow">¶</a></p>
-<p id="section-4-7">Additional considerations related to key management may be found in <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>.<a href="#section-4-7" class="pilcrow">¶</a></p>
-<p id="section-4-8">The security of the ML-KEM algorithm depends on a quality random number generator. For further discussion on random number generation, see <span>[<a href="#RFC4086" class="cite xref">RFC4086</a>]</span>.<a href="#section-4-8" class="pilcrow">¶</a></p>
-<p id="section-4-9">ML-KEM encapsulation and decapsulation only outputs a shared secret and ciphertext. Implementations <span class="bcp14">SHOULD NOT</span> use intermediate values directly for any purpose.<a href="#section-4-9" class="pilcrow">¶</a></p>
-<p id="section-4-10">Implementations <span class="bcp14">SHOULD NOT</span> reveal information about intermediate values or calculations, whether by timing or other "side channels", otherwise an opponent may be able to determine information about the keying data and/or the recipient's private key. Although not all intermediate information may be useful to an opponent, it is preferable to conceal as much information as is practical, unless analysis specifically indicates that the information would not be useful to an opponent.<a href="#section-4-10" class="pilcrow">¶</a></p>
-<p id="section-4-11">Generally, good cryptographic practice employs a given ML-KEM key pair in only one scheme. This practice avoids the risk that vulnerability in one scheme may compromise the security of the other, and may be essential to maintain provable security.<a href="#section-4-11" class="pilcrow">¶</a></p>
-<p id="section-4-12">Parties <span class="bcp14">MAY</span> gain assurance that implementations are correct through formal implementation validation, such as the NIST Cryptographic Module Validation Program (CMVP) <span>[<a href="#CMVP" class="cite xref">CMVP</a>]</span>.<a href="#section-4-12" class="pilcrow">¶</a></p>
+<p id="section-4-7">Implementations <span class="bcp14">MUST</span> protect the ML-KEM private key, the key-encryption key, the content-encryption key, message-authentication key, and the content-authenticated-encryption key. Disclosure of the ML-KEM private key could result in the compromise of all messages protected with that key. Disclosure of the key-encryption key, the content-encryption key, or the content-authenticated-encryption key could result in compromise of the associated encrypted content. Disclosure of the key-encryption key, the message-authentication key, or the content-authenticated-encryption key could allow modification of the associated authenticated content.<a href="#section-4-7" class="pilcrow">¶</a></p>
+<p id="section-4-8">Additional considerations related to key management may be found in <span>[<a href="#NIST.SP.800-57pt1r5" class="cite xref">NIST.SP.800-57pt1r5</a>]</span>.<a href="#section-4-8" class="pilcrow">¶</a></p>
+<p id="section-4-9">The security of the ML-KEM algorithm depends on a quality random number generator. For further discussion on random number generation, see <span>[<a href="#RFC4086" class="cite xref">RFC4086</a>]</span>.<a href="#section-4-9" class="pilcrow">¶</a></p>
+<p id="section-4-10">ML-KEM encapsulation and decapsulation only outputs a shared secret and ciphertext. Implementations <span class="bcp14">SHOULD NOT</span> use intermediate values directly for any purpose.<a href="#section-4-10" class="pilcrow">¶</a></p>
+<p id="section-4-11">Implementations <span class="bcp14">SHOULD NOT</span> reveal information about intermediate values or calculations, whether by timing or other "side channels", otherwise an opponent may be able to determine information about the keying data and/or the recipient's private key. Although not all intermediate information may be useful to an opponent, it is preferable to conceal as much information as is practical, unless analysis specifically indicates that the information would not be useful to an opponent.<a href="#section-4-11" class="pilcrow">¶</a></p>
+<p id="section-4-12">Generally, good cryptographic practice employs a given ML-KEM key pair in only one scheme. This practice avoids the risk that vulnerability in one scheme may compromise the security of the other, and may be essential to maintain provable security.<a href="#section-4-12" class="pilcrow">¶</a></p>
+<p id="section-4-13">Parties <span class="bcp14">MAY</span> gain assurance that implementations are correct through formal implementation validation, such as the NIST Cryptographic Module Validation Program (CMVP) <span>[<a href="#CMVP" class="cite xref">CMVP</a>]</span>.<a href="#section-4-13" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-iana-considerations">
@@ -1570,7 +1583,7 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
 <dd class="break"></dd>
 <dt id="I-D.ietf-lamps-kyber-certificates">[I-D.ietf-lamps-kyber-certificates]</dt>
         <dd>
-<span class="refAuthor">Turner, S.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Massimo, J.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-kyber-certificates-06</span>, <time datetime="2024-11-04" class="refDate">4 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-06">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-06</a>&gt;</span>. </dd>
+<span class="refAuthor">Turner, S.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Massimo, J.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-kyber-certificates-07</span>, <time datetime="2025-01-07" class="refDate">7 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-07">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -1675,8 +1688,10 @@ secret key. This event is called a decapsulation failure. Estimates for the deca
       <h2 id="name-asn1-module">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-asn1-module" class="section-name selfRef">ASN.1 Module</a>
       </h2>
-<p id="appendix-A-1">This appendix includes the ASN.1 module <span>[<a href="#X680" class="cite xref">X680</a>]</span> for ML-KEM. This module imports objects from <span>[<a href="#RFC5911" class="cite xref">RFC5911</a>]</span>, <span>[<a href="#RFC9629" class="cite xref">RFC9629</a>]</span>, <span>[<a href="#RFC8619" class="cite xref">RFC8619</a>]</span>, <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span>. Also please replace <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> in the module with a reference to the published RFC.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<aside id="appendix-A-1">
+        <p id="appendix-A-1.1">RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span>. Also please replace <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> here and in the module with a reference to the published RFC.<a href="#appendix-A-1.1" class="pilcrow">¶</a></p>
+</aside>
+<p id="appendix-A-2">This appendix includes the ASN.1 module <span>[<a href="#X680" class="cite xref">X680</a>]</span> for ML-KEM. This module imports objects from <span>[<a href="#RFC5911" class="cite xref">RFC5911</a>]</span>, <span>[<a href="#RFC9629" class="cite xref">RFC9629</a>]</span>, <span>[<a href="#RFC8619" class="cite xref">RFC8619</a>]</span>, <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 <div class="breakable sourcecode" id="appendix-A-3">
 <pre>&lt;CODE BEGINS&gt;
 CMS-ML-KEM-2024
@@ -1760,35 +1775,95 @@ END
 </div>
 </section>
 </div>
-<div id="ml-kem-cms-enveloped-data-example">
+<div id="arnold">
 <section id="appendix-B">
-      <h2 id="name-ml-kem-cms-enveloped-data-e">
-<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-ml-kem-cms-enveloped-data-e" class="section-name selfRef">ML-KEM CMS Enveloped-Data Example</a>
+      <h2 id="name-parameter-set-security-and-">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-parameter-set-security-and-" class="section-name selfRef">Parameter Set Security and Sizes</a>
       </h2>
-<p id="appendix-B-1">This example shows the establishment of an AES-128 content-encryption
-key using:<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">Instead of defining the strength of a quantum algorithm in a traditional
+manner using the imprecise notion of bits of security, NIST has
+defined security levels by picking a reference scheme, which
+NIST expects to offer notable levels of resistance to both quantum and
+classical attack.  To wit, a KEM algorithm that achieves NIST PQC
+security must require computational resources to break IND-CCA2
+security comparable or greater than that required for key search
+on AES-128, AES-192, and AES-256 for Levels 1, 3, and 5, respectively.
+Levels 2 and 4 use collision search for SHA-256 and SHA-384 as reference.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<span id="name-mapping-between-nist-securi"></span><div id="tab-strengths">
+<table class="center" id="table-2">
+        <caption>
+<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#name-mapping-between-nist-securi" class="selfRef">Mapping between NIST Security Level, ML-KEM parameter set, and sizes in bytes</a>
+        </caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Level</th>
+            <th class="text-left" rowspan="1" colspan="1">Parameter Set</th>
+            <th class="text-left" rowspan="1" colspan="1">Encap. Key</th>
+            <th class="text-left" rowspan="1" colspan="1">Decap. Key</th>
+            <th class="text-left" rowspan="1" colspan="1">Ciphertext</th>
+            <th class="text-left" rowspan="1" colspan="1">Secret</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">1</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-512</td>
+            <td class="text-left" rowspan="1" colspan="1">800</td>
+            <td class="text-left" rowspan="1" colspan="1">1632</td>
+            <td class="text-left" rowspan="1" colspan="1">768</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">3</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
+            <td class="text-left" rowspan="1" colspan="1">1184</td>
+            <td class="text-left" rowspan="1" colspan="1">2400</td>
+            <td class="text-left" rowspan="1" colspan="1">1952</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">5</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024</td>
+            <td class="text-left" rowspan="1" colspan="1">1568</td>
+            <td class="text-left" rowspan="1" colspan="1">3168</td>
+            <td class="text-left" rowspan="1" colspan="1">2592</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+</section>
+</div>
+<div id="ml-kem-cms-enveloped-data-example">
+<section id="appendix-C">
+      <h2 id="name-ml-kem-cms-enveloped-data-e">
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-ml-kem-cms-enveloped-data-e" class="section-name selfRef">ML-KEM CMS Enveloped-Data Example</a>
+      </h2>
+<p id="appendix-C-1">This example shows the establishment of an AES-128 content-encryption
+key using:<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-B-2.1">
-          <p id="appendix-B-2.1.1">ML-DSA-512 and HKDF with SHA-256;<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C-2.1">
+          <p id="appendix-C-2.1.1">ML-KEM-512;<a href="#appendix-C-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.2">
-          <p id="appendix-B-2.2.1">KEMRecipientInfo key derivation using HKDF with SHA-256; and<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-2.2">
+          <p id="appendix-C-2.2.1">KEMRecipientInfo key derivation using HKDF with SHA-256; and<a href="#appendix-C-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.3">
-          <p id="appendix-B-2.3.1">KEMRecipientInfo key wrap using AES-128-KEYWRAP.<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-2.3">
+          <p id="appendix-C-2.3.1">KEMRecipientInfo key wrap using AES-128-KEYWRAP.<a href="#appendix-C-2.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-B-3">In real-world use, the originator would encrypt the content-
+<p id="appendix-C-3">In real-world use, the originator would encrypt the content-
 encryption key in a manner that would allow decryption with their own
 private key as well as the recipient's private key.  This is omitted
-in an attempt to simplify the example.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
+in an attempt to simplify the example.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
 <div id="originator-cms-processing">
-<section id="appendix-B.1">
+<section id="appendix-C.1">
         <h3 id="name-originator-cms-processing">
-<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-originator-cms-processing" class="section-name selfRef">Originator CMS Processing</a>
+<a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-originator-cms-processing" class="section-name selfRef">Originator CMS Processing</a>
         </h3>
-<p id="appendix-B.1-1">Alice obtains Bob's ML-KEM-512 public key:<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-2">
+<p id="appendix-C.1-1">Alice obtains Bob's ML-KEM-512 public key:<a href="#appendix-C.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-C.1-2">
 <pre>
 -----BEGIN PUBLIC KEY-----
 MIIDMjALBglghkgBZQMEBAEDggMhADmVgV5ZfRBDVc8pqlMzyTJRhp1bzb5IcST2
@@ -1810,17 +1885,17 @@ UZejQ+dLSicsEl1UCJZCbYW3lY07OKa6mH7DciXHtEzbEt3kU5tKsII2NoPwS/eg
 nMXEHf6DChsWLgsyQzQ2LwhKFEZ3IzRLrdAA+NjFN8SPmY8FMHzr0e3guBw7xZoG
 WhttY7Js
 -----END PUBLIC KEY-----
-</pre><a href="#appendix-B.1-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-C.1-2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.1-3">Bob's ML-KEM-512 public key has the following key identifier:<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-4">
+<p id="appendix-C.1-3">Bob's ML-KEM-512 public key has the following key identifier:<a href="#appendix-C.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-C.1-4">
 <pre>
 599788C37AED400EE405D1B2A3366AB17D824A51
-</pre><a href="#appendix-B.1-4" class="pilcrow">¶</a>
+</pre><a href="#appendix-C.1-4" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.1-5">Alice generates a shared secret and ciphertext using Bob's ML-KEM-512 public key, derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256, randomly generates a 128-bit content-encryption key, uses AES-128-KEYWRAP to encrypt the content-encryption key with the key-encryption key, encrypts the plaintext content with the content-encryption key and encodes the EnvelopedData (using KEMRecipientInfo) and ContentInfo, and then sends the result to Bob.<a href="#appendix-B.1-5" class="pilcrow">¶</a></p>
-<p id="appendix-B.1-6">The Base64-encoded result is:<a href="#appendix-B.1-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-7">
+<p id="appendix-C.1-5">Alice generates a shared secret and ciphertext using Bob's ML-KEM-512 public key, derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256, randomly generates a 128-bit content-encryption key, uses AES-128-KEYWRAP to encrypt the content-encryption key with the key-encryption key, encrypts the plaintext content with the content-encryption key and encodes the EnvelopedData (using KEMRecipientInfo) and ContentInfo, and then sends the result to Bob.<a href="#appendix-C.1-5" class="pilcrow">¶</a></p>
+<p id="appendix-C.1-6">The Base64-encoded result is:<a href="#appendix-C.1-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-C.1-7">
 <pre>
 -----BEGIN CMS-----
 MIID8gYLKoZIhvcNAQkQARegggPhMIID3QIBADGCA4ikggOEBgsqhkiG9w0BCRAN
@@ -1846,10 +1921,10 @@ TekPnqeXQxQsCApolNdBREvHJzVFD8fxMDoGCSqGSIb3DQEHATAeBglghkgBZQME
 AS4wEQQM09P1v4RTaKUfxd6/AgEQgA0W/2sAf/+wpWYbxab8BBAcFxeZJbrC7Ifl
 jQHB7vah
 -----END CMS-----
-</pre><a href="#appendix-B.1-7" class="pilcrow">¶</a>
+</pre><a href="#appendix-C.1-7" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.1-8">This result decodes to:<a href="#appendix-B.1-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-9">
+<p id="appendix-C.1-8">This result decodes to:<a href="#appendix-C.1-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-C.1-9">
 <pre>
    0 1010: SEQUENCE {
    4   11:  OBJECT IDENTIFIER
@@ -1950,36 +2025,36 @@ jQHB7vah
          :     }
          :    }
          :   }
-</pre><a href="#appendix-B.1-9" class="pilcrow">¶</a>
+</pre><a href="#appendix-C.1-9" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="recipient-cms-processing">
-<section id="appendix-B.2">
+<section id="appendix-C.2">
         <h3 id="name-recipient-cms-processing">
-<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-recipient-cms-processing" class="section-name selfRef">Recipient CMS Processing</a>
+<a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-recipient-cms-processing" class="section-name selfRef">Recipient CMS Processing</a>
         </h3>
-<p id="appendix-B.2-1">Bob's ML-KEM-512 private key:<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2-2">
+<p id="appendix-C.2-1">Bob's ML-KEM-512 private key:<a href="#appendix-C.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-C.2-2">
 <pre>
 -----BEGIN PRIVATE KEY-----
 MFICAQAwCwYJYIZIAWUDBAQBBEAAAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRob
 HB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/
 -----END PRIVATE KEY-----
-</pre><a href="#appendix-B.2-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-C.2-2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2-3">Bob decapsulates the ciphertext in the KEMRecipientInfo to get the ML-KEM-512 shared secret, derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256, uses AES-128-KEYWRAP to decrypt the content-encryption key with the key-encryption key, and decrypts the encrypted contents with the content-encryption key, revealing the plaintext content:<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2-4">
+<p id="appendix-C.2-3">Bob decapsulates the ciphertext in the KEMRecipientInfo to get the ML-KEM-512 shared secret, derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256, uses AES-128-KEYWRAP to decrypt the content-encryption key with the key-encryption key, and decrypts the encrypted contents with the content-encryption key, revealing the plaintext content:<a href="#appendix-C.2-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-C.2-4">
 <pre>
 Hello, world!
-</pre><a href="#appendix-B.2-4" class="pilcrow">¶</a>
+</pre><a href="#appendix-C.2-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-C">
+<section id="appendix-D">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
