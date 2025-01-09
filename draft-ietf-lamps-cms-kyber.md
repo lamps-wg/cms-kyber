@@ -5,7 +5,7 @@ title: Use of ML-KEM in the Cryptographic Message Syntax (CMS)
 abbrev: ML-KEM in CMS
 consensus: 'true'
 submissiontype: IETF
-date: 2024
+date:
 # <!-- date: 2023-11 -->
 # <!-- date: 2023 -->
 
