@@ -235,6 +235,10 @@ If underlying components other than those specified above are used, then the fol
 
 The conventions specified in this section augment {{!RFC5280}}.
 
+<aside markdown="block">
+  RFC EDITOR: Please replace the following reference to [I-D.ietf-lamps-kyber-certificates] with a reference to the published RFC.
+</aside>
+
 A recipient who employs the ML-KEM algorithm with a certificate MUST identify the public key in the certificate using the id-alg-ml-kem-512, id-alg-ml-kem-768, or id-alg-ml-kem-1024 object identifiers following the conventions specified in {{!I-D.ietf-lamps-kyber-certificates}}.
 
 In particular, the key usage certificate extension MUST only contain keyEncipherment ({{Section 4.2.1.3 of RFC5280}}).
@@ -280,6 +284,10 @@ All identifiers used to indicate ML-KEM within CMS are defined elsewhere but rep
 ~~~
 
 # Security Considerations {#sec-security-considerations}
+
+<aside markdown="block">
+  RFC EDITOR: Please replace the following reference to [I-D.ietf-lamps-kyber-certificates] with a reference to the published RFC.
+</aside>
 
 The Security Considerations sections of {{!I-D.ietf-lamps-kyber-certificates}} and {{!RFC9629}} apply to this specification as well.
 
@@ -331,9 +339,11 @@ Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the detailed review
 
 # ASN.1 Module {#asn1}
 
-This appendix includes the ASN.1 module {{X680}} for ML-KEM. This module imports objects from {{RFC5911}}, {{RFC9629}}, {{RFC8619}}, {{I-D.ietf-lamps-kyber-certificates}}.
+<aside markdown="block">
+  RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates]. Also please replace [I-D.ietf-lamps-kyber-certificates] here and in the module with a reference to the published RFC.
+</aside>
 
-RFC EDITOR: Please replace TBD2 with the value assigned by IANA during the publication of [I-D.ietf-lamps-kyber-certificates]. Also please replace [I-D.ietf-lamps-kyber-certificates] in the module with a reference to the published RFC.
+This appendix includes the ASN.1 module {{X680}} for ML-KEM. This module imports objects from {{RFC5911}}, {{RFC9629}}, {{RFC8619}}, {{I-D.ietf-lamps-kyber-certificates}}.
 
 ~~~
 <CODE BEGINS>
@@ -365,7 +375,7 @@ Levels 2 and 4 use collision search for SHA-256 and SHA-384 as reference.
 This example shows the establishment of an AES-128 content-encryption
 key using:
 
-*  ML-DSA-512 and HKDF with SHA-256;
+*  ML-KEM-512;
 
 *  KEMRecipientInfo key derivation using HKDF with SHA-256; and
 
