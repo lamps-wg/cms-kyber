@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 16 June 2025                                            Entrust
+Expires: 12 July 2024                                            Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                        13 December 2024
+                                                          9 January 2024
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 June 2025.
+   This Internet-Draft will expire on 12 July 2024.
 
 Copyright Notice
 
@@ -291,6 +291,10 @@ Table of Contents
 
    The conventions specified in this section augment [RFC5280].
 
+      |  RFC EDITOR: Please replace the following reference to
+      |  [I-D.ietf-lamps-kyber-certificates] with a reference to the
+      |  published RFC.
+
    A recipient who employs the ML-KEM algorithm with a certificate MUST
    identify the public key in the certificate using the id-alg-ml-kem-
    512, id-alg-ml-kem-768, or id-alg-ml-kem-1024 object identifiers
@@ -344,6 +348,10 @@ Table of Contents
      id-aes256-wrap OBJECT IDENTIFIER ::= { aes 45 }
 
 4.  Security Considerations
+
+      |  RFC EDITOR: Please replace the following reference to
+      |  [I-D.ietf-lamps-kyber-certificates] with a reference to the
+      |  published RFC.
 
    The Security Considerations sections of
    [I-D.ietf-lamps-kyber-certificates] and [RFC9629] apply to this
@@ -468,9 +476,9 @@ Table of Contents
               Westerbaan, "Internet X.509 Public Key Infrastructure -
               Algorithm Identifiers for the Module-Lattice-Based Key-
               Encapsulation Mechanism (ML-KEM)", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-kyber-certificates-06, 4
-              November 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-kyber-certificates-06>.
+              Internet-Draft, draft-ietf-lamps-kyber-certificates-07, 7
+              January 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-lamps-kyber-certificates-07>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -592,14 +600,14 @@ Table of Contents
 
 Appendix A.  ASN.1 Module
 
+      |  RFC EDITOR: Please replace TBD2 with the value assigned by IANA
+      |  during the publication of [I-D.ietf-lamps-kyber-certificates].
+      |  Also please replace [I-D.ietf-lamps-kyber-certificates] here
+      |  and in the module with a reference to the published RFC.
+
    This appendix includes the ASN.1 module [X680] for ML-KEM.  This
    module imports objects from [RFC5911], [RFC9629], [RFC8619],
    [I-D.ietf-lamps-kyber-certificates].
-
-   RFC EDITOR: Please replace TBD2 with the value assigned by IANA
-   during the publication of [I-D.ietf-lamps-kyber-certificates].  Also
-   please replace [I-D.ietf-lamps-kyber-certificates] in the module with
-   a reference to the published RFC.
 
    <CODE BEGINS>
    CMS-ML-KEM-2024
@@ -712,7 +720,7 @@ Appendix C.  ML-KEM CMS Enveloped-Data Example
    This example shows the establishment of an AES-128 content-encryption
    key using:
 
-   *  ML-DSA-512 and HKDF with SHA-256;
+   *  ML-KEM-512;
 
    *  KEMRecipientInfo key derivation using HKDF with SHA-256; and
 
