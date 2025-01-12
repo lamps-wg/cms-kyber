@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-09T00:41:09.206377+00:00",
+  "timestamp": "2025-01-12T00:45:35.273124+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -949,6 +949,48 @@
           "body": "",
           "createdAt": "2024-11-27T19:17:21Z",
           "updatedAt": "2024-11-27T19:17:21Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOLQoLsc6HNyv5",
+      "title": "Pre-WGLC review",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/22",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-09T14:26:55Z",
+      "updatedAt": "2025-01-09T14:36:47Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "1a56461de7a1c5c5a9150d021414d664cfe0f135",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/pre_wglc_review",
+      "headRefOid": "5ead90dac3535c0eb0462641cc9f36cf7322ba53",
+      "closedAt": "2025-01-09T14:36:47Z",
+      "mergedAt": "2025-01-09T14:36:47Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "518ea9e071338174843a2b279f010b05ae868ebe"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc6XZsfm",
+          "commit": {
+            "abbreviatedOid": "5ead90d"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-09T14:35:17Z",
+          "updatedAt": "2025-01-09T14:35:17Z",
           "comments": []
         }
       ]
