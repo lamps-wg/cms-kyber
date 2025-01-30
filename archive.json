@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-28T00:40:14.263611+00:00",
+  "timestamp": "2025-01-30T00:39:19.293534+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -288,6 +288,22 @@
           "updatedAt": "2024-12-11T15:16:14Z"
         }
       ]
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOLQoLsc6n89ps",
+      "title": "Make draft private-key-format agnostic",
+      "url": "https://github.com/lamps-wg/cms-kyber/issues/23",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "With the disagreements going on about private key format for ML-KEM, can we make this draft format agnostic?  I think the only places where this would apply is that we currently refer to ML-KEM.KeyGen() and ML-KEM.Decaps() from FIPS 203.  These functions explicitly use the expanded key.",
+      "createdAt": "2025-01-29T10:16:08Z",
+      "updatedAt": "2025-01-29T10:16:08Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
