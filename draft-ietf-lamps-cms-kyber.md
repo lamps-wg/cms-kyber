@@ -370,7 +370,7 @@ Levels 2 and 4 use collision search for SHA-256 and SHA-384 as reference.
 | 5     | ML-KEM-1024   | 1568       | 3168       | 2592       | 32     |
 {: #tab-strengths title="Mapping between NIST Security Level, ML-KEM parameter set, and sizes in bytes"}
 
-# ML-KEM CMS Enveloped-Data Example
+# ML-KEM CMS Authenticated-Enveloped-Data Example
 
 This example shows the establishment of an AES-128 content-encryption
 key using:
@@ -400,7 +400,45 @@ Bob's ML-KEM-512 public key has the following key identifier:
 {::include ./example/ML-KEM-512.keyid}
 ~~~
 
-Alice generates a shared secret and ciphertext using Bob's ML-KEM-512 public key, derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256, randomly generates a 128-bit content-encryption key, uses AES-128-KEYWRAP to encrypt the content-encryption key with the key-encryption key, encrypts the plaintext content with the content-encryption key and encodes the EnvelopedData (using KEMRecipientInfo) and ContentInfo, and then sends the result to Bob.
+Alice generates a shared secret and ciphertext using Bob's ML-KEM-512 public key:
+
+Shared secret:
+
+~~~
+{::include ./example/shared_secret.txt}
+~~~
+
+Ciphertext:
+
+~~~
+{::include ./example/ciphertext.txt}
+~~~
+
+Alice encodes the CMSORIforKEMOtherInfo:
+
+~~~
+{::include ./example/ori_info.txt}
+~~~
+
+Alice derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256:
+
+~~~
+{::include ./example/kek.txt}
+~~~
+
+Alice randomly generates a 128-bit content-encryption key:
+
+~~~
+{::include ./example/cek.txt}
+~~~
+
+Alice uses AES-128-KEYWRAP to encrypt the content-encryption key with the key-encryption key:
+
+~~~
+{::include ./example/encrypted_cek.txt}
+~~~
+
+Alice encrypts the padded content using AES-128-GCM with the content-encryption key and encodes the AuthEnvelopedData (using KEMRecipientInfo) and ContentInfo, and then sends the result to Bob.
 
 The Base64-encoded result is:
 
@@ -419,7 +457,7 @@ This result decodes to:
 Bob's ML-KEM-512 private key:
 
 ~~~
-{::include ./example/ML-KEM-512.priv}
+{::include ./example/ML-KEM-512-seed.priv}
 ~~~
 
 Bob decapsulates the ciphertext in the KEMRecipientInfo to get the ML-KEM-512 shared secret, derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256, uses AES-128-KEYWRAP to decrypt the content-encryption key with the key-encryption key, and decrypts the encrypted contents with the content-encryption key, revealing the plaintext content:

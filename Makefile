@@ -4,8 +4,17 @@ DEPS_FILES := \
 	./example/ML-KEM-512.keyid \
 	./example/ML-KEM-512.cms \
 	./example/ML-KEM-512.cms.txt \
-	./example/ML-KEM-512.priv \
-	./example/decrypted.txt
+	./example/ML-KEM-512-seed.priv \
+	./example/ML-KEM-512-expanded.priv \
+	./example/ML-KEM-512-both.priv \
+	./example/cek.txt \
+	./example/ciphertext.txt \
+	./example/decrypted.txt \
+	./example/encrypted_cek.txt \
+	./example/kek.txt \
+	./example/ori_info.txt \
+	./example/plaintext.txt \
+	./example/shared_secret.txt
 LIBDIR := lib
 include $(LIBDIR)/main.mk
 

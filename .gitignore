@@ -2,7 +2,7 @@
 *.pdf
 *.redxml
 *.swp
-*.txt
+draft-ietf-lamps-cms-kyber.txt
 *.upload
 *~
 .includes.mk

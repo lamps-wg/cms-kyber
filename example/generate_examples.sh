@@ -1,11 +1,11 @@
 set -e
-set -x
+# set -x
 
 # Needs CryptoNext's build for KEMRecipientInfo and cnsprovider.  Sorry!
 PATH=/usr/local/cns_openssl3/bin/:$PATH
 EXT_FILE=$(dirname $(realpath $0))/openssl.cnf
 
-openssl pkey -in ML-KEM-512.priv -pubout -out ML-KEM-512.pub
+openssl pkey -in ML-KEM-512-both.priv -pubout -out ML-KEM-512.pub
 
 ##########################################################
 # Create mldsa65 root certificate
@@ -39,7 +39,7 @@ echo -n "Hello, world!" > plaintext.txt
 openssl cms -encrypt -in plaintext.txt \
     -outform PEM -out ML-KEM-512.cms \
     -recip ML-KEM-512.pem \
-    -aes-256-gcm \
+    -aes-128-gcm \
     -keyid
 openssl cms -cmsout -in ML-KEM-512.cms -inform PEM -out ML-KEM-512.cms.der -outform DER
 
@@ -48,8 +48,12 @@ dumpasn1 -a -i -w66 ML-KEM-512.cms.der > ML-KEM-512.cms.txt
 rm ML-KEM-512.cms.der
 
 openssl cms -decrypt -inform PEM -in ML-KEM-512.cms -recip ML-KEM-512.pem \
-    -inkey ML-KEM-512.priv -out decrypted.txt
+    -inkey ML-KEM-512-both.priv -out decrypted.txt
 
-rm plaintext.txt
-rm mldsa65RootCA.*
-rm ML-KEM-512.pem
+rm -f cek.txt ciphertext.txt encrypted_cek.txt kek.txt ori_info.txt shared_secret.txt
+
+echo "*******************************************"
+echo "Examples Generated!"
+echo "REMEMBER TO UPDATE INTERMEDIATE ARTIFACTS"
+echo "(e.g. cek.txt)  gdb is your friend"
+echo "*******************************************"
