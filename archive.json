@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-09T00:37:49.479492+00:00",
+  "timestamp": "2025-03-11T00:43:12.512358+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1010,6 +1010,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOLQoLsc6OBVmu",
+      "title": "Add intermediates to CMS examples",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/24",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "And switch examples to AES-128",
+      "createdAt": "2025-03-10T16:06:48Z",
+      "updatedAt": "2025-03-10T16:06:49Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "01d713277afe8dccec3b7040fd9903c37d697fdc",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/examples",
+      "headRefOid": "42684d23e64eadad959a3062729ae1a60c634c78",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
