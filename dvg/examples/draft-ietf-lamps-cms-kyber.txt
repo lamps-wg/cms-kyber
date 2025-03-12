@@ -460,7 +460,8 @@ Table of Contents
    less error prone" - RFC8411.
 
    Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the
-   detailed review and Carl Wallace for interoperability testing.
+   detailed review and Carl Wallace and Philippe Cece for
+   interoperability testing for the examples.
 
 7.  References
 
