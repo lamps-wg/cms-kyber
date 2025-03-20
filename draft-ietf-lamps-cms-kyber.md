@@ -213,9 +213,9 @@ HKDF may be used with different hash functions, including SHA-256 {{?FIPS180=NIS
 
 A compliant implementation MUST support HKDF with SHA-256, using the id-alg-hkdf-with-sha256 KDF object identifier, as the KemRecipientInfo KDF for all ML-KEM parameter sets. Note that the KDF used to process the KEMRecipientInfo structure MAY be different from the KDF used in the ML-KEM algorithm.
 
-For ML-KEM-512, an implementation must support the AES-Wrap-128 {{!RFC3394}} key-encryption algorithm using the id-aes128-wrap key-encryption algorithm object identifier {{!RFC3565}}.
+For ML-KEM-512, an implementation MUST support the AES-Wrap-128 {{!RFC3394}} key-encryption algorithm using the id-aes128-wrap key-encryption algorithm object identifier {{!RFC3565}}.
 
-For ML-KEM-768 and ML-KEM-1024, an implementation must support the AES-Wrap-256 {{!RFC3394}} key-encryption algorithm using the id-aes256-wrap key-encryption algorithm object identifier {{!RFC3565}}.
+For ML-KEM-768 and ML-KEM-1024, an implementation MUST support the AES-Wrap-256 {{!RFC3394}} key-encryption algorithm using the id-aes256-wrap key-encryption algorithm object identifier {{!RFC3565}}.
 
 The above object identifiers are reproduced for convenience in {{sec-identifiers}}.
 
