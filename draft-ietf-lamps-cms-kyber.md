@@ -131,16 +131,20 @@ Encapsulate(pk) -> (ct, ss):
 Decapsulate(sk, ct) -> ss:
 : Given the private key (sk) and the ciphertext (ct), produce the shared secret (ss) for the recipient.
 
-The KEM functions defined above correspond to the following functions in {{FIPS203}}:
+<aside markdown="block">
+  RFC EDITOR: Please replace the following references to [I-D.ietf-lamps-kyber-certificates] with a reference to the published RFC.
+</aside>
+
+The KEM functions defined above correspond to the following functions in {{FIPS203}} and {{I-D.ietf-lamps-kyber-certificates}}:
 
 KeyGen():
-: ML-KEM.KeyGen() from section 7.1.
+: `ML-KEM.KeyGen()` from section 7.1 of {{FIPS203}}, or `ML-KEM.KeyGen_internal(d,z)` from section 6.1 of {{FIPS203}}, depending on how the private key is encoded. See {{Section 6 of I-D.ietf-lamps-kyber-certificates}} for private key encoding considerations.
 
 Encapsulate():
-: ML-KEM.Encaps() from section 7.2.
+: `ML-KEM.Encaps(ek)` from section 7.2 of {{FIPS203}}.
 
 Decapsulate():
-: ML-KEM.Decaps() from section 7.3.
+: `ML-KEM.Decaps(dk,c)` from section 7.3 of {{FIPS203}}. `ML-KEM.KeyGen_internal(d,z)` may have been used previously to expand the private key if it was encoded as a seed. See {{Section 8 of I-D.ietf-lamps-kyber-certificates}} for consistency considerations if the private key was stored in both seed and expanded formats.
 
 All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and SHAKE512 internally.
 
@@ -295,7 +299,7 @@ For ML-KEM-specific security considerations refer to {{?I-D.sfluhrer-cfrg-ml-kem
 
 The ML-KEM variant and the underlying components need to be selected consistent with the desired security level. Several security levels have been identified in NIST SP 800-57 Part 1 {{?NIST.SP.800-57pt1r5}}. To achieve 128-bit security, ML-KEM-512 SHOULD be used, the key-derivation function SHOULD provide at least 128 bits of preimage strength, and the symmetric key-encryption algorithm SHOULD have a security strength of at least 128 bits. To achieve 192-bit security, ML-KEM-768 SHOULD be used, the key-derivation function SHOULD provide at least 192 bits of preimage strength, and the symmetric key-encryption algorithm SHOULD have a security strength of at least 192 bits. In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed. To achieve 256-bit security, ML-KEM-1024 SHOULD be used, the key-derivation function SHOULD provide at least 256 bits of preimage strength, and the symmetric key-encryption algorithm SHOULD have a security strength of at least 256 bits.
 
-Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the ML-KEM.Encaps and ML-KEM.Decaps algorithms from {{FIPS203}} will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol for well-formed inputs. However, it is possible (though extremely unlikely) that the process will fail in the sense that ML-KEM.Encaps and ML-KEM.Decaps will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
+Provided all inputs are well-formed, the key establishment procedure of ML-KEM will never explicitly fail. Specifically, the `ML-KEM.Encaps` and `ML-KEM.Decaps` algorithms from {{FIPS203}} will always output a value with the same data type as a shared secret key, and will never output an error or failure symbol for well-formed inputs. However, it is possible (though extremely unlikely) that the process will fail in the sense that `ML-KEM.Encaps` and `ML-KEM.Decaps` will produce different outputs, even though both of them are behaving honestly and no adversarial interference is present. In this case, the sender and recipient clearly did not succeed in producing a shared
 secret key. This event is called a decapsulation failure. Estimates for the decapsulation failure probability (or rate) for each of the ML-KEM parameter sets are provided in Table 1 of {{FIPS203}} and reproduced here in {{tab-fail}}.
 
 |Parameter set | Decapsulation failure rate |
