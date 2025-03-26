@@ -258,11 +258,11 @@ Table of Contents
    KDF used to process the KEMRecipientInfo structure MAY be different
    from the KDF used in the ML-KEM algorithm.
 
-   For ML-KEM-512, an implementation must support the AES-Wrap-128
+   For ML-KEM-512, an implementation MUST support the AES-Wrap-128
    [RFC3394] key-encryption algorithm using the id-aes128-wrap key-
    encryption algorithm object identifier [RFC3565].
 
-   For ML-KEM-768 and ML-KEM-1024, an implementation must support the
+   For ML-KEM-768 and ML-KEM-1024, an implementation MUST support the
    AES-Wrap-256 [RFC3394] key-encryption algorithm using the id-
    aes256-wrap key-encryption algorithm object identifier [RFC3565].
 
