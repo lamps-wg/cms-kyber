@@ -147,12 +147,12 @@ Table of Contents
    Decapsulate(sk, ct) -> ss:  Given the private key (sk) and the
       ciphertext (ct), produce the shared secret (ss) for the recipient.
 
+   The KEM functions defined above correspond to the following functions
+   in [FIPS203]:
+
       |  RFC EDITOR: Please replace the following references to
       |  [I-D.ietf-lamps-kyber-certificates] with a reference to the
       |  published RFC.
-
-   The KEM functions defined above correspond to the following functions
-   in [FIPS203] and [I-D.ietf-lamps-kyber-certificates]:
 
    KeyGen():  ML-KEM.KeyGen() from section 7.1 of [FIPS203], or ML-
       KEM.KeyGen_internal(d,z) from section 6.1 of [FIPS203], depending
