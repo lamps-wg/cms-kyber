@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-30T00:49:04.933834+00:00",
+  "timestamp": "2025-04-01T00:51:55.394436+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1079,13 +1079,13 @@
       "labels": [],
       "body": "The draft refers to ML-KEM keygen and decapsulation, which\r\nis dependent on private key format. Refer to the appropriate\r\nsections in kyber-certificates.\r\n\r\nCloses #23",
       "createdAt": "2025-03-26T14:32:49Z",
-      "updatedAt": "2025-03-26T14:32:50Z",
+      "updatedAt": "2025-03-31T10:16:28Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "5f83883056523960ec666bff2e733410005c486b",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/seed_vs_expanded",
-      "headRefOid": "7d1dc9735923ee7c0e95de9441884bc6c1d26c99",
+      "headRefOid": "c57541954852e339cb5f03a473b0de86a5524aba",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
