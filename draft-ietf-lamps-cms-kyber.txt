@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 27 September 2025                                       Entrust
+Expires: 24 October 2025                                         Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                           26 March 2025
+                                                           22 April 2025
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 September 2025.
+   This Internet-Draft will expire on 24 October 2025.
 
 Copyright Notice
 
@@ -150,11 +150,27 @@ Table of Contents
    The KEM functions defined above correspond to the following functions
    in [FIPS203]:
 
-   KeyGen():  ML-KEM.KeyGen() from section 7.1.
+      |  RFC EDITOR: Please replace the following references to
+      |  [I-D.ietf-lamps-kyber-certificates] with a reference to the
+      |  published RFC.
 
-   Encapsulate():  ML-KEM.Encaps() from section 7.2.
+   KeyGen():  [FIPS203] specifies two formats for an ML-KEM private key:
+      a 64-octet seed (d,z) and an (expanded) private key, dk, which is
+      referred to as the decapsulation key.  ML-KEM.KeyGen() from
+      section 7.1 of [FIPS203] generates the public key (ek) and dk.
+      ML-KEM.KeyGen_internal(d,z) from section 6.1 of [FIPS203] expands
+      the seed to ek and dk.  See Section 6 of
+      [I-D.ietf-lamps-kyber-certificates] for private key encoding
+      considerations.
 
-   Decapsulate():  ML-KEM.Decaps() from section 7.3.
+   Encapsulate():  ML-KEM.Encaps(ek) from section 7.2 of [FIPS203].
+
+   Decapsulate():  ML-KEM.Decaps(dk,c) from section 7.3 of [FIPS203].
+      ML-KEM.KeyGen_internal(d,z) may have been used previously to
+      expand the private key if it was encoded as a seed.  See Section 8
+      of [I-D.ietf-lamps-kyber-certificates] for consistency
+      considerations if the private key was stored in both seed and
+      expanded formats.
 
    All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and
    SHAKE512 internally.
@@ -478,9 +494,9 @@ Table of Contents
               Westerbaan, "Internet X.509 Public Key Infrastructure -
               Algorithm Identifiers for the Module-Lattice-Based Key-
               Encapsulation Mechanism (ML-KEM)", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-kyber-certificates-08, 2
-              February 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-kyber-certificates-08>.
+              Internet-Draft, draft-ietf-lamps-kyber-certificates-10, 16
+              April 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-lamps-kyber-certificates-10>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
