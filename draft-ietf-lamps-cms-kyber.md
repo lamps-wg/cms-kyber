@@ -138,7 +138,7 @@ The KEM functions defined above correspond to the following functions in {{FIPS2
 </aside>
 
 KeyGen():
-: {{FIPS203}} specifies two formats for an ML-KEM private key: a 64-octet seed (d,z) and an (expanded) private key, dk, which is referred to as the decapsulation key. `ML-KEM.KeyGen()` from section 7.1 of {{FIPS203}} generates the public key (ek) and dk. `ML-KEM.KeyGen_internal(d,z)` from section 6.1 of {{FIPS203}} expands the seed to the ek and dk. See {{Section 6 of I-D.ietf-lamps-kyber-certificates}} for private key encoding considerations.
+: {{FIPS203}} specifies two formats for an ML-KEM private key: a 64-octet seed (d,z) and an (expanded) private key, dk, which is referred to as the decapsulation key. `ML-KEM.KeyGen()` from section 7.1 of {{FIPS203}} generates the public key (ek) and dk. `ML-KEM.KeyGen_internal(d,z)` from section 6.1 of {{FIPS203}} expands the seed to ek and dk. See {{Section 6 of I-D.ietf-lamps-kyber-certificates}} for private key encoding considerations.
 
 Encapsulate():
 : `ML-KEM.Encaps(ek)` from section 7.2 of {{FIPS203}}.
