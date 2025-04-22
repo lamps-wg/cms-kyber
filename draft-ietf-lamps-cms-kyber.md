@@ -225,7 +225,7 @@ The above object identifiers are reproduced for convenience in {{sec-identifiers
 
 An implementation MAY also support other key-derivation functions and other key-encryption algorithms.
 
-If underlying components other than those specified above are used, then the following KDF requirements are in effect in addition to those asserted in {{!RFC9629}}:
+If underlying components other than those specified above are used, then the following requirements will satisfy the KDF and key wrapping algorithm requirements from {{Section 7 of RFC9629}}:
 
 > ML-KEM-512 SHOULD be used with a KDF capable of outputting a key with at least 128 bits of preimage strength and with a key wrapping algorithm with a key length of at least 128 bits.
 
