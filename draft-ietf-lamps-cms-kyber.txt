@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 24 October 2025                                         Entrust
+Expires: 25 October 2025                                         Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                           22 April 2025
+                                                           23 April 2025
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 October 2025.
+   This Internet-Draft will expire on 25 October 2025.
 
 Copyright Notice
 
@@ -471,10 +471,10 @@ Table of Contents
 
 6.  Acknowledgements
 
-   This document borrows heavily from [I-D.ietf-lamps-rfc5990bis],
-   [FIPS203], and [I-D.kampanakis-ml-kem-ikev2].  Thanks go to the
-   authors of those documents.  "Copying always makes things easier and
-   less error prone" - RFC8411.
+   This document borrows heavily from [RFC9690], [FIPS203], and
+   [I-D.kampanakis-ml-kem-ikev2].  Thanks go to the authors of those
+   documents.  "Copying always makes things easier and less error prone"
+   - RFC8411.
 
    Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the
    detailed review and Carl Wallace and Philippe Cece for
@@ -570,13 +570,6 @@ Table of Contents
               <https://nvlpubs.nist.gov/nistpubs/FIPS/
               NIST.FIPS.180-4.pdf>.
 
-   [I-D.ietf-lamps-rfc5990bis]
-              Housley, R. and S. Turner, "Use of the RSA-KEM Algorithm
-              in the Cryptographic Message Syntax (CMS)", Work in
-              Progress, Internet-Draft, draft-ietf-lamps-rfc5990bis-10,
-              30 July 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-rfc5990bis-10>.
-
    [I-D.kampanakis-ml-kem-ikev2]
               Kampanakis, P. and G. Ravago, "Post-quantum Hybrid Key
               Exchange with ML-KEM in the Internet Key Exchange Protocol
@@ -615,6 +608,11 @@ Table of Contents
               Cryptographic Message Syntax (CMS) and S/MIME", RFC 5911,
               DOI 10.17487/RFC5911, June 2010,
               <https://www.rfc-editor.org/rfc/rfc5911>.
+
+   [RFC9690]  Housley, R. and S. Turner, "Use of the RSA-KEM Algorithm
+              in the Cryptographic Message Syntax (CMS)", RFC 9690,
+              DOI 10.17487/RFC9690, February 2025,
+              <https://www.rfc-editor.org/rfc/rfc9690>.
 
 Appendix A.  ASN.1 Module
 
