@@ -333,7 +333,7 @@ For the ASN.1 Module in {{asn1}}, IANA is requested to assign an object identifi
 
 # Acknowledgements {#sec-acknowledgements}
 
-This document borrows heavily from {{?I-D.ietf-lamps-rfc5990bis}}, {{FIPS203}}, and {{?I-D.kampanakis-ml-kem-ikev2}}. Thanks go to the authors of those documents. "Copying always makes things easier and less error prone" - RFC8411.
+This document borrows heavily from {{?RFC9690}}, {{FIPS203}}, and {{?I-D.kampanakis-ml-kem-ikev2}}. Thanks go to the authors of those documents. "Copying always makes things easier and less error prone" - RFC8411.
 
 Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the detailed review and Carl Wallace and Philippe Cece for interoperability testing for the examples.
 
