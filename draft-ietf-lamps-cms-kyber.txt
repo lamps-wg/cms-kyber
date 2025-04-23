@@ -166,11 +166,10 @@ Table of Contents
    Encapsulate():  ML-KEM.Encaps(ek) from section 7.2 of [FIPS203].
 
    Decapsulate():  ML-KEM.Decaps(dk,c) from section 7.3 of [FIPS203].
-      ML-KEM.KeyGen_internal(d,z) may have been used previously to
-      expand the private key if it was encoded as a seed.  See Section 8
-      of [I-D.ietf-lamps-kyber-certificates] for consistency
-      considerations if the private key was stored in both seed and
-      expanded formats.
+      If the key is stored in seed form, ML-KEM.KeyGen_internal(d,z) may
+      be needed as a first step to compute dk.  See Section 8 of
+      [I-D.ietf-lamps-kyber-certificates] for consistency considerations
+      if the private key was stored in both seed and expanded formats.
 
    All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and
    SHAKE512 internally.

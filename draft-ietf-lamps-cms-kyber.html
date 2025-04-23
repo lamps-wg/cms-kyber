@@ -1303,7 +1303,7 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
           <dd class="break"></dd>
 <dt id="section-1.2-6.5">Decapsulate():</dt>
           <dd style="margin-left: 1.5em" id="section-1.2-6.6">
-            <p id="section-1.2-6.6.1"><code>ML-KEM.Decaps(dk,c)</code> from section 7.3 of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>. <code>ML-KEM.KeyGen_internal(d,z)</code> may have been used previously to expand the private key if it was encoded as a seed. See <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-10#section-8" class="relref">Section 8</a> of [<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> for consistency considerations if the private key was stored in both seed and expanded formats.<a href="#section-1.2-6.6.1" class="pilcrow">¶</a></p>
+            <p id="section-1.2-6.6.1"><code>ML-KEM.Decaps(dk,c)</code> from section 7.3 of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>. If the key is stored in seed form, <code>ML-KEM.KeyGen_internal(d,z)</code> may be needed as a first step to compute dk. See <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-kyber-certificates-10#section-8" class="relref">Section 8</a> of [<a href="#I-D.ietf-lamps-kyber-certificates" class="cite xref">I-D.ietf-lamps-kyber-certificates</a>]</span> for consistency considerations if the private key was stored in both seed and expanded formats.<a href="#section-1.2-6.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
