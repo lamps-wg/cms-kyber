@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-01T00:51:55.394436+00:00",
+  "timestamp": "2025-04-24T00:45:39.806223+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -294,15 +294,15 @@
       "id": "I_kwDOLQoLsc6n89ps",
       "title": "Make draft private-key-format agnostic",
       "url": "https://github.com/lamps-wg/cms-kyber/issues/23",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "With the disagreements going on about private key format for ML-KEM, can we make this draft format agnostic?  I think the only places where this would apply is that we currently refer to ML-KEM.KeyGen() and ML-KEM.Decaps() from FIPS 203.  These functions explicitly use the expanded key.",
       "createdAt": "2025-01-29T10:16:08Z",
-      "updatedAt": "2025-01-29T10:16:08Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-22T13:36:27Z",
+      "closedAt": "2025-04-22T13:36:27Z",
       "comments": []
     }
   ],
@@ -1072,24 +1072,26 @@
       "id": "PR_kwDOLQoLsc6QON6N",
       "title": "Private key encoding considerations.",
       "url": "https://github.com/lamps-wg/cms-kyber/pull/26",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The draft refers to ML-KEM keygen and decapsulation, which\r\nis dependent on private key format. Refer to the appropriate\r\nsections in kyber-certificates.\r\n\r\nCloses #23",
       "createdAt": "2025-03-26T14:32:49Z",
-      "updatedAt": "2025-03-31T10:16:28Z",
+      "updatedAt": "2025-04-22T13:36:26Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "5f83883056523960ec666bff2e733410005c486b",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/seed_vs_expanded",
-      "headRefOid": "c57541954852e339cb5f03a473b0de86a5524aba",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "9423cccc6312b0e283c2c9a6860b24af0ed5b845",
+      "closedAt": "2025-04-22T13:36:26Z",
+      "mergedAt": "2025-04-22T13:36:26Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "57dd315b3f46af3069ddffc3748c9b27f9dd8f08"
+      },
       "comments": [],
       "reviews": []
     }
