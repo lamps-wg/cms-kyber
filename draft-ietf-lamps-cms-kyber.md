@@ -122,14 +122,14 @@ ML-KEM is a lattice-based key encapsulation mechanism using Module Learning with
 
 Like all KEM algorithms, ML-KEM provides three functions: KeyGen(), Encapsulate(), and Decapsulate().
 
-KeyGen() -> (pk, sk):
-: Generate the public key (pk) and a private key (sk).
+KeyGen() -> (ek, dk):
+: Generate the public encapsulation key (ek) and a private decapsulation key (dk).
 
-Encapsulate(pk) -> (ct, ss):
-: Given the recipient's public key (pk), produce a ciphertext (ct) to be passed to the recipient and a shared secret (ss) for use by the originator.
+Encapsulate(ek) -> (c, ss):
+: Given the recipient's public key (ek), produce both a ciphertext (c) to be passed to the recipient and a shared secret (ss) for use by the originator.
 
-Decapsulate(sk, ct) -> ss:
-: Given the private key (sk) and the ciphertext (ct), produce the shared secret (ss) for the recipient.
+Decapsulate(dk, c) -> ss:
+: Given the private key (dk) and the ciphertext (c), produce the shared secret (ss) for the recipient.
 
 The KEM functions defined above correspond to the following functions in {{FIPS203}}:
 
@@ -138,13 +138,13 @@ The KEM functions defined above correspond to the following functions in {{FIPS2
 </aside>
 
 KeyGen():
-: {{FIPS203}} specifies two formats for an ML-KEM private key: a 64-octet seed (d,z) and an (expanded) private key, dk, which is referred to as the decapsulation key. `ML-KEM.KeyGen()` from section 7.1 of {{FIPS203}} generates the public key (ek) and dk. `ML-KEM.KeyGen_internal(d,z)` from section 6.1 of {{FIPS203}} expands the seed to ek and dk. See {{Section 6 of I-D.ietf-lamps-kyber-certificates}} for private key encoding considerations.
+: {{FIPS203}} specifies two formats for an ML-KEM private key: a 64-octet seed (d,z) and an (expanded) private decapsulation key (dk). Algorithm 19 (`ML-KEM.KeyGen()`) from {{FIPS203}} generates the public encapsulation key (ek) and the private decapsulation key (dk). As an alternative, when a seed (d,z) is generated first and then the seed is expanded to get the keys, algorithm 16 (`ML-KEM.KeyGen_internal(d,z)`) from {{FIPS203}} expands the seed to ek and dk. See {{Section 6 of I-D.ietf-lamps-kyber-certificates}} for private key encoding considerations.
 
 Encapsulate():
-: `ML-KEM.Encaps(ek)` from section 7.2 of {{FIPS203}}.
+: Algorithm 20 (`ML-KEM.Encaps(ek)`) from {{FIPS203}}.
 
 Decapsulate():
-: `ML-KEM.Decaps(dk,c)` from section 7.3 of {{FIPS203}}. If the key is stored in seed form, `ML-KEM.KeyGen_internal(d,z)` may be needed as a first step to compute dk. See {{Section 8 of I-D.ietf-lamps-kyber-certificates}} for consistency considerations if the private key was stored in both seed and expanded formats.
+: Algorithm 21 (`ML-KEM.Decaps(dk,c)`) from {{FIPS203}}. If the private key is stored in seed form, `ML-KEM.KeyGen_internal(d,z)` may be needed as a first step to compute dk. See {{Section 8 of I-D.ietf-lamps-kyber-certificates}} for consistency considerations if the private key was stored in both seed and expanded formats.
 
 All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and SHAKE512 internally.
 
@@ -172,23 +172,29 @@ The fields of the KEMRecipientInfo MUST have the following values:
 
 > kemct is the ciphertext produced for this recipient.
 
-> kdf identifies the key-derivation algorithm. Note that the Key Derivation Function (KDF) used for CMS RecipientInfo process MAY be different than the KDF used within the ML-KEM algorithm.
+> kdf identifies the key-derivation algorithm. Note that the Key Derivation Function (KDF) used for CMS RecipientInfo process MAY be different than the KDF used within the ML-KEM algorithm. Implementations MUST support HKDF {{!RFC5869}} with SHA-256 {{?FIPS180=NIST.FIPS.180-4}}, using the id-alg-hkdf-with-sha256 KDF object identifier {{!RFC8619}}. As specified in {{!RFC8619}}, the parameter field MUST be absent when this object identifier appears within the ASN.1 type AlgorithmIdentifier. Implementations MAY support other KDFs as well.
 
 > kekLength is the size of the key-encryption key in octets.
 
-> ukm is an optional random input to the key-derivation function. ML-KEM doesn't place any requirements on the ukm contents.
+> ukm is an optional random input to the key-derivation function. For ML-KEM, ukm doesn't provide any additional security benefits. Senders using ML-KEM MAY choose to send a ukm, though there is no reason to. For maximum interoperability, receivers using ML-KEM SHOULD accept and process the ukm. Receivers that do not support the ukm field SHOULD gracefully discontinue processing when the ukm field is present.
 
-> wrap identifies a key-encryption algorithm used to encrypt the content-encryption key.
+> wrap identifies a key-encryption algorithm used to encrypt the content-encryption key. Implementations supporting ML-KEM-512 MUST support the AES-Wrap-128 {{!RFC3394}} key-encryption algorithm using the id-aes128-wrap key-encryption algorithm object identifier {{!RFC3565}}. Implementations supporting ML-KEM-768 or ML-KEM-1024 MUST support the AES-Wrap-256 {{!RFC3394}} key-encryption algorithm using the id-aes256-wrap key-encryption algorithm object identifier {{!RFC3565}}. Implementations MAY support other key-encryption algorithms as well.
 
 <!-- End of recipientinfo conventions section -->
 
 ## Underlying Components {#sec-using-components}
 
-When ML-KEM is employed in CMS, the security levels of the different underlying components used within the KEMRecipientInfo structure SHOULD be consistent.
+When ML-KEM is employed in CMS, the underlying components used within the KEMRecipientInfo structure SHOULD be consistent with a minimum desired security level.
+
+If underlying components other than those specified in {{sec-using-recipientInfo}} are used, then the following requirements will satisfy the KDF and key wrapping algorithm requirements from {{Section 7 of RFC9629}}:
+
+> ML-KEM-512 SHOULD be used with a KDF capable of outputting a key with at least 128 bits of preimage strength and with a key wrapping algorithm with a key length of at least 128 bits.
+
+> ML-KEM-768 SHOULD be used with a KDF capable of outputting a key with at least 192 bits of preimage strength and with a key wrapping algorithm with a key length of at least 192 bits.
+
+> ML-KEM-1024 SHOULD be used with a KDF capable of outputting a key with at least 256 bits of preimage strength and with a key wrapping algorithm with a key length of at least 256 bits.
 
 ### Use of the HKDF-based Key Derivation Function
-
-The HMAC-based Extract-and-Expand Key Derivation Function (HKDF) is defined in {{!RFC5869}}.
 
 The HKDF function is a composition of the HKDF-Extract and HKDF-Expand functions.
 
@@ -197,41 +203,7 @@ HKDF(salt, IKM, info, L)
   = HKDF-Expand(HKDF-Extract(salt, IKM), info, L)
 ~~~
 
-HKDF(salt, IKM, info, L) takes the following parameters:
-
-salt:
-: optional salt value (a non-secret random value). In this document this parameter is unused, that is it is the zero-length string "".
-
-IKM:
-: input keying material. In this document this is the shared secret outputted from the Encapsulate() or Decapsulate() functions.  This corresponds to the IKM KDF input from {{Section 5 of RFC9629}}.
-
-info:
-: optional context and application specific information. In this document this corresponds to the info KDF input from {{Section 5 of RFC9629}}. This is the ASN.1 DER encoding of CMSORIforKEMOtherInfo which is independently generated by the sender and receiver.
-
-L:
-: length of output keying material in octets. This corresponds to the L KDF input from {{Section 5 of RFC9629}}, which is identified in the kekLength value from KEMRecipientInfo. Implementations MUST confirm that this value is consistent with the key size of the key-encryption algorithm.
-
-HKDF may be used with different hash functions, including SHA-256 {{?FIPS180=NIST.FIPS.180-4}}. The object identifier id-alg-hkdf-with-sha256 is defined in {{!RFC8619}}, and specifies the use of HKDF with SHA-256. The parameter field MUST be absent when this algorithm identifier is used to specify the KDF for ML-KEM in KemRecipientInfo.
-
-### Components for ML-KEM in CMS
-
-A compliant implementation MUST support HKDF with SHA-256, using the id-alg-hkdf-with-sha256 KDF object identifier, as the KemRecipientInfo KDF for all ML-KEM parameter sets. Note that the KDF used to process the KEMRecipientInfo structure MAY be different from the KDF used in the ML-KEM algorithm.
-
-For ML-KEM-512, an implementation MUST support the AES-Wrap-128 {{!RFC3394}} key-encryption algorithm using the id-aes128-wrap key-encryption algorithm object identifier {{!RFC3565}}.
-
-For ML-KEM-768 and ML-KEM-1024, an implementation MUST support the AES-Wrap-256 {{!RFC3394}} key-encryption algorithm using the id-aes256-wrap key-encryption algorithm object identifier {{!RFC3565}}.
-
-The above object identifiers are reproduced for convenience in {{sec-identifiers}}.
-
-An implementation MAY also support other key-derivation functions and other key-encryption algorithms.
-
-If underlying components other than those specified above are used, then the following requirements will satisfy the KDF and key wrapping algorithm requirements from {{Section 7 of RFC9629}}:
-
-> ML-KEM-512 SHOULD be used with a KDF capable of outputting a key with at least 128 bits of preimage strength and with a key wrapping algorithm with a key length of at least 128 bits.
-
-> ML-KEM-768 SHOULD be used with a KDF capable of outputting a key with at least 192 bits of preimage strength and with a key wrapping algorithm with a key length of at least 192 bits.
-
-> ML-KEM-1024 SHOULD be used with a KDF capable of outputting a key with at least 256 bits of preimage strength and with a key wrapping algorithm with a key length of at least 256 bits.
+When used with KEMRecipientInfo, the salt parameter is unused, that is it is the zero-length string "". The IKM, info and L parameters correspond to the same KDF inputs from {{Section 5 of RFC9629}}. The info parameter is independently generated by the sender and receiver. Implementations MUST confirm that L is consistent with the key size of the key-encryption algorithm.
 
 <!-- End of Underlying Components section -->
 
