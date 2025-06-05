@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-24T00:45:39.806223+00:00",
+  "timestamp": "2025-06-05T00:49:13.367416+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1094,6 +1094,56 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOLQoLsc6Yzh1P",
+      "title": "Address review",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/27",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-03T11:39:10Z",
+      "updatedAt": "2025-06-04T08:41:01Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "20c29a8b2bb1bea95adbd3f5349a2e014b017983",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/less_tutorial",
+      "headRefOid": "87a187fc17e1465f69244b30e05ed1495eb8c79f",
+      "closedAt": "2025-06-04T08:41:01Z",
+      "mergedAt": "2025-06-04T08:41:01Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "c89fdc263b1489edb9866df213e3e36726545cfc"
+      },
+      "comments": [
+        {
+          "author": "debcooley",
+          "authorAssociation": "NONE",
+          "body": "This reads much better.  Thanks for the update.",
+          "createdAt": "2025-06-03T22:12:32Z",
+          "updatedAt": "2025-06-03T22:12:32Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc6sfgFG",
+          "commit": {
+            "abbreviatedOid": "87a187f"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "My only comment is maybe to mention that an empty salt in HKDF is equivalent to an all-zero salt of the same length as the block size of the hash function. But that's bordering into internal detail of HKDF, so fine to omit.\r\n\r\nChanges look good. Thanks Dan!",
+          "createdAt": "2025-06-03T20:01:11Z",
+          "updatedAt": "2025-06-03T20:01:24Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
