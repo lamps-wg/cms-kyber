@@ -2,7 +2,7 @@
 v: 3
 docname: draft-ietf-lamps-cms-kyber-latest
 title: Use of ML-KEM in the Cryptographic Message Syntax (CMS)
-abbrev: ML-KEM in CMS
+abbrev: ML-KEM in the CMS
 consensus: 'true'
 submissiontype: IETF
 date:
@@ -108,7 +108,7 @@ Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant
 
 ML-KEM is an IND-CCA2-secure key-encapsulation mechanism (KEM) standardized in {{FIPS203}} by the US NIST PQC Project {{NIST-PQ}}. Prior to standardization, the algorithm was known as Kyber.  ML-KEM and Kyber are not compatible.
 
-Native support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!RFC9629}}, which defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the direct use of ML-KEM in the KEMRecipientInfo structure in CMS using each of the three parameter sets from {{FIPS203}}, namely MK-KEM-512, ML-KEM-768, and ML-KEM-1024.  It does not address or preclude the use of ML-KEM as part of any hybrid scheme.
+Native support for Key Encapsulation Mechanisms (KEMs) was added to CMS in {{!RFC9629}}, which defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the direct use of ML-KEM in the KEMRecipientInfo structure in the CMS using each of the three parameter sets from {{FIPS203}}, namely MK-KEM-512, ML-KEM-768, and ML-KEM-1024.  It does not address or preclude the use of ML-KEM as part of any hybrid scheme.
 
 ## Conventions and Terminology {#sec-intro-terminology}
 
@@ -152,7 +152,7 @@ All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and SHAKE512 int
 
 <!-- End of introduction section -->
 
-# Use of the ML-KEM Algorithm in CMS {#sec-using}
+# Use of the ML-KEM Algorithm in the CMS {#sec-using}
 
 The ML-KEM algorithm MAY be employed for one or more recipients in the CMS enveloped-data content type {{!RFC5652}}, the CMS authenticated-data content type {{!RFC5652}}, or the CMS authenticated-enveloped-data content type {{!RFC5083}}. In each case, the KEMRecipientInfo {{!RFC9629}} is used with the ML-KEM algorithm to securely transfer the content-encryption key from the originator to the recipient.
 
@@ -184,7 +184,7 @@ The fields of the KEMRecipientInfo MUST have the following values:
 
 ## Underlying Components {#sec-using-components}
 
-When ML-KEM is employed in CMS, the underlying components used within the KEMRecipientInfo structure SHOULD be consistent with a minimum desired security level.
+When ML-KEM is employed in the CMS, the underlying components used within the KEMRecipientInfo structure SHOULD be consistent with a minimum desired security level.
 
 If underlying components other than those specified in {{sec-using-recipientInfo}} are used, then the following requirements will satisfy the KDF and key wrapping algorithm requirements from {{Section 7 of RFC9629}}:
 
@@ -231,7 +231,7 @@ The SMIMECapability SEQUENCE representing the ML-KEM algorithm MUST include one 
 
 # Identifiers {#sec-identifiers}
 
-All identifiers used to indicate ML-KEM within CMS are defined elsewhere but reproduced here for convenience:
+All identifiers used to indicate ML-KEM within the CMS are defined elsewhere but reproduced here for convenience:
 
 ~~~
   nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-ccitt(2)
