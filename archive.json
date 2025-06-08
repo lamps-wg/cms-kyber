@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-05T00:49:13.367416+00:00",
+  "timestamp": "2025-06-08T00:54:47.457123+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1144,6 +1144,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOLQoLsc6ZXvY3",
+      "title": "Apparently it's 'the CMS'",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/28",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-06T10:39:11Z",
+      "updatedAt": "2025-06-06T10:39:12Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "c89fdc263b1489edb9866df213e3e36726545cfc",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/the_cms",
+      "headRefOid": "94a83a7dd87d63775e1406ebf20339609aa9b60d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
