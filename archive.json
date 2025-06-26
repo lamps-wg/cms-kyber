@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-10T00:49:41.329069+00:00",
+  "timestamp": "2025-06-26T00:50:34.029544+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1186,6 +1186,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOLQoLsc6cCBeY",
+      "title": "Address Secdir review",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/29",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-25T10:36:58Z",
+      "updatedAt": "2025-06-25T10:36:59Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "85aa7cce9add87967af2f44fa9cc1c64228e1e6f",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/secdir_review",
+      "headRefOid": "9b8beee39073de71b9368555abd3b644aa87d9a4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
