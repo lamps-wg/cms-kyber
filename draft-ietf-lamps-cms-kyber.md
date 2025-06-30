@@ -285,7 +285,7 @@ Implementations MUST protect the ML-KEM private key, the key-encryption key, the
 
 Additional considerations related to key management may be found in {{?NIST.SP.800-57pt1r5}}.
 
-The security of the ML-KEM algorithm depends on a quality random number generator. For further discussion on random number generation, see {{?RFC4086}}.
+The generation of private keys relies on random numbers, as does the encapsulation function of ML-KEM.  The use of inadequate pseudo-random number generators (PRNGs) to generate these values can result in little or no security.  An attacker may find it much easier to reproduce the PRNG environment that produced the keys or ciphertext, searching the resulting small set of possibilities, rather than brute force searching the whole key space.  The generation of quality random numbers is difficult; see Section 3.3 of {{FIPS203}} for some additional information.
 
 ML-KEM encapsulation and decapsulation only outputs a shared secret and ciphertext. Implementations SHOULD NOT use intermediate values directly for any purpose.
 
