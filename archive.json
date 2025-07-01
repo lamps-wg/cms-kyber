@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-26T00:50:34.029544+00:00",
+  "timestamp": "2025-07-01T00:56:57.839809+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1192,26 +1192,106 @@
       "id": "PR_kwDOLQoLsc6cCBeY",
       "title": "Address Secdir review",
       "url": "https://github.com/lamps-wg/cms-kyber/pull/29",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "",
+      "body": "Addressing SECDIR review from Yaron Sheffer.\r\n\r\nhttps://datatracker.ietf.org/doc/review-ietf-lamps-cms-kyber-10-secdir-lc-sheffer-2025-06-23/",
       "createdAt": "2025-06-25T10:36:58Z",
-      "updatedAt": "2025-06-25T10:36:59Z",
+      "updatedAt": "2025-06-30T16:28:05Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "85aa7cce9add87967af2f44fa9cc1c64228e1e6f",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/secdir_review",
-      "headRefOid": "9b8beee39073de71b9368555abd3b644aa87d9a4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c8ebdd1df77c7389ad29b776c05e6618b5423d0d",
+      "closedAt": "2025-06-30T16:28:05Z",
+      "mergedAt": "2025-06-30T16:28:05Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "e96d21c112413ee7806be96b66791124a7e1948f"
+      },
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Suggestion for comments back to Yaron:\r\n\r\n> SECDIR comment: An editorial question: you \"deep link\" to specific algorithm numbers in FIPS 203.  Is this legit? Can FIPS publish a new version of the document and mix up\r\nthe numbers?\r\n\r\n> Authors response: This is a fair question to ask the RFC Editor, but our document is consistent with draft-ietf-lamps-kyber-certificates-10 which has, for example:\r\n> \"To support serialization of seed values as private keys, let Algorithm 19b denote the same procedure as Algorithm 19 in [[FIPS203](https://doi.org/10.6028/nist.fips.203)]\"\r\n> I thin this is ok because there will only ever be one document called \"FIPS.203\". If NIST publishes updates, they will name that \"FIPS.203a\".\r\n\r\n> SECDIR comment: 2.1: \"ukm\" sounds like a useless piece of complexity - even some complexity if\r\nyou don't implement it. Given that this is a profile of [RFC 9629](https://datatracker.ietf.org/doc/rfc9629/), couldn't you\r\nremove it?\r\n\r\n> Authors response: \"Useless\" is a bit strong. This provides a way for the application to bind extra context information or out-of-band pre-shared key material. I think we should leave it exposed.\r\n\r\n\r\n> SECDIR comment: 2.3, as far as I can tell, you are more strict than [RFC 9629](https://datatracker.ietf.org/doc/rfc9629/) in saying that\r\nonly keyEncipherment must be asserted.\r\n\r\n> Authors response: The issue here is that there exists `keyEncipherment` which usually indicates an RSA Key Transport mechanism, and `keyAgreement` which usually indicates a Diffie-Hellman style key agreement. A KEM does not fit cleanly into either. LAMPS had a big debate about this several years ago and decided that by convention, all KEMs will use the `keyEncipherment` key usage. This is the only key usage allowed for ML-KEM as per draft-ietf-lamps-kyber-certificates.\r\n",
+          "createdAt": "2025-06-30T14:39:56Z",
+          "updatedAt": "2025-06-30T14:58:01Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc6xHQSk",
+          "commit": {
+            "abbreviatedOid": "9b8beee"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-30T14:30:53Z",
+          "updatedAt": "2025-06-30T14:59:37Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nThe Module Lattice Key Encapsulation Mechanism (ML-KEM) is an IND-CCA2-secure key-encapsulation mechanism (KEM) standardized in {{FIPS203}} by the US NIST PQC Project {{NIST-PQ}}. ML-KEM is the name given to the final standardized version and is incompatible with pre-standards versions, often called \"Kyber\".\r\n```",
+              "createdAt": "2025-06-30T14:30:53Z",
+              "updatedAt": "2025-06-30T14:59:37Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOLQoLsc6cp5aO",
+      "title": "Expand randomness text but remove RFC 4086 reference",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/30",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-30T08:52:22Z",
+      "updatedAt": "2025-06-30T16:48:26Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "85aa7cce9add87967af2f44fa9cc1c64228e1e6f",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/randomness",
+      "headRefOid": "63bfbe4f4dd3c114cbd86d76e14ea890643162c0",
+      "closedAt": "2025-06-30T16:48:26Z",
+      "mergedAt": "2025-06-30T16:48:26Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "dd5c67fa0b0394661d5cc8d0234a92126607edef"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc6xJJo2",
+          "commit": {
+            "abbreviatedOid": "3cf32bd"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I'm ok with this as-is, but I put a suggestion with further word-smithing.",
+          "createdAt": "2025-06-30T16:44:07Z",
+          "updatedAt": "2025-06-30T16:44:29Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nThe generation of private keys relies on random numbers, as does the encapsulation function of ML-KEM.  The use of inadequate pseudo-random number generators (PRNGs) to generate these values can result in little or no security.  In the case of key generation, a random 32-byte seed is used to deterministically derive the key (with an additional 32 bytes reserved as a rejection value). In the case of encapsulation, a KEM is derived from the underlying ML-KEM public key encryption algorithm by deterministically encrypting a random 32-byte message for the public key.  If the random value is weakly-chosen, then an attacker may find it much easier to reproduce the PRNG environment that produced the keys or ciphertext, searching the resulting small set of possibilities for a matching public key or ciphertext value, rather than performing a more complex algorithmic attack against ML-KEM.  The generation of quality random numbers is difficult; see Section 3.3 of {{FIPS203}} for some additional information.\r\n```",
+              "createdAt": "2025-06-30T16:44:07Z",
+              "updatedAt": "2025-06-30T16:44:29Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
