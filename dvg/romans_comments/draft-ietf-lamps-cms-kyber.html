@@ -10,7 +10,7 @@
 <meta content="Daniel Van Geest" name="author">
 <meta content='
        Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant key-encapsulation mechanism (KEM). Three parameter sets for the ML-KEM algorithm are specified by the US National Institute of Standards and Technology (NIST) in FIPS 203. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using the KEMRecipientInfo structure defined in "Using Key Encapsulation
-Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)"  . 
+Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)" (RFC 9629). 
        
 
 
@@ -1098,7 +1098,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant key-encapsulation mechanism (KEM). Three parameter sets for the ML-KEM algorithm are specified by the US National Institute of Standards and Technology (NIST) in FIPS 203. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using the KEMRecipientInfo structure defined in "Using Key Encapsulation
-Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)" <span>[<a href="#RFC9629" class="cite xref">RFC9629</a>]</span>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)" (RFC 9629).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1382,7 +1382,7 @@ Several security levels have been identified in NIST SP 800-57 Part 1 <span>[<a 
               <td class="text-left" rowspan="1" colspan="1">192-bit</td>
               <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
               <td class="text-left" rowspan="1" colspan="1">192-bit</td>
-              <td class="text-left" rowspan="1" colspan="1">192-bit*</td>
+              <td class="text-left" rowspan="1" colspan="1">192-bit (*)</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">256-bit</td>
@@ -1393,11 +1393,7 @@ Several security levels have been identified in NIST SP 800-57 Part 1 <span>[<a 
           </tbody>
         </table>
 </div>
-<ul class="normal">
-<li class="normal" id="section-2.2-4.1">
-            <p id="section-2.2-4.1.1">In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed.<a href="#section-2.2-4.1.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
+<p id="section-2.2-4">(*) In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed.<a href="#section-2.2-4" class="pilcrow">¶</a></p>
 <div id="use-of-the-hkdf-based-key-derivation-function">
 <section id="section-2.2.1">
           <h4 id="name-use-of-the-hkdf-based-key-d">

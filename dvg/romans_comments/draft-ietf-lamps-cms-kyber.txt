@@ -25,7 +25,7 @@ Abstract
    document specifies the conventions for using ML-KEM with the
    Cryptographic Message Syntax (CMS) using the KEMRecipientInfo
    structure defined in "Using Key Encapsulation Mechanism (KEM)
-   Algorithms in the Cryptographic Message Syntax (CMS)" [RFC9629].
+   Algorithms in the Cryptographic Message Syntax (CMS)" (RFC 9629).
 
 About This Document
 
@@ -257,15 +257,15 @@ Table of Contents
       +==========+=============+==============+=====================+
       | 128-bit  | ML-KEM-512  | 128-bit      | 128-bit             |
       +----------+-------------+--------------+---------------------+
-      | 192-bit  | ML-KEM-768  | 192-bit      | 192-bit*            |
+      | 192-bit  | ML-KEM-768  | 192-bit      | 192-bit (*)         |
       +----------+-------------+--------------+---------------------+
       | 256-bit  | ML-KEM-1024 | 256-bit      | 256-bit             |
       +----------+-------------+--------------+---------------------+
 
          Table 1: ML-KEM KEMRecipientInfo component security levels
 
-   *  In the case of AES Key Wrap, a 256-bit key is typically used
-      because AES-192 is not as commonly deployed.
+   (*) In the case of AES Key Wrap, a 256-bit key is typically used
+   because AES-192 is not as commonly deployed.
 
 2.2.1.  Use of the HKDF-based Key Derivation Function
 
