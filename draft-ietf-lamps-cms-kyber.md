@@ -105,7 +105,7 @@ informative:
 --- abstract
 
 Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant key-encapsulation mechanism (KEM). Three parameter sets for the ML-KEM algorithm are specified by the US National Institute of Standards and Technology (NIST) in FIPS 203. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using the KEMRecipientInfo structure defined in “Using Key Encapsulation
-Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)” {{!RFC9629}}.
+Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)” (RFC 9629).
 
 <!-- End of Abstract -->
 
@@ -190,11 +190,11 @@ If underlying components other than those specified in {{sec-using-recipientInfo
 | Security Strength | Algorithm   | KDF preimage strength | Symmetric key-encryption strength |
 |---                |---          |---                    |---                                |
 | 128-bit           | ML-KEM-512  | 128-bit               | 128-bit                           |
-| 192-bit           | ML-KEM-768  | 192-bit               | 192-bit*                          |
+| 192-bit           | ML-KEM-768  | 192-bit               | 192-bit (*)                         |
 | 256-bit           | ML-KEM-1024 | 256-bit               | 256-bit                           |
 {: #tab-strong title="ML-KEM KEMRecipientInfo component security levels"}
 
-* In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed.
+(*) In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed.
 
 ### Use of the HKDF-based Key Derivation Function
 
