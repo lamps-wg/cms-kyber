@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-01T00:56:57.839809+00:00",
+  "timestamp": "2025-08-03T00:59:36.155089+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1288,6 +1288,87 @@
               "body": "```suggestion\r\nThe generation of private keys relies on random numbers, as does the encapsulation function of ML-KEM.  The use of inadequate pseudo-random number generators (PRNGs) to generate these values can result in little or no security.  In the case of key generation, a random 32-byte seed is used to deterministically derive the key (with an additional 32 bytes reserved as a rejection value). In the case of encapsulation, a KEM is derived from the underlying ML-KEM public key encryption algorithm by deterministically encrypting a random 32-byte message for the public key.  If the random value is weakly-chosen, then an attacker may find it much easier to reproduce the PRNG environment that produced the keys or ciphertext, searching the resulting small set of possibilities for a matching public key or ciphertext value, rather than performing a more complex algorithmic attack against ML-KEM.  The generation of quality random numbers is difficult; see Section 3.3 of {{FIPS203}} for some additional information.\r\n```",
               "createdAt": "2025-06-30T16:44:07Z",
               "updatedAt": "2025-06-30T16:44:29Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOLQoLsc6hv4TI",
+      "title": "Address Roman's comments",
+      "url": "https://github.com/lamps-wg/cms-kyber/pull/31",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/spasm/FuKT3FSzyPVst0qknbzFybsi66k/\r\n\r\nAlso, remove the decapsulation failure text because discussing it is pointless:\r\nhttps://mailarchive.ietf.org/arch/msg/tls/OzzsVvswaIsl1vHsN0coHr-g7jk/",
+      "createdAt": "2025-08-01T16:11:02Z",
+      "updatedAt": "2025-08-01T20:10:11Z",
+      "baseRepository": "lamps-wg/cms-kyber",
+      "baseRefName": "main",
+      "baseRefOid": "dd5c67fa0b0394661d5cc8d0234a92126607edef",
+      "headRepository": "lamps-wg/cms-kyber",
+      "headRefName": "dvg/romans_comments",
+      "headRefOid": "75b3992c43c2196ed90246a4403dd4def3a7fe61",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Mohamed's comments: https://mailarchive.ietf.org/arch/msg/spasm/aM0uwTz4pqMXklFMT8UJMfj3hvg/",
+          "createdAt": "2025-08-01T17:22:23Z",
+          "updatedAt": "2025-08-01T17:22:23Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLQoLsc63ljyw",
+          "commit": {
+            "abbreviatedOid": "44df78a"
+          },
+          "author": "boucadair",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-01T17:43:35Z",
+          "updatedAt": "2025-08-01T17:43:36Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\nMechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)\u201d (RFC 9629).\r\n```\r\n\r\nPer this part from RFC7322:\r\n\r\n>    Similarly, the Abstract should be complete in itself.  It will appear\r\n>    in isolation in publication announcements and in the online index of\r\n>    RFCs.  Therefore, the Abstract must not contain citations.",
+              "createdAt": "2025-08-01T17:43:36Z",
+              "updatedAt": "2025-08-01T17:43:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc63lrBV",
+          "commit": {
+            "abbreviatedOid": "44df78a"
+          },
+          "author": "boucadair",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-01T17:56:20Z",
+          "updatedAt": "2025-08-01T17:57:08Z",
+          "comments": [
+            {
+              "originalPosition": 94,
+              "body": "```suggestion\r\n(*) In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed.\r\n```",
+              "createdAt": "2025-08-01T17:56:20Z",
+              "updatedAt": "2025-08-01T17:57:08Z"
+            },
+            {
+              "originalPosition": 89,
+              "body": "```suggestion\r\n| 192-bit           | ML-KEM-768  | 192-bit               | 192-bit (*)                         |\r\n```",
+              "createdAt": "2025-08-01T17:56:30Z",
+              "updatedAt": "2025-08-01T17:57:08Z"
             }
           ]
         }
