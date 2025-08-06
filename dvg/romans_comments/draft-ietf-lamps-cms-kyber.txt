@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 2 February 2026                                         Entrust
+Expires: 7 February 2026                                         Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                           1 August 2025
+                                                           6 August 2025
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 February 2026.
+   This Internet-Draft will expire on 7 February 2026.
 
 Copyright Notice
 
@@ -421,6 +421,12 @@ Table of Contents
               2024, <https://csrc.nist.gov/projects/computer-security-
               objects-register/algorithm-registration>.
 
+   [FIPS180]  Dang, Q. H. and NIST, "Secure Hash Standard", NIST Federal
+              Information Processing Standards Publications 180-4,
+              DOI 10.6028/NIST.FIPS.180-4, July 2015,
+              <https://nvlpubs.nist.gov/nistpubs/FIPS/
+              NIST.FIPS.180-4.pdf>.
+
    [FIPS203]  "Module-lattice-based key-encapsulation mechanism
               standard", National Institute of Standards and Technology
               (U.S.), DOI 10.6028/nist.fips.203, August 2024,
@@ -505,12 +511,6 @@ Table of Contents
               "Cryptographic Module Validation Program", 2016,
               <https://csrc.nist.gov/projects/cryptographic-module-
               validation-program>.
-
-   [FIPS180]  Dang, Q. H. and NIST, "Secure Hash Standard", NIST Federal
-              Information Processing Standards Publications 180-4,
-              DOI 10.6028/NIST.FIPS.180-4, July 2015,
-              <https://nvlpubs.nist.gov/nistpubs/FIPS/
-              NIST.FIPS.180-4.pdf>.
 
    [I-D.kampanakis-ml-kem-ikev2]
               Kampanakis, P. and G. Ravago, "Post-quantum Hybrid Key
