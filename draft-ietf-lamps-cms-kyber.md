@@ -168,7 +168,7 @@ The fields of the KEMRecipientInfo have the following meanings:
 
 > kemct is the ciphertext produced for this recipient.
 
-> kdf identifies the key-derivation algorithm. Note that the Key Derivation Function (KDF) used for CMS RecipientInfo process MAY be different than the KDF used within the ML-KEM algorithm. Implementations MUST support HKDF {{!RFC5869}} with SHA-256 {{?FIPS180=NIST.FIPS.180-4}}, using the id-alg-hkdf-with-sha256 KDF object identifier {{!RFC8619}}. As specified in {{!RFC8619}}, the parameter field MUST be absent when this object identifier appears within the ASN.1 type AlgorithmIdentifier. Implementations MAY support other KDFs as well.
+> kdf identifies the key-derivation algorithm. Note that the Key Derivation Function (KDF) used for CMS RecipientInfo process MAY be different than the KDF used within the ML-KEM algorithm. Implementations MUST support HKDF {{!RFC5869}} with SHA-256 {{!FIPS180=NIST.FIPS.180-4}}, using the id-alg-hkdf-with-sha256 KDF object identifier {{!RFC8619}}. As specified in {{!RFC8619}}, the parameter field MUST be absent when this object identifier appears within the ASN.1 type AlgorithmIdentifier. Implementations MAY support other KDFs as well.
 
 > kekLength is the size of the key-encryption key in octets.
 
