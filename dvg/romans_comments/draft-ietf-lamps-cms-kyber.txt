@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 7 February 2026                                         Entrust
+Expires: 8 February 2026                                         Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                           6 August 2025
+                                                           7 August 2025
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 February 2026.
+   This Internet-Draft will expire on 8 February 2026.
 
 Copyright Notice
 
@@ -336,8 +336,8 @@ Table of Contents
    [I-D.ietf-lamps-kyber-certificates] and [RFC9629] apply to this
    specification as well.
 
-   For ML-KEM-specific security considerations refer to
-   [I-D.sfluhrer-cfrg-ml-kem-security-considerations].
+   For ongoing discussions of ML-KEM-specific security considerations,
+   refer to [I-D.sfluhrer-cfrg-ml-kem-security-considerations].
 
    Implementations MUST protect the ML-KEM private key, the key-
    encryption key, the content-encryption key, message-authentication
