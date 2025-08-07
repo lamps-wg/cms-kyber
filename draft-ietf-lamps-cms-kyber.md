@@ -255,7 +255,7 @@ All identifiers used to indicate ML-KEM within the CMS are defined in [CSOR] and
 
 The Security Considerations sections of {{!I-D.ietf-lamps-kyber-certificates}} and {{!RFC9629}} apply to this specification as well.
 
-For ML-KEM-specific security considerations refer to {{?I-D.sfluhrer-cfrg-ml-kem-security-considerations}}.
+For ongoing discussions of ML-KEM-specific security considerations, refer to {{?I-D.sfluhrer-cfrg-ml-kem-security-considerations}}.
 
 Implementations MUST protect the ML-KEM private key, the key-encryption key, the content-encryption key, message-authentication key, and the content-authenticated-encryption key. Of these keys, all but the private key are ephemeral and MUST be wiped after use. Disclosure of the ML-KEM private key could result in the compromise of all messages protected with that key. Disclosure of the key-encryption key, the content-encryption key, or the content-authenticated-encryption key could result in compromise of the associated encrypted content. Disclosure of the key-encryption key, the message-authentication key, or the content-authenticated-encryption key could allow modification of the associated authenticated content.
 
