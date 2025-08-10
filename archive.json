@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-07T00:55:15.554892+00:00",
+  "timestamp": "2025-08-10T00:57:57.483006+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1305,13 +1305,13 @@
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/spasm/FuKT3FSzyPVst0qknbzFybsi66k/\r\n\r\nAlso, remove the decapsulation failure text because discussing it is pointless:\r\nhttps://mailarchive.ietf.org/arch/msg/tls/OzzsVvswaIsl1vHsN0coHr-g7jk/",
       "createdAt": "2025-08-01T16:11:02Z",
-      "updatedAt": "2025-08-06T18:45:58Z",
+      "updatedAt": "2025-08-07T14:48:34Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "dd5c67fa0b0394661d5cc8d0234a92126607edef",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/romans_comments",
-      "headRefOid": "2163a9c82a1d3914420d4d8d3703dba46465f113",
+      "headRefOid": "b4d8a91355317027a3478a8d2cd5839b05a25ea6",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
