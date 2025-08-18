@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 8 February 2026                                         Entrust
+Expires: 19 February 2026                                        Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                           7 August 2025
+                                                          18 August 2025
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 February 2026.
+   This Internet-Draft will expire on 19 February 2026.
 
 Copyright Notice
 
@@ -221,9 +221,10 @@ Table of Contents
       For ML-KEM, ukm doesn't provide any additional security benefits.
       Originators using ML-KEM MAY choose to send a ukm, though there is
       no reason to.  For maximum interoperability, recipients using ML-
-      KEM SHOULD accept and process the ukm.  Recipients that do not
-      support the ukm field SHOULD gracefully discontinue processing
-      when the ukm field is present.
+      KEM SHOULD accept and process the ukm.  Failure to do so will
+      result in the derivation of different keying material than the
+      sender.  Recipients that do not support the ukm field SHOULD
+      gracefully discontinue processing when the ukm field is present.
 
       wrap identifies a key-encryption algorithm used to encrypt the
       content-encryption key.  Implementations supporting ML-KEM-512
@@ -373,7 +374,7 @@ Table of Contents
    information.
 
    ML-KEM encapsulation and decapsulation only outputs a shared secret
-   and ciphertext.  Implementations SHOULD NOT use intermediate values
+   and ciphertext.  Implementations MUST NOT use intermediate values
    directly for any purpose.
 
    Implementations SHOULD NOT reveal information about intermediate
@@ -390,7 +391,7 @@ Table of Contents
    vulnerability in one scheme may compromise the security of the other,
    and may be essential to maintain provable security.
 
-   Parties MAY gain assurance that implementations are correct through
+   Parties can gain assurance that implementations are correct through
    formal implementation validation, such as the NIST Cryptographic
    Module Validation Program (CMVP) [CMVP].
 
