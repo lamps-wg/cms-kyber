@@ -172,7 +172,7 @@ The fields of the KEMRecipientInfo have the following meanings:
 
 > kekLength is the size of the key-encryption key in octets.
 
-> ukm is an optional random input to the key-derivation function. For ML-KEM, ukm doesn't provide any additional security benefits. Originators using ML-KEM MAY choose to send a ukm, though there is no reason to. For maximum interoperability, recipients using ML-KEM SHOULD accept and process the ukm. Recipients that do not support the ukm field SHOULD gracefully discontinue processing when the ukm field is present.
+> ukm is an optional random input to the key-derivation function. For ML-KEM, ukm doesn't provide any additional security benefits. Originators using ML-KEM MAY choose to send a ukm, though there is no reason to. For maximum interoperability, recipients using ML-KEM SHOULD accept and process the ukm. Failure to do so will result in the derivation of different keying material than the sender. Recipients that do not support the ukm field SHOULD gracefully discontinue processing when the ukm field is present.
 
 > wrap identifies a key-encryption algorithm used to encrypt the content-encryption key. Implementations supporting ML-KEM-512 MUST support the AES-Wrap-128 {{!RFC3394}} key-encryption algorithm using the id-aes128-wrap key-encryption algorithm object identifier {{!RFC3565}}. Implementations supporting ML-KEM-768 or ML-KEM-1024 MUST support the AES-Wrap-256 {{!RFC3394}} key-encryption algorithm using the id-aes256-wrap key-encryption algorithm object identifier {{!RFC3565}}. Implementations MAY support other key-encryption algorithms as well.
 
@@ -263,13 +263,13 @@ Additional considerations related to key management may be found in {{?NIST.SP.8
 
 The generation of private keys relies on random numbers, as does the encapsulation function of ML-KEM.  The use of inadequate pseudo-random number generators (PRNGs) to generate these values can result in little or no security.  In the case of key generation, a random 32-byte seed is used to deterministically derive the key (with an additional 32 bytes reserved as a rejection value). In the case of encapsulation, a KEM is derived from the underlying ML-KEM public key encryption algorithm by deterministically encrypting a random 32-byte message for the public key.  If the random value is weakly-chosen, then an attacker may find it much easier to reproduce the PRNG environment that produced the keys or ciphertext, searching the resulting small set of possibilities for a matching public key or ciphertext value, rather than performing a more complex algorithmic attack against ML-KEM.  The generation of quality random numbers is difficult; see Section 3.3 of {{FIPS203}} for some additional information.
 
-ML-KEM encapsulation and decapsulation only outputs a shared secret and ciphertext. Implementations SHOULD NOT use intermediate values directly for any purpose.
+ML-KEM encapsulation and decapsulation only outputs a shared secret and ciphertext. Implementations MUST NOT use intermediate values directly for any purpose.
 
 Implementations SHOULD NOT reveal information about intermediate values or calculations, whether by timing or other "side channels", otherwise an opponent may be able to determine information about the keying data and/or the recipient's private key. Although not all intermediate information may be useful to an opponent, it is preferable to conceal as much information as is practical, unless analysis specifically indicates that the information would not be useful to an opponent.
 
 Generally, good cryptographic practice employs a given ML-KEM key pair in only one scheme. This practice avoids the risk that vulnerability in one scheme may compromise the security of the other, and may be essential to maintain provable security.
 
-Parties MAY gain assurance that implementations are correct through formal implementation validation, such as the NIST Cryptographic Module Validation Program (CMVP) {{CMVP}}.
+Parties can gain assurance that implementations are correct through formal implementation validation, such as the NIST Cryptographic Module Validation Program (CMVP) {{CMVP}}.
 
 <!-- End of security-considerations section -->
 
