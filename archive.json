@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-19T00:49:21.002019+00:00",
+  "timestamp": "2025-08-24T00:53:03.494163+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1305,7 +1305,7 @@
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/spasm/FuKT3FSzyPVst0qknbzFybsi66k/\r\n\r\nAlso, remove the decapsulation failure text because discussing it is pointless:\r\nhttps://mailarchive.ietf.org/arch/msg/tls/OzzsVvswaIsl1vHsN0coHr-g7jk/",
       "createdAt": "2025-08-01T16:11:02Z",
-      "updatedAt": "2025-08-18T10:58:38Z",
+      "updatedAt": "2025-08-21T19:25:43Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "dd5c67fa0b0394661d5cc8d0234a92126607edef",
@@ -1369,6 +1369,38 @@
               "body": "```suggestion\r\n| 192-bit           | ML-KEM-768  | 192-bit               | 192-bit (*)                         |\r\n```",
               "createdAt": "2025-08-01T17:56:30Z",
               "updatedAt": "2025-08-01T17:57:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc67Rlfn",
+          "commit": {
+            "abbreviatedOid": "2c00c63"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2025-08-21T19:03:26Z",
+          "updatedAt": "2025-08-21T19:25:43Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "```suggestion\r\n{{!RFC9629}} defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the direct use of ML-KEM in the KEMRecipientInfo structure using each of the three parameter sets from {{FIPS203}}, namely MK-KEM-512, ML-KEM-768, and ML-KEM-1024.  It does not address or preclude the use of ML-KEM as part of any hybrid scheme.\r\n```",
+              "createdAt": "2025-08-21T19:03:26Z",
+              "updatedAt": "2025-08-21T19:25:43Z"
+            },
+            {
+              "originalPosition": 37,
+              "body": "Just grammar / sentence flow.",
+              "createdAt": "2025-08-21T19:03:37Z",
+              "updatedAt": "2025-08-21T19:25:43Z"
+            },
+            {
+              "originalPosition": 77,
+              "body": "I'm not sure how I missed this before, but I don't think this paragraph is accurate.\r\n\r\nRFC9629 describes it as:\r\n\r\n> ukm is optional user keying material. ... For example, the ukm value could include a nonce, application-specific context information, or an identifier for the originator.\r\n\r\nSo that can be more than random input, and could have meaningful security benefits for the protocol. For example, you could imagine a \"Falko Attack\" where an encrypted PDF as mistaken for an encrypted S/MIME. Feeding in some static string into UKM that binds the shared secret to the protocol would prevent that attack.\r\n\r\nI suggest this re-wording of the paragraph:\r\n\r\n> ukm is an optional additional keying material that binds the shared secret key to some protocol state, for example a nonce, transaction ID, application-specific context information, or an identifier for the originator. Since not all protocols built on top of CMS will make use of the ukm, CMS implementations MAY choose to not support ukm. Implementations that do not support ukm SHOULD by gracefully discontinue processing when the ukm field is present since failure to do so will result in the derivation of different keying material than the sender.\r\n\r\nTo me, this seems like a trivial part of the spec; it really doesn't save you any effort to implement it, but if we want to make it optional, I think that's the way to do it.",
+              "createdAt": "2025-08-21T19:24:56Z",
+              "updatedAt": "2025-08-21T19:25:43Z"
             }
           ]
         }
