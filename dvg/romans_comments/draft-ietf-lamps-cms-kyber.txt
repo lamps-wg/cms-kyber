@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 19 February 2026                                        Entrust
+Expires: 26 February 2026                                        Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                          18 August 2025
+                                                          25 August 2025
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 February 2026.
+   This Internet-Draft will expire on 26 February 2026.
 
 Copyright Notice
 
@@ -107,8 +107,8 @@ Table of Contents
    given to the final standardized version and is incompatible with pre-
    standards versions, often called "Kyber".
 
-   [RFC9629] which defines the KEMRecipientInfo structure for the use of
-   KEM algorithms for the CMS enveloped-data content type, the CMS
+   [RFC9629] defines the KEMRecipientInfo structure for the use of KEM
+   algorithms for the CMS enveloped-data content type, the CMS
    authenticated-data content type, and the CMS authenticated-enveloped-
    data content type.  This document specifies the direct use of ML-KEM
    in the KEMRecipientInfo structure using each of the three parameter
