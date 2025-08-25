@@ -1338,7 +1338,7 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
         </ul>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-2.1-9.1">
-            <p id="section-2.1-9.1.1">ukm is an optional random input to the key-derivation function. For ML-KEM, ukm doesn't provide any additional security benefits. Originators using ML-KEM <span class="bcp14">MAY</span> choose to send a ukm, though there is no reason to. For maximum interoperability, recipients using ML-KEM <span class="bcp14">SHOULD</span> accept and process the ukm. Failure to do so will result in the derivation of different keying material than the sender. Recipients that do not support the ukm field <span class="bcp14">SHOULD</span> gracefully discontinue processing when the ukm field is present.<a href="#section-2.1-9.1.1" class="pilcrow">¶</a></p>
+            <p id="section-2.1-9.1.1">ukm is optional input to the key-derivation function. The secure use of ML-KEM in CMS does not depend on the use of a ukm value, so this document does not place any requirements on this value.  See <span><a href="https://rfc-editor.org/rfc/rfc9629#section-3" class="relref">Section 3</a> of [<a href="#RFC9629" class="cite xref">RFC9629</a>]</span> for more information about the ukm parameter.<a href="#section-2.1-9.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
