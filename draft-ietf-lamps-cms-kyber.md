@@ -172,7 +172,7 @@ The fields of the KEMRecipientInfo have the following meanings:
 
 > kekLength is the size of the key-encryption key in octets.
 
-> ukm is an optional random input to the key-derivation function. For ML-KEM, ukm doesn't provide any additional security benefits. Originators using ML-KEM MAY choose to send a ukm, though there is no reason to. For maximum interoperability, recipients using ML-KEM SHOULD accept and process the ukm. Failure to do so will result in the derivation of different keying material than the sender. Recipients that do not support the ukm field SHOULD gracefully discontinue processing when the ukm field is present.
+> ukm is optional input to the key-derivation function. The secure use of ML-KEM in CMS does not depend on the use of a ukm value, so this document does not place any requirements on this value.  See {{Section 3 of RFC9629}} for more information about the ukm parameter.
 
 > wrap identifies a key-encryption algorithm used to encrypt the content-encryption key. Implementations supporting ML-KEM-512 MUST support the AES-Wrap-128 {{!RFC3394}} key-encryption algorithm using the id-aes128-wrap key-encryption algorithm object identifier {{!RFC3565}}. Implementations supporting ML-KEM-768 or ML-KEM-1024 MUST support the AES-Wrap-256 {{!RFC3394}} key-encryption algorithm using the id-aes256-wrap key-encryption algorithm object identifier {{!RFC3565}}. Implementations MAY support other key-encryption algorithms as well.
 
