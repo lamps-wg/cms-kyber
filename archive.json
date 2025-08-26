@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-24T00:53:03.494163+00:00",
+  "timestamp": "2025-08-26T00:46:54.131064+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1305,13 +1305,13 @@
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/spasm/FuKT3FSzyPVst0qknbzFybsi66k/\r\n\r\nAlso, remove the decapsulation failure text because discussing it is pointless:\r\nhttps://mailarchive.ietf.org/arch/msg/tls/OzzsVvswaIsl1vHsN0coHr-g7jk/",
       "createdAt": "2025-08-01T16:11:02Z",
-      "updatedAt": "2025-08-21T19:25:43Z",
+      "updatedAt": "2025-08-25T22:49:22Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "dd5c67fa0b0394661d5cc8d0234a92126607edef",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/romans_comments",
-      "headRefOid": "2c00c63b3ded86f82842dc558fe6466e60444b64",
+      "headRefOid": "3a61152cd24c52c6e96b0ff018717872dd555755",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1401,6 +1401,86 @@
               "body": "I'm not sure how I missed this before, but I don't think this paragraph is accurate.\r\n\r\nRFC9629 describes it as:\r\n\r\n> ukm is optional user keying material. ... For example, the ukm value could include a nonce, application-specific context information, or an identifier for the originator.\r\n\r\nSo that can be more than random input, and could have meaningful security benefits for the protocol. For example, you could imagine a \"Falko Attack\" where an encrypted PDF as mistaken for an encrypted S/MIME. Feeding in some static string into UKM that binds the shared secret to the protocol would prevent that attack.\r\n\r\nI suggest this re-wording of the paragraph:\r\n\r\n> ukm is an optional additional keying material that binds the shared secret key to some protocol state, for example a nonce, transaction ID, application-specific context information, or an identifier for the originator. Since not all protocols built on top of CMS will make use of the ukm, CMS implementations MAY choose to not support ukm. Implementations that do not support ukm SHOULD by gracefully discontinue processing when the ukm field is present since failure to do so will result in the derivation of different keying material than the sender.\r\n\r\nTo me, this seems like a trivial part of the spec; it really doesn't save you any effort to implement it, but if we want to make it optional, I think that's the way to do it.",
               "createdAt": "2025-08-21T19:24:56Z",
               "updatedAt": "2025-08-21T19:25:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc672KOG",
+          "commit": {
+            "abbreviatedOid": "3256feb"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-25T13:42:58Z",
+          "updatedAt": "2025-08-25T13:42:58Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "I don't think I agree with those suggested changes.  That sort of wording is appropriate for the KEMRecipientInfo specification, but this document is an algorithm profile of RFC 9629 so should stick to algorithm specifics.  RFC 9629 says \"A KEM algorithm may place requirements on the ukm value.\" In the case of ML-KEM, there are no additional UKM requirements, so we should just stick to saying that.  There are other algorithms, like static DH where the algorithm requires the use of a UKM nonce to ensure a different encryption key is generated each time, but this doesn't apply for ML-KEM.\r\n\r\nAnd with that disagreement, I think the text we had here previously was also too much and should just say \"ML-KEM doesn't care about ukm, do RFC 9629\".  I'll update the PR with proposed text.\r\n\r\nBTW, a \"Falko Attack\" for encryption doesn't apply because it is handled by the content-type signed attribute.  The Falko Attack for signatures is due to a deficiency in CMS where both signed attribute or no signed attributes are allowed.",
+              "createdAt": "2025-08-25T13:42:58Z",
+              "updatedAt": "2025-08-25T13:42:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc676aIf",
+          "commit": {
+            "abbreviatedOid": "2c00c63"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-25T18:52:56Z",
+          "updatedAt": "2025-08-25T18:52:56Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "Yeah, \"THE Falko attack\" is about signatures ... but you could imagine \"A falko attack\" which is the equivalent thing applied to KEM context confusion.\r\n\r\nI see your point about whether the algorithm places a requirement on the protocol for UKM ... ex.: MUST be present and at least x-bits of entropy for forwards-secrecy ... vs the protocol placing a requirement on the algorithm ... ex.: MUST bind a transaction nonce via the UKM in order to avoid replay attacks, which I could see for example being required in some KEM + MAC auth schemes, which could be done over CMS EnvelopedData, and in fact we are directly using CMS EnvelopedData for exactly that in CMPv3 that was just published as RFC9810:\r\nhttps://datatracker.ietf.org/doc/html/rfc9810#name-direct-method-challenge-res\r\nand we do require the UKM of the KEMRI to be exposed to the CMP protocol:\r\n\r\n> kemContext MAY be used to transfer additional algorithm-specific context information (see also the definition of ukm in [Section 3](https://rfc-editor.org/rfc/rfc9629#section-3) of [[RFC9629](https://datatracker.ietf.org/doc/html/rfc9629)]).\r\n\r\nSo if you say that ML-KEM implementations for CMS are allowed to not support UKM, then you will not be able to use that implementation within a CMPv3 implementation.\r\n\r\n\r\nSo I think it's fair to treat both directions independently (alg putting requirements on the UKM, and protocol putting requirements on the UKM).\r\n\r\nIE: \"ML-KEM does require a UKM for any security guarantees and therefore leaves it optional and does not place any requirements on the length or structure of a UKM.\"\r\nand also \"ML-KEM implementations for CMS SHOULD accept a UKM, and SHOULD gracefully discontinue processing if it does not\".",
+              "createdAt": "2025-08-25T18:52:56Z",
+              "updatedAt": "2025-08-25T19:05:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc676kcI",
+          "commit": {
+            "abbreviatedOid": "2c00c63"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-25T19:08:32Z",
+          "updatedAt": "2025-08-25T19:08:32Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "... oh wait.\r\n... I'm dumb.\r\n... you're right. ukm is completely handled at the CMS KEMRI layer via the KDF that's used to crunch the ML-KEM SS together with other CMS protocol data and produced the EnvelopedData symmetric encryption key. I was getting jumbled with the ML-DSA CTX which does require collaboration from the underlying ML-DSA primitive.\r\n\r\nRight, so _this_ document only needs to handle the forward direction of \r\n\r\n> ML-KEM does not require a ukm for any security guarantees and therefore does not require the presence of a ukm at the CMS KEMRecipientInfo level, nor does it place any constraints on the length or structure of a ukm value, should one be provided by the application.\r\n\r\nGood afternoon. I'm awake now.",
+              "createdAt": "2025-08-25T19:08:32Z",
+              "updatedAt": "2025-08-25T19:12:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc678urD",
+          "commit": {
+            "abbreviatedOid": "2c00c63"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-25T22:49:22Z",
+          "updatedAt": "2025-08-25T22:49:22Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "I agree with the second statement \"you're right\" in the most recent comment but not with the previous one.\r\n\r\nI already have proposed text for the forward direction, which is more terse than what you have here, does it look good?",
+              "createdAt": "2025-08-25T22:49:22Z",
+              "updatedAt": "2025-08-25T22:49:22Z"
             }
           ]
         }
