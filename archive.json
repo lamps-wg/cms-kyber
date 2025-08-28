@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-26T00:46:54.131064+00:00",
+  "timestamp": "2025-08-28T00:44:42.043616+00:00",
   "repo": "lamps-wg/cms-kyber",
   "labels": [
     {
@@ -1298,24 +1298,26 @@
       "id": "PR_kwDOLQoLsc6hv4TI",
       "title": "Address IESG review comments",
       "url": "https://github.com/lamps-wg/cms-kyber/pull/31",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/spasm/FuKT3FSzyPVst0qknbzFybsi66k/\r\n\r\nAlso, remove the decapsulation failure text because discussing it is pointless:\r\nhttps://mailarchive.ietf.org/arch/msg/tls/OzzsVvswaIsl1vHsN0coHr-g7jk/",
       "createdAt": "2025-08-01T16:11:02Z",
-      "updatedAt": "2025-08-25T22:49:22Z",
+      "updatedAt": "2025-08-26T13:59:08Z",
       "baseRepository": "lamps-wg/cms-kyber",
       "baseRefName": "main",
       "baseRefOid": "dd5c67fa0b0394661d5cc8d0234a92126607edef",
       "headRepository": "lamps-wg/cms-kyber",
       "headRefName": "dvg/romans_comments",
       "headRefOid": "3a61152cd24c52c6e96b0ff018717872dd555755",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-08-26T13:58:57Z",
+      "mergedAt": "2025-08-26T13:58:57Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "aa3766eeed246a03d3f2d6c2679ac5aa25b18f95"
+      },
       "comments": [
         {
           "author": "danvangeest",
@@ -1332,7 +1334,7 @@
             "abbreviatedOid": "44df78a"
           },
           "author": "boucadair",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-08-01T17:43:35Z",
@@ -1352,7 +1354,7 @@
             "abbreviatedOid": "44df78a"
           },
           "author": "boucadair",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-08-01T17:56:20Z",
@@ -1481,6 +1483,39 @@
               "body": "I agree with the second statement \"you're right\" in the most recent comment but not with the previous one.\r\n\r\nI already have proposed text for the forward direction, which is more terse than what you have here, does it look good?",
               "createdAt": "2025-08-25T22:49:22Z",
               "updatedAt": "2025-08-25T22:49:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLQoLsc68GSGO",
+          "commit": {
+            "abbreviatedOid": "3a61152"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-08-26T13:54:53Z",
+          "updatedAt": "2025-08-26T13:54:53Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLQoLsc68GS3S",
+          "commit": {
+            "abbreviatedOid": "2c00c63"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-26T13:55:30Z",
+          "updatedAt": "2025-08-26T13:55:30Z",
+          "comments": [
+            {
+              "originalPosition": 77,
+              "body": "lol. Right.\r\nSo I have lead myself in a circle back to what you already had in the PR.\r\nPR Approved.\r\nSorry about that.",
+              "createdAt": "2025-08-26T13:55:30Z",
+              "updatedAt": "2025-08-26T13:55:30Z"
             }
           ]
         }
