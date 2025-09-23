@@ -142,7 +142,7 @@ Encapsulate(ek) -> (c, ss):
 Decapsulate(dk, c) -> ss:
 : Given the private key (dk) and the ciphertext (c), produce the shared secret (ss) for the recipient.  Algorithm 21 (`ML-KEM.Decaps(dk,c)`) from {{FIPS203}} is the decapsulation function for ML-KEM. If the private key is stored in seed form, `ML-KEM.KeyGen_internal(d,z)` may be needed as a first step to compute dk. See {{Section 8 of I-D.ietf-lamps-kyber-certificates}} for consistency considerations if the private key was stored in both seed and expanded formats.
 
-All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and SHAKE512 internally.
+All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE128, and SHAKE256 internally.
 
 <!-- End of ML-KEM section -->
 
