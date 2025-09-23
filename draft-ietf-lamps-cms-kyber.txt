@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 27 February 2026                                        Entrust
+Expires: 27 March 2026                                           Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                          26 August 2025
+                                                       23 September 2025
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 February 2026.
+   This Internet-Draft will expire on 27 March 2026.
 
 Copyright Notice
 
@@ -169,8 +169,8 @@ Table of Contents
       [I-D.ietf-lamps-kyber-certificates] for consistency considerations
       if the private key was stored in both seed and expanded formats.
 
-   All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE256, and
-   SHAKE512 internally.
+   All security levels of ML-KEM use SHA3-256, SHA3-512, SHAKE128, and
+   SHAKE256 internally.
 
 2.  Use of the ML-KEM Algorithm in the CMS
 
