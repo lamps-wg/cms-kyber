@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 27 March 2026                                           Entrust
+Expires: 23 August 2026                                          Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                       23 September 2025
+                                                        19 February 2026
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -17,7 +17,7 @@ Expires: 27 March 2026                                           Entrust
 Abstract
 
    Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a
-   quantum-resistant key-encapsulation mechanism (KEM).  Three parameter
+   quantum-resistant Key Encapsulation Mechanism (KEM).  Three parameter
    sets for the ML-KEM algorithm are specified by the US National
    Institute of Standards and Technology (NIST) in FIPS 203.  In order
    of increasing security strength (and decreasing performance), these
@@ -58,11 +58,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 March 2026.
+   This Internet-Draft will expire on 23 August 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -82,27 +82,27 @@ Table of Contents
    2.  Use of the ML-KEM Algorithm in the CMS
      2.1.  RecipientInfo Conventions
      2.2.  Underlying Components
-       2.2.1.  Use of the HKDF-based Key Derivation Function
+       2.2.1.  Use of the HKDF-Based Key Derivation Function
      2.3.  Certificate Conventions
      2.4.  SMIME Capabilities Attribute Conventions
    3.  Identifiers
    4.  Security Considerations
    5.  IANA Considerations
-   6.  Acknowledgements
-   7.  References
-     7.1.  Normative References
-     7.2.  Informative References
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
    Appendix A.  ASN.1 Module
    Appendix B.  Parameter Set Security and Sizes
    Appendix C.  ML-KEM CMS Authenticated-Enveloped-Data Example
      C.1.  Originator CMS Processing
      C.2.  Recipient CMS Processing
+   Appendix D.  Acknowledgements
    Authors' Addresses
 
 1.  Introduction
 
-   The Module Lattice Key Encapsulation Mechanism (ML-KEM) is an IND-
-   CCA2-secure Key Encapsulation Mechanism (KEM) standardized in
+   The Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is an
+   IND-CCA2-secure Key Encapsulation Mechanism (KEM) standardized in
    [FIPS203] by the NIST PQC Project [NIST-PQ].  ML-KEM is the name
    given to the final standardized version and is incompatible with pre-
    standards versions, often called "Kyber".
@@ -112,7 +112,7 @@ Table of Contents
    authenticated-data content type, and the CMS authenticated-enveloped-
    data content type.  This document specifies the direct use of ML-KEM
    in the KEMRecipientInfo structure using each of the three parameter
-   sets from [FIPS203], namely MK-KEM-512, ML-KEM-768, and ML-KEM-1024.
+   sets from [FIPS203], namely ML-KEM-512, ML-KEM-768, and ML-KEM-1024.
    It does not address or preclude the use of ML-KEM as part of any
    hybrid scheme.
 
@@ -126,15 +126,14 @@ Table of Contents
 
 1.2.  ML-KEM
 
-   ML-KEM is a lattice-based key encapsulation mechanism using Module
-   Learning with Errors as its underlying primitive, which is a
-   structured lattices variant that offers good performance and
-   relatively small and balanced key and ciphertext sizes.  ML-KEM was
-   standardized with three parameter sets: ML-KEM-512, ML-KEM-768, and
-   ML-KEM-1024.  The parameters for each of the security levels were
-   chosen to be at least as secure as a generic block cipher of 128,
-   192, or 256 bits, respectively.  Appendix B provides more information
-   on ML-KEM security levels and sizes.
+   ML-KEM is a lattice-based KEM using Module Learning with Errors as
+   its underlying primitive, which is a structured lattices variant that
+   offers good performance and relatively small and balanced key and
+   ciphertext sizes.  ML-KEM was standardized with three parameter sets:
+   ML-KEM-512, ML-KEM-768, and ML-KEM-1024.  The parameters for each of
+   the security levels were chosen to be at least as secure as a generic
+   block cipher of 128, 192, or 256 bits, respectively.  Appendix B
+   provides more information on ML-KEM security levels and sizes.
 
    All KEM algorithms provide three functions: KeyGen(), Encapsulate(),
    and Decapsulate().
@@ -195,43 +194,48 @@ Table of Contents
 
    The fields of the KEMRecipientInfo have the following meanings:
 
-      version is the syntax version number; it MUST be 0.
+   version
+      The syntax version number; it MUST be 0.
 
-      rid identifies the recipient's certificate or public key.
+   rid
+      Identifies the recipient's certificate or public key.
 
-      kem identifies the KEM algorithm; it MUST contain one of id-alg-
-      ml-kem-512, id-alg-ml-kem-768, or id-alg-ml-kem-1024.  These
+   kem
+      Identifies the KEM algorithm; it MUST contain one of id-alg-ml-
+      kem-512, id-alg-ml-kem-768, or id-alg-ml-kem-1024.  These
       identifiers are reproduced in Section 3.
 
-      kemct is the ciphertext produced for this recipient.
+   kemct
+      The ciphertext produced for this recipient.
 
-      kdf identifies the key-derivation algorithm.  Note that the Key
+   kdf
+      Identifies the key derivation algorithm.  Note that the Key
       Derivation Function (KDF) used for CMS RecipientInfo process MAY
       be different than the KDF used within the ML-KEM algorithm.
-      Implementations MUST support HKDF [RFC5869] with SHA-256
-      [FIPS180], using the id-alg-hkdf-with-sha256 KDF object identifier
-      [RFC8619].  As specified in [RFC8619], the parameter field MUST be
-      absent when this object identifier appears within the ASN.1 type
-      AlgorithmIdentifier.  Implementations MAY support other KDFs as
-      well.
+      Implementations MUST support the HMAC-based Key Derivation
+      Function (HKDF) [RFC5869] with SHA-256 [FIPS180], using the id-
+      alg-hkdf-with-sha256 KDF object identifier (OID) [RFC8619].  As
+      specified in [RFC8619], the parameter field MUST be absent when
+      this OID appears within the ASN.1 type AlgorithmIdentifier.
+      Implementations MAY support other KDFs as well.
 
-      kekLength is the size of the key-encryption key in octets.
+   kekLength
+      The size of the key-encryption key in octets.
 
-      ukm is optional input to the key-derivation function.  The secure
-      use of ML-KEM in CMS does not depend on the use of a ukm value, so
-      this document does not place any requirements on this value.  See
-      Section 3 of [RFC9629] for more information about the ukm
-      parameter.
+   ukm
+      Optional input to the KDF.  The secure use of ML-KEM in CMS does
+      not depend on the use of a ukm value, so this document does not
+      place any requirements on this value.  See Section 3 of [RFC9629]
+      for more information about the ukm parameter.
 
-      wrap identifies a key-encryption algorithm used to encrypt the
-      content-encryption key.  Implementations supporting ML-KEM-512
-      MUST support the AES-Wrap-128 [RFC3394] key-encryption algorithm
-      using the id-aes128-wrap key-encryption algorithm object
-      identifier [RFC3565].  Implementations supporting ML-KEM-768 or
-      ML-KEM-1024 MUST support the AES-Wrap-256 [RFC3394] key-encryption
-      algorithm using the id-aes256-wrap key-encryption algorithm object
-      identifier [RFC3565].  Implementations MAY support other key-
-      encryption algorithms as well.
+   wrap: Identifies a key-encryption algorithm used to encrypt the
+   content-encryption key.  Implementations supporting ML-KEM-512 MUST
+   support the AES-Wrap-128 [RFC3394] key-encryption algorithm using the
+   id-aes128-wrap key-encryption algorithm OID [RFC3565].
+   Implementations supporting ML-KEM-768 or ML-KEM-1024 MUST support the
+   AES-Wrap-256 [RFC3394] key-encryption algorithm using the id-
+   aes256-wrap key-encryption algorithm OID [RFC3565].  Implementations
+   MAY support other key-encryption algorithms as well.
 
    Appendix C contains an example of establishing a content-encryption
    key using ML-KEM in the KEMRecipientInfo type.
@@ -241,7 +245,7 @@ Table of Contents
    When ML-KEM is employed in the CMS, the underlying components used
    within the KEMRecipientInfo structure SHOULD be consistent with a
    minimum desired security level.  Several security levels have been
-   identified in NIST SP 800-57 Part 1 [NIST.SP.800-57pt1r5].
+   identified [NIST.SP.800-57pt1r5].
 
    If underlying components other than those specified in Section 2.1
    are used, then the following table gives the minimum requirements on
@@ -250,8 +254,8 @@ Table of Contents
    Section 7 of [RFC9629]:
 
       +==========+=============+==============+=====================+
-      | Security | Algorithm   | KDF preimage | Symmetric key-      |
-      | Strength |             | strength     | encryption strength |
+      | Security | Algorithm   | KDF Preimage | Symmetric Key-      |
+      | Strength |             | Strength     | Encryption Strength |
       +==========+=============+==============+=====================+
       | 128-bit  | ML-KEM-512  | 128-bit      | 128-bit             |
       +----------+-------------+--------------+---------------------+
@@ -260,12 +264,12 @@ Table of Contents
       | 256-bit  | ML-KEM-1024 | 256-bit      | 256-bit             |
       +----------+-------------+--------------+---------------------+
 
-         Table 1: ML-KEM KEMRecipientInfo component security levels
+         Table 1: ML-KEM KEMRecipientInfo Component Security Levels
 
    (*) In the case of AES Key Wrap, a 256-bit key is typically used
    because AES-192 is not as commonly deployed.
 
-2.2.1.  Use of the HKDF-based Key Derivation Function
+2.2.1.  Use of the HKDF-Based Key Derivation Function
 
    The HKDF function is a composition of the HKDF-Extract and HKDF-
    Expand functions.
@@ -273,8 +277,8 @@ Table of Contents
    HKDF(salt, IKM, info, L)
      = HKDF-Expand(HKDF-Extract(salt, IKM), info, L)
 
-   When used with KEMRecipientInfo, the salt parameter is unused, that
-   is it is the zero-length string "".  The IKM, info and L parameters
+   When used with KEMRecipientInfo, the salt parameter is unused; that
+   is, it is the zero-length string "".  The IKM, info, and L parameters
    correspond to the same KDF inputs from Section 5 of [RFC9629].  The
    info parameter is independently generated by the originator and
    recipient.  Implementations MUST confirm that L is consistent with
@@ -282,9 +286,9 @@ Table of Contents
 
 2.3.  Certificate Conventions
 
-   RFC 5280 [RFC5280] specifies the profile for using X.509 Certificates
-   in Internet applications.  A recipient static public key is needed
-   for ML-KEM, and the originator obtains that public key from the
+   [RFC5280] specifies the profile for using X.509 certificates in
+   Internet applications.  A recipient static public key is needed for
+   ML-KEM and the originator obtains that public key from the
    recipient's certificate.  The conventions for carrying ML-KEM public
    keys are specified in [I-D.ietf-lamps-kyber-certificates].
 
@@ -298,14 +302,14 @@ Table of Contents
    the ML-KEM algorithm identifiers.
 
    The SMIMECapability SEQUENCE representing the ML-KEM algorithm MUST
-   include one of the ML-KEM object identifiers in the capabilityID
-   field.  When one of the ML-KEM object identifiers appears in the
-   capabilityID field, the parameters MUST NOT be present.
+   include one of the ML-KEM OIDs in the capabilityID field.  When one
+   of the ML-KEM OIDs appears in the capabilityID field, the parameters
+   MUST NOT be present.
 
 3.  Identifiers
 
    All identifiers used to indicate ML-KEM within the CMS are defined in
-   [CSOR] and [RFC8619] but reproduced here for convenience:
+   [CSOR] and [RFC8619]; they are reproduced here for convenience:
 
      nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-ccitt(2)
          country(16) us(840) organization(1) gov(101) csor(3)
@@ -335,7 +339,7 @@ Table of Contents
    specification as well.
 
    For ongoing discussions of ML-KEM-specific security considerations,
-   refer to [I-D.sfluhrer-cfrg-ml-kem-security-considerations].
+   refer to [MLKEM-SEC-CONS].
 
    Implementations MUST protect the ML-KEM private key, the key-
    encryption key, the content-encryption key, message-authentication
@@ -344,7 +348,7 @@ Table of Contents
    Disclosure of the ML-KEM private key could result in the compromise
    of all messages protected with that key.  Disclosure of the key-
    encryption key, the content-encryption key, or the content-
-   authenticated-encryption key could result in compromise of the
+   authenticated-encryption key could result in the compromise of the
    associated encrypted content.  Disclosure of the key-encryption key,
    the message-authentication key, or the content-authenticated-
    encryption key could allow modification of the associated
@@ -354,14 +358,14 @@ Table of Contents
    [NIST.SP.800-57pt1r5].
 
    The generation of private keys relies on random numbers, as does the
-   encapsulation function of ML-KEM.  The use of inadequate pseudo-
-   random number generators (PRNGs) to generate these values can result
-   in little or no security.  In the case of key generation, a random
+   encapsulation function of ML-KEM.  The use of inadequate pseudorandom
+   number generators (PRNGs) to generate these values can result in
+   little or no security.  In the case of key generation, a random
    32-byte seed is used to deterministically derive the key (with an
    additional 32 bytes reserved as a rejection value).  In the case of
    encapsulation, a KEM is derived from the underlying ML-KEM public key
    encryption algorithm by deterministically encrypting a random 32-byte
-   message for the public key.  If the random value is weakly-chosen,
+   message for the public key.  If the random value is weakly chosen,
    then an attacker may find it much easier to reproduce the PRNG
    environment that produced the keys or ciphertext, searching the
    resulting small set of possibilities for a matching public key or
@@ -375,7 +379,7 @@ Table of Contents
    directly for any purpose.
 
    Implementations SHOULD NOT reveal information about intermediate
-   values or calculations, whether by timing or other "side channels",
+   values or calculations, whether by timing or other "side channels";
    otherwise an opponent may be able to determine information about the
    keying data and/or the recipient's private key.  Although not all
    intermediate information may be useful to an opponent, it is
@@ -385,7 +389,7 @@ Table of Contents
 
    Generally, good cryptographic practice employs a given ML-KEM key
    pair in only one scheme.  This practice avoids the risk that
-   vulnerability in one scheme may compromise the security of the other,
+   vulnerability in one scheme may compromise the security of the other
    and may be essential to maintain provable security.
 
    Parties can gain assurance that implementations are correct through
@@ -394,30 +398,18 @@ Table of Contents
 
 5.  IANA Considerations
 
-   For the ASN.1 Module in Appendix A, IANA is requested to assign an
-   object identifier (OID) for the module identifier (TBD1) with a
-   Description of "id-mod-cms-ml-kem-2024".  The OID for the module
-   should be allocated in the "SMI Security for S/MIME Module
-   Identifier" registry (1.2.840.113549.1.9.16.0).
+   For the ASN.1 Module in Appendix A, IANA has assigned an OID for the
+   module identifier (84) with a description of "id-mod-cms-ml-kem-2024"
+   in the "SMI Security for S/MIME Module Identifier"
+   (1.2.840.113549.1.9.16.0) registry.
 
-6.  Acknowledgements
+6.  References
 
-   This document borrows heavily from [RFC9690], [FIPS203], and
-   [I-D.kampanakis-ml-kem-ikev2].  Thanks go to the authors of those
-   documents.  "Copying always makes things easier and less error prone"
-   - RFC8411.
+6.1.  Normative References
 
-   Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the
-   detailed review and Carl Wallace and Philippe Cece for
-   interoperability testing for the examples.
-
-7.  References
-
-7.1.  Normative References
-
-   [CSOR]     NIST, "Computer Security Objects Register", 20 August
-              2024, <https://csrc.nist.gov/projects/computer-security-
-              objects-register/algorithm-registration>.
+   [CSOR]     NIST, "Computer Security Objects Register", 13 June 2025,
+              <https://csrc.nist.gov/projects/computer-security-objects-
+              register/algorithm-registration>.
 
    [FIPS180]  Dang, Q. H. and NIST, "Secure Hash Standard", NIST Federal
               Information Processing Standards Publications 180-4,
@@ -503,31 +495,31 @@ Table of Contents
               Recommendation X.680, ISO/IEC 8824-1:2021, February 2021,
               <https://www.itu.int/rec/T-REC-X.680>.
 
-7.2.  Informative References
+6.2.  Informative References
 
    [CMVP]     National Institute of Standards and Technology,
-              "Cryptographic Module Validation Program", 2016,
-              <https://csrc.nist.gov/projects/cryptographic-module-
-              validation-program>.
+              "Cryptographic Module Validation Program", 3 September
+              2025, <https://csrc.nist.gov/projects/cryptographic-
+              module-validation-program>.
 
-   [I-D.kampanakis-ml-kem-ikev2]
-              Kampanakis, P. and G. Ravago, "Post-quantum Hybrid Key
-              Exchange with ML-KEM in the Internet Key Exchange Protocol
-              Version 2 (IKEv2)", Work in Progress, Internet-Draft,
-              draft-kampanakis-ml-kem-ikev2-09, 4 November 2024,
-              <https://datatracker.ietf.org/doc/html/draft-kampanakis-
-              ml-kem-ikev2-09>.
+   [I-D.ietf-ipsecme-ikev2-mlkem]
+              Kampanakis, P., "Post-quantum Hybrid Key Exchange with ML-
+              KEM in the Internet Key Exchange Protocol Version 2
+              (IKEv2)", Work in Progress, Internet-Draft, draft-ietf-
+              ipsecme-ikev2-mlkem-03, 29 September 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-ipsecme-
+              ikev2-mlkem-03>.
 
-   [I-D.sfluhrer-cfrg-ml-kem-security-considerations]
+   [MLKEM-SEC-CONS]
               Fluhrer, S., Dang, Q., Mattsson, J. P., Milner, K., and D.
               Shiu, "ML-KEM Security Considerations", Work in Progress,
               Internet-Draft, draft-sfluhrer-cfrg-ml-kem-security-
-              considerations-03, 15 May 2025,
+              considerations-04, 17 November 2025,
               <https://datatracker.ietf.org/doc/html/draft-sfluhrer-
-              cfrg-ml-kem-security-considerations-03>.
+              cfrg-ml-kem-security-considerations-04>.
 
    [NIST-PQ]  National Institute of Standards and Technology, "Post-
-              Quantum Cryptography Project", 20 December 2016,
+              Quantum Cryptography Project", 30 September 2025,
               <https://csrc.nist.gov/projects/post-quantum-
               cryptography>.
 
@@ -553,7 +545,7 @@ Appendix A.  ASN.1 Module
    <CODE BEGINS>
    CMS-ML-KEM-2024
    { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-     pkcs-9(9) smime(16) modules(0) id-mod-cms-ml-kem-2024(TBD1) }
+     pkcs-9(9) smime(16) modules(0) id-mod-cms-ml-kem-2024(84) }
 
    DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
@@ -585,7 +577,7 @@ Appendix A.  ASN.1 Module
 
      id-alg-ml-kem-512, id-alg-ml-kem-768, id-alg-ml-kem-1024,
      pk-ml-kem-512, pk-ml-kem-768, pk-ml-kem-1024
-       FROM X509-ML-KEM-2024 -- [I-D.ietf-lamps-kyber-certificates]
+       FROM X509-ML-KEM-2024 -- [RFC9935]
           { iso(1) identified-organization(3) dod(6)
             internet(1) security(5) mechanisms(5) pkix(7) id-mod(0)
             id-mod-x509-ml-kem-2025(121) };
@@ -631,12 +623,12 @@ Appendix A.  ASN.1 Module
 
 Appendix B.  Parameter Set Security and Sizes
 
-   Instead of defining the strength of a quantum algorithm in a
-   traditional manner using the imprecise notion of bits of security,
-   NIST has defined security levels by picking a reference scheme, which
-   NIST expects to offer notable levels of resistance to both quantum
-   and classical attack.  To wit, a KEM algorithm that achieves NIST PQC
-   security must require computational resources to break IND-CCA2
+   Instead of defining the strength of a quantum algorithm using the
+   imprecise notion of bits of security, NIST has defined security
+   levels by picking a reference scheme, which is expected to offer
+   notable levels of resistance to both quantum and classical attacks.
+   To wit, a KEM algorithm that achieves NIST Post-Quantum Cryptography
+   (PQC) security must require computational resources to break IND-CCA2
    security comparable or greater than that required for key search on
    AES-128, AES-192, and AES-256 for Levels 1, 3, and 5, respectively.
    Levels 2 and 4 use collision search for SHA-256 and SHA-384 as
@@ -654,8 +646,8 @@ Appendix B.  Parameter Set Security and Sizes
     | ML-KEM-1024 | 5     | 1568     | 3168     | 1568       | 32     |
     +-------------+-------+----------+----------+------------+--------+
 
-       Table 2: ML-KEM parameter sets, NIST Security Level, and sizes
-                                  in bytes
+       Table 2: ML-KEM Parameter Sets, NIST Security Level, and Sizes
+                                  in Bytes
 
 Appendix C.  ML-KEM CMS Authenticated-Enveloped-Data Example
 
@@ -786,103 +778,104 @@ C.1.  Originator CMS Processing
 
    This result decodes to:
 
-  0 994: SEQUENCE {
-  4  11:  OBJECT IDENTIFIER
-       :   authEnvelopedData (1 2 840 113549 1 9 16 1 23)
- 17 977:  [0] {
- 21 973:   SEQUENCE {
- 25   1:    INTEGER 0
- 28 888:    SET {
- 32 884:     [4] {
- 36  11:      OBJECT IDENTIFIER '1 2 840 113549 1 9 16 13 3'
- 49 867:      SEQUENCE {
- 53   1:       INTEGER 0
- 56  20:       [0]
-       :     59 97 88 C3 7A ED 40 0E E4 05 D1 B2 A3 36 6A B1
-       :     7D 82 4A 51
- 78  11:       SEQUENCE {
- 80   9:        OBJECT IDENTIFIER '2 16 840 1 101 3 4 4 1'
-       :         }
- 91 768:       OCTET STRING
-       :     3E A4 0F C6 CA 09 0E 2C 8A F7 6E 27 27 AB 38 E0
-       :     65 2D 95 15 98 6F E1 86 82 7F E8 4E 59 6E 42 1B
-       :     85 FD 45 9C C7 89 97 37 2C 9D E3 1D 19 1B 39 C1
-       :     D5 A3 EB 6D DB 56 AA DE DE 76 5C C3 90 FD BB C2
-       :     F8 8C B1 75 68 1D 42 01 B8 1C CD FC B2 4F EF 13
-       :     AF 2F 5A 1A BC F8 D8 AF 38 4F 02 A0 10 A6 E9 19
-       :     F1 98 7A 5E 9B 1C 0E 2D 3F 07 F5 8A 9F A5 39 CE
-       :     86 CC 14 99 10 A1 69 2C 0C A4 CE 0E CE 4E EE D2
-       :     E6 69 9C B9 76 33 24 52 DE 4A 2E B5 CA 61 F7 B0
-       :     81 33 0C 34 79 8E F7 12 A2 4E 59 C3 3C EA 1F 1F
-       :     9E 6D 4F BF 37 43 A3 84 67 43 00 11 33 6F 62 D8
-       :     70 79 2B 86 6B EF CD 1D 1B 36 5B ED 19 52 67 3D
-       :     3A 5B 0C 20 B3 86 B4 EF D1 CF 63 FD 37 6B D4 7C
-       :     CC 46 AC 4D D8 EC 66 B0 47 C4 C9 5A CF F1 CF D0
-       :     28 A4 19 B0 02 FD A1 B6 17 CB A6 1D 2E 91 CF E8
-       :     FF FB CB 8F FD 4D 5F 6A D8 B1 58 C2 19 E3 6D C5
-       :     14 05 DC 0C 0B 23 49 79 AC 65 8E 72 BD DF 1B 67
-       :     73 B9 6B 2A E3 E4 D0 7B E8 60 48 04 0C 01 67 43
-       :     6F A8 39 E7 52 9B 00 CC 9A B5 5A 2F 25 DB 63 CC
-       :     9F 55 75 94 E6 91 C1 1E 55 3D 4A 3E BC 76 0F 5F
-       :     19 E5 FE 14 48 38 B4 C7 D1 59 1D A9 B5 D4 67 49
-       :     4F D9 CA C5 2C C5 50 40 60 39 9D BD B7 22 98 EB
-       :     9A 4C 01 7B 00 78 6F DC 7D 9D 7A A5 7A DB B8 B6
-       :     1C 34 DE 1E 28 8B 2A B7 28 17 1D CE 14 3C D1 69
-       :     53 F9 84 C1 AE D5 59 E5 6B AA 0C E6 58 D3 2C CE
-       :     42 F4 40 75 04 CD 7A 57 9A D0 EF 9B 77 13 5E AA
-       :     39 B6 F9 3A 3A 2E 59 97 80 7F 06 36 1C 83 F4 E6
-       :     7F 8E 3F 9C F6 83 16 01 15 14 F5 D8 5A 18 1C EA
-       :     D7 14 CD 49 40 E4 EB AC 01 D6 65 28 DA 32 F8 9C
-       :     EA 04 28 E8 EB CA DC F8 AA 18 8C 9F 62 E8 5B 19
-       :     57 65 5B 7F E2 B8 D7 97 3B 7A 72 26 B6 6D 93 BF
-       :     7B 23 2F 3D CF 65 3C 84 B4 EC F1 A9 92 0D B1 94
-       :     9A D7 50 B5 46 A5 55 2A 20 E5 49 09 71 9B 8C 0C
-       :     07 05 6F CB 7E 57 4A D2 A3 2E C9 50 01 DD E8 44
-       :     81 BE 77 D0 39 ED 5B F7 42 62 EC F3 98 1F 1B 00
-       :     D3 36 6A 9C 2E 06 1C 47 E2 41 A0 61 C6 24 95 60
-       :     D2 B8 44 6A 48 0C 38 C2 8B A9 89 D9 F6 8A DC 4B
-       :     BA F2 A2 0B 47 E4 92 31 28 C7 23 42 D5 97 FD A2
-       :     59 DE 0B 83 C2 05 6D 6B 77 E7 99 B3 19 32 4A A5
-       :     0B 1D 65 9C 2A 56 02 9B 74 53 C5 F3 BA 52 43 D9
-       :     FA 74 9D 91 7C 40 D9 D1 01 E4 53 BC 8B 10 E4 2A
-       :     7C 08 93 23 C0 26 F7 83 E1 00 B9 FA 6E 70 14 42
-       :     4D A6 FA 37 92 BC 95 7E E8 21 9D 01 6B 77 3F 28
-       :     FE DC C9 62 A4 85 AB AF FE C0 23 28 19 71 E2 9A
-       :     A6 89 83 9E CF D2 61 9E 92 28 7C D2 30 DB 26 A2
-       :     50 7C C5 00 EB 1C 7A 52 93 B5 FE 91 7A E2 9B F1
-       :     AD 35 01 24 F8 A3 11 63 52 14 B4 11 DB 9F 67 D3
-       :     B8 5B D7 15 01 85 37 EA 45 B4 1F 41 B4 C6 60 51
-863  13:       SEQUENCE {
-865  11:        OBJECT IDENTIFIER
-       :         hkdfWithSha256 (1 2 840 113549 1 9 16 3 28)
-       :         }
-878   1:       INTEGER 16
-881  11:       SEQUENCE {
-883   9:        OBJECT IDENTIFIER
-       :         aes128-wrap (2 16 840 1 101 3 4 1 5)
-       :         }
-894  24:       OCTET STRING
-       :     C0 50 E4 39 2F 9C 14 DD 0A C2 22 02 03 F3 17 D7
-       :     01 F9 4F 9D D9 27 78 F5
-       :        }
-       :       }
-       :      }
-920  58:    SEQUENCE {
-922   9:     OBJECT IDENTIFIER data (1 2 840 113549 1 7 1)
-933  30:     SEQUENCE {
-935   9:      OBJECT IDENTIFIER
-       :       aes128-GCM (2 16 840 1 101 3 4 1 6)
-946  17:      SEQUENCE {
-948  12:       OCTET STRING 5C A5 74 68 B8 1B F0 3B 8D A7 18 6C
-962   1:       INTEGER 16
-       :        }
-       :       }
-965  13:     [0] 94 C8 68 9A 99 D2 C3 8E 19 2F A6 BA 08
-       :      }
-980  16:    OCTET STRING 5C F1 78 6C 57 C7 40 2B 54 FC 93 C3 0A 4A 45 33
-       :     }
-       :    }
-       :   }
+     0 994: SEQUENCE {
+     4  11:  OBJECT IDENTIFIER
+          :   authEnvelopedData (1 2 840 113549 1 9 16 1 23)
+    17 977:  [0] {
+    21 973:   SEQUENCE {
+    25   1:    INTEGER 0
+    28 888:    SET {
+    32 884:     [4] {
+    36  11:      OBJECT IDENTIFIER '1 2 840 113549 1 9 16 13 3'
+    49 867:      SEQUENCE {
+    53   1:       INTEGER 0
+    56  20:       [0]
+          :    59 97 88 C3 7A ED 40 0E E4 05 D1 B2 A3 36 6A B1
+          :    7D 82 4A 51
+    78  11:       SEQUENCE {
+    80   9:        OBJECT IDENTIFIER '2 16 840 1 101 3 4 4 1'
+          :         }
+    91 768:       OCTET STRING
+          :    3E A4 0F C6 CA 09 0E 2C 8A F7 6E 27 27 AB 38 E0
+          :    65 2D 95 15 98 6F E1 86 82 7F E8 4E 59 6E 42 1B
+          :    85 FD 45 9C C7 89 97 37 2C 9D E3 1D 19 1B 39 C1
+          :    D5 A3 EB 6D DB 56 AA DE DE 76 5C C3 90 FD BB C2
+          :    F8 8C B1 75 68 1D 42 01 B8 1C CD FC B2 4F EF 13
+          :    AF 2F 5A 1A BC F8 D8 AF 38 4F 02 A0 10 A6 E9 19
+          :    F1 98 7A 5E 9B 1C 0E 2D 3F 07 F5 8A 9F A5 39 CE
+          :    86 CC 14 99 10 A1 69 2C 0C A4 CE 0E CE 4E EE D2
+          :    E6 69 9C B9 76 33 24 52 DE 4A 2E B5 CA 61 F7 B0
+          :    81 33 0C 34 79 8E F7 12 A2 4E 59 C3 3C EA 1F 1F
+          :    9E 6D 4F BF 37 43 A3 84 67 43 00 11 33 6F 62 D8
+          :    70 79 2B 86 6B EF CD 1D 1B 36 5B ED 19 52 67 3D
+          :    3A 5B 0C 20 B3 86 B4 EF D1 CF 63 FD 37 6B D4 7C
+          :    CC 46 AC 4D D8 EC 66 B0 47 C4 C9 5A CF F1 CF D0
+          :    28 A4 19 B0 02 FD A1 B6 17 CB A6 1D 2E 91 CF E8
+          :    FF FB CB 8F FD 4D 5F 6A D8 B1 58 C2 19 E3 6D C5
+          :    14 05 DC 0C 0B 23 49 79 AC 65 8E 72 BD DF 1B 67
+          :    73 B9 6B 2A E3 E4 D0 7B E8 60 48 04 0C 01 67 43
+          :    6F A8 39 E7 52 9B 00 CC 9A B5 5A 2F 25 DB 63 CC
+          :    9F 55 75 94 E6 91 C1 1E 55 3D 4A 3E BC 76 0F 5F
+          :    19 E5 FE 14 48 38 B4 C7 D1 59 1D A9 B5 D4 67 49
+          :    4F D9 CA C5 2C C5 50 40 60 39 9D BD B7 22 98 EB
+          :    9A 4C 01 7B 00 78 6F DC 7D 9D 7A A5 7A DB B8 B6
+          :    1C 34 DE 1E 28 8B 2A B7 28 17 1D CE 14 3C D1 69
+          :    53 F9 84 C1 AE D5 59 E5 6B AA 0C E6 58 D3 2C CE
+          :    42 F4 40 75 04 CD 7A 57 9A D0 EF 9B 77 13 5E AA
+          :    39 B6 F9 3A 3A 2E 59 97 80 7F 06 36 1C 83 F4 E6
+          :    7F 8E 3F 9C F6 83 16 01 15 14 F5 D8 5A 18 1C EA
+          :    D7 14 CD 49 40 E4 EB AC 01 D6 65 28 DA 32 F8 9C
+          :    EA 04 28 E8 EB CA DC F8 AA 18 8C 9F 62 E8 5B 19
+          :    57 65 5B 7F E2 B8 D7 97 3B 7A 72 26 B6 6D 93 BF
+          :    7B 23 2F 3D CF 65 3C 84 B4 EC F1 A9 92 0D B1 94
+          :    9A D7 50 B5 46 A5 55 2A 20 E5 49 09 71 9B 8C 0C
+          :    07 05 6F CB 7E 57 4A D2 A3 2E C9 50 01 DD E8 44
+          :    81 BE 77 D0 39 ED 5B F7 42 62 EC F3 98 1F 1B 00
+          :    D3 36 6A 9C 2E 06 1C 47 E2 41 A0 61 C6 24 95 60
+          :    D2 B8 44 6A 48 0C 38 C2 8B A9 89 D9 F6 8A DC 4B
+          :    BA F2 A2 0B 47 E4 92 31 28 C7 23 42 D5 97 FD A2
+          :    59 DE 0B 83 C2 05 6D 6B 77 E7 99 B3 19 32 4A A5
+          :    0B 1D 65 9C 2A 56 02 9B 74 53 C5 F3 BA 52 43 D9
+          :    FA 74 9D 91 7C 40 D9 D1 01 E4 53 BC 8B 10 E4 2A
+          :    7C 08 93 23 C0 26 F7 83 E1 00 B9 FA 6E 70 14 42
+          :    4D A6 FA 37 92 BC 95 7E E8 21 9D 01 6B 77 3F 28
+          :    FE DC C9 62 A4 85 AB AF FE C0 23 28 19 71 E2 9A
+          :    A6 89 83 9E CF D2 61 9E 92 28 7C D2 30 DB 26 A2
+          :    50 7C C5 00 EB 1C 7A 52 93 B5 FE 91 7A E2 9B F1
+          :    AD 35 01 24 F8 A3 11 63 52 14 B4 11 DB 9F 67 D3
+          :    B8 5B D7 15 01 85 37 EA 45 B4 1F 41 B4 C6 60 51
+   863  13:       SEQUENCE {
+   865  11:        OBJECT IDENTIFIER
+          :         hkdfWithSha256 (1 2 840 113549 1 9 16 3 28)
+          :         }
+   878   1:       INTEGER 16
+   881  11:       SEQUENCE {
+   883   9:        OBJECT IDENTIFIER
+          :         aes128-wrap (2 16 840 1 101 3 4 1 5)
+          :         }
+   894  24:       OCTET STRING
+          :    C0 50 E4 39 2F 9C 14 DD 0A C2 22 02 03 F3 17 D7
+          :    01 F9 4F 9D D9 27 78 F5
+          :        }
+          :       }
+          :      }
+   920  58:    SEQUENCE {
+   922   9:     OBJECT IDENTIFIER data (1 2 840 113549 1 7 1)
+   933  30:     SEQUENCE {
+   935   9:      OBJECT IDENTIFIER
+          :       aes128-GCM (2 16 840 1 101 3 4 1 6)
+   946  17:      SEQUENCE {
+   948  12:       OCTET STRING 5C A5 74 68 B8 1B F0 3B 8D A7 18 6C
+   962   1:       INTEGER 16
+          :        }
+          :       }
+   965  13:     [0] 94 C8 68 9A 99 D2 C3 8E 19 2F A6 BA 08
+          :      }
+   980  16:    OCTET STRING
+          :    5C F1 78 6C 57 C7 40 2B 54 FC 93 C3 0A 4A 45 33
+          :     }
+          :    }
+          :   }
 
 C.2.  Recipient CMS Processing
 
@@ -903,6 +896,18 @@ C.2.  Recipient CMS Processing
 
    Hello, world!
 
+Appendix D.  Acknowledgements
+
+   This document borrows heavily from [RFC9690], [FIPS203],
+   [I-D.ietf-lamps-kyber-certificates], and
+   [I-D.ietf-ipsecme-ikev2-mlkem].  Thanks go to the authors of those
+   documents.  "Copying always makes things easier and less error prone"
+   - RFC8411.
+
+   Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the
+   detailed review and Carl Wallace and Philippe Cece for
+   interoperability testing for the examples.
+
 Authors' Addresses
 
    Julien Prat
@@ -916,7 +921,7 @@ Authors' Addresses
    Mike Ounsworth
    Entrust Limited
    2500 Solandt Road -- Suite 100
-   Ottawa, Ontario  K2K 3G5
+   Ottawa Ontario  K2K 3G5
    Canada
    Email: mike.ounsworth@entrust.com
 
