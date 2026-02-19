@@ -44,7 +44,7 @@ openssl cms -encrypt -in plaintext.txt \
 openssl cms -cmsout -in ML-KEM-512.cms -inform PEM -out ML-KEM-512.cms.der -outform DER
 
 openssl cms -cmsout -in ML-KEM-512.cms -inform PEM -outform DER -out ML-KEM-512.cms.der
-dumpasn1 -a -i -w66 ML-KEM-512.cms.der > ML-KEM-512.cms.txt
+dumpasn1 -a -i -w64 ML-KEM-512.cms.der > ML-KEM-512.cms.txt
 rm ML-KEM-512.cms.der
 
 openssl cms -decrypt -inform PEM -in ML-KEM-512.cms -recip ML-KEM-512.pem \

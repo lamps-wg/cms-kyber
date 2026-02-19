@@ -48,7 +48,7 @@ author:
       org: Entrust Limited
       abbrev: Entrust
       street: 2500 Solandt Road – Suite 100
-      city: Ottawa, Ontario
+      city: Ottawa Ontario
       country: Canada
       code: K2K 3G5
       email: mike.ounsworth@entrust.com
@@ -84,7 +84,7 @@ normative:
     author:
       name: National Institute of Standards and Technology
       ins: NIST
-    date: 2024-08-20
+    date: 2025-06-13
 
 # <!-- EDNOTE: full syntax for this defined here: https://github.com/cabo/kramdown-rfc2629 -->
 
@@ -94,17 +94,18 @@ informative:
     title: Post-Quantum Cryptography Project
     author:
       - org: National Institute of Standards and Technology
-    date: 2016-12-20
+    date: 2025-09-30
   CMVP:
     target: https://csrc.nist.gov/projects/cryptographic-module-validation-program
     author:
       org: National Institute of Standards and Technology
     title: "Cryptographic Module Validation Program"
-    date: 2016
+    date: 2025-09-03
+  MLKEM-SEC-CONS: I-D.sfluhrer-cfrg-ml-kem-security-considerations
 
 --- abstract
 
-Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant key-encapsulation mechanism (KEM). Three parameter sets for the ML-KEM algorithm are specified by the US National Institute of Standards and Technology (NIST) in FIPS 203. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using the KEMRecipientInfo structure defined in “Using Key Encapsulation
+Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is a quantum-resistant Key Encapsulation Mechanism (KEM). Three parameter sets for the ML-KEM algorithm are specified by the US National Institute of Standards and Technology (NIST) in FIPS 203. In order of increasing security strength (and decreasing performance), these parameter sets are ML-KEM-512, ML-KEM-768, and ML-KEM-1024. This document specifies the conventions for using ML-KEM with the Cryptographic Message Syntax (CMS) using the KEMRecipientInfo structure defined in “Using Key Encapsulation
 Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)” (RFC 9629).
 
 <!-- End of Abstract -->
@@ -114,9 +115,9 @@ Mechanism (KEM) Algorithms in the Cryptographic Message Syntax (CMS)” (RFC 962
 
 # Introduction {#sec-introduction}
 
-The Module Lattice Key Encapsulation Mechanism (ML-KEM) is an IND-CCA2-secure Key Encapsulation Mechanism (KEM) standardized in {{FIPS203}} by the NIST PQC Project {{NIST-PQ}}. ML-KEM is the name given to the final standardized version and is incompatible with pre-standards versions, often called "Kyber".
+The Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) is an IND-CCA2-secure Key Encapsulation Mechanism (KEM) standardized in {{FIPS203}} by the NIST PQC Project {{NIST-PQ}}. ML-KEM is the name given to the final standardized version and is incompatible with pre-standards versions, often called "Kyber".
 
-{{!RFC9629}} defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the direct use of ML-KEM in the KEMRecipientInfo structure using each of the three parameter sets from {{FIPS203}}, namely MK-KEM-512, ML-KEM-768, and ML-KEM-1024.  It does not address or preclude the use of ML-KEM as part of any hybrid scheme.
+{{!RFC9629}} defines the KEMRecipientInfo structure for the use of KEM algorithms for the CMS enveloped-data content type, the CMS authenticated-data content type, and the CMS authenticated-enveloped-data content type. This document specifies the direct use of ML-KEM in the KEMRecipientInfo structure using each of the three parameter sets from {{FIPS203}}, namely ML-KEM-512, ML-KEM-768, and ML-KEM-1024.  It does not address or preclude the use of ML-KEM as part of any hybrid scheme.
 
 ## Conventions and Terminology {#sec-intro-terminology}
 
@@ -126,7 +127,7 @@ The Module Lattice Key Encapsulation Mechanism (ML-KEM) is an IND-CCA2-secure Ke
 
 ## ML-KEM {#sec-intro-ml-kem}
 
-ML-KEM is a lattice-based key encapsulation mechanism using Module Learning with Errors as its underlying primitive, which is a structured lattices variant that offers good performance and relatively small and balanced key and ciphertext sizes. ML-KEM was standardized with three parameter sets: ML-KEM-512, ML-KEM-768, and ML-KEM-1024. The parameters for each of the security levels were chosen to be at least as secure as a generic block cipher of 128, 192, or 256 bits, respectively.
+ML-KEM is a lattice-based KEM using Module Learning with Errors as its underlying primitive, which is a structured lattices variant that offers good performance and relatively small and balanced key and ciphertext sizes. ML-KEM was standardized with three parameter sets: ML-KEM-512, ML-KEM-768, and ML-KEM-1024. The parameters for each of the security levels were chosen to be at least as secure as a generic block cipher of 128, 192, or 256 bits, respectively.
 {{arnold}} provides more information on ML-KEM security levels and sizes.
 
 All KEM algorithms provide three functions: KeyGen(), Encapsulate(), and Decapsulate().
@@ -160,21 +161,30 @@ When the ML-KEM algorithm is employed for a recipient, the RecipientInfo alterna
 
 The fields of the KEMRecipientInfo have the following meanings:
 
-> version is the syntax version number; it MUST be 0.
+{: newline="true"}
+version
+: The syntax version number; it MUST be 0.
 
-> rid identifies the recipient's certificate or public key.
+rid
+: Identifies the recipient's certificate or public key.
 
-> kem identifies the KEM algorithm; it MUST contain one of id-alg-ml-kem-512, id-alg-ml-kem-768, or id-alg-ml-kem-1024. These identifiers are reproduced in {{sec-identifiers}}.
+kem
+: Identifies the KEM algorithm; it MUST contain one of id-alg-ml-kem-512, id-alg-ml-kem-768, or id-alg-ml-kem-1024. These identifiers are reproduced in {{sec-identifiers}}.
 
-> kemct is the ciphertext produced for this recipient.
+kemct
+: The ciphertext produced for this recipient.
 
-> kdf identifies the key-derivation algorithm. Note that the Key Derivation Function (KDF) used for CMS RecipientInfo process MAY be different than the KDF used within the ML-KEM algorithm. Implementations MUST support HKDF {{!RFC5869}} with SHA-256 {{!FIPS180=NIST.FIPS.180-4}}, using the id-alg-hkdf-with-sha256 KDF object identifier {{!RFC8619}}. As specified in {{!RFC8619}}, the parameter field MUST be absent when this object identifier appears within the ASN.1 type AlgorithmIdentifier. Implementations MAY support other KDFs as well.
+kdf
+: Identifies the key derivation algorithm. Note that the Key Derivation Function (KDF) used for CMS RecipientInfo process MAY be different than the KDF used within the ML-KEM algorithm. Implementations MUST support the HMAC-based Key Derivation Function (HKDF) {{!RFC5869}} with SHA-256 {{!FIPS180=NIST.FIPS.180-4}}, using the id-alg-hkdf-with-sha256 KDF object identifier (OID) {{!RFC8619}}. As specified in {{!RFC8619}}, the parameter field MUST be absent when this OID appears within the ASN.1 type AlgorithmIdentifier. Implementations MAY support other KDFs as well.
 
-> kekLength is the size of the key-encryption key in octets.
+kekLength
+: The size of the key-encryption key in octets.
 
-> ukm is optional input to the key-derivation function. The secure use of ML-KEM in CMS does not depend on the use of a ukm value, so this document does not place any requirements on this value.  See {{Section 3 of RFC9629}} for more information about the ukm parameter.
+ukm
+: Optional input to the KDF. The secure use of ML-KEM in CMS does not depend on the use of a ukm value, so this document does not place any requirements on this value.  See {{Section 3 of RFC9629}} for more information about the ukm parameter.
 
-> wrap identifies a key-encryption algorithm used to encrypt the content-encryption key. Implementations supporting ML-KEM-512 MUST support the AES-Wrap-128 {{!RFC3394}} key-encryption algorithm using the id-aes128-wrap key-encryption algorithm object identifier {{!RFC3565}}. Implementations supporting ML-KEM-768 or ML-KEM-1024 MUST support the AES-Wrap-256 {{!RFC3394}} key-encryption algorithm using the id-aes256-wrap key-encryption algorithm object identifier {{!RFC3565}}. Implementations MAY support other key-encryption algorithms as well.
+wrap:
+Identifies a key-encryption algorithm used to encrypt the content-encryption key. Implementations supporting ML-KEM-512 MUST support the AES-Wrap-128 {{!RFC3394}} key-encryption algorithm using the id-aes128-wrap key-encryption algorithm OID {{!RFC3565}}. Implementations supporting ML-KEM-768 or ML-KEM-1024 MUST support the AES-Wrap-256 {{!RFC3394}} key-encryption algorithm using the id-aes256-wrap key-encryption algorithm OID {{!RFC3565}}. Implementations MAY support other key-encryption algorithms as well.
 
 {{example}} contains an example of establishing a content-encryption key using ML-KEM in the KEMRecipientInfo type.
 
@@ -183,42 +193,42 @@ The fields of the KEMRecipientInfo have the following meanings:
 ## Underlying Components {#sec-using-components}
 
 When ML-KEM is employed in the CMS, the underlying components used within the KEMRecipientInfo structure SHOULD be consistent with a minimum desired security level.
-Several security levels have been identified in NIST SP 800-57 Part 1 {{?NIST.SP.800-57pt1r5}}.
+Several security levels have been identified {{?NIST.SP.800-57pt1r5}}.
 
 If underlying components other than those specified in {{sec-using-recipientInfo}} are used, then the following table gives the minimum requirements on the components used with ML-KEM in the KEMRecipientInfo type in order to satisfy the KDF and key wrapping algorithm requirements from {{Section 7 of RFC9629}}:
 
-| Security Strength | Algorithm   | KDF preimage strength | Symmetric key-encryption strength |
+| Security Strength | Algorithm   | KDF Preimage Strength | Symmetric Key-Encryption Strength |
 |---                |---          |---                    |---                                |
 | 128-bit           | ML-KEM-512  | 128-bit               | 128-bit                           |
-| 192-bit           | ML-KEM-768  | 192-bit               | 192-bit (*)                         |
+| 192-bit           | ML-KEM-768  | 192-bit               | 192-bit (*)                       |
 | 256-bit           | ML-KEM-1024 | 256-bit               | 256-bit                           |
-{: #tab-strong title="ML-KEM KEMRecipientInfo component security levels"}
+{: #tab-strong title="ML-KEM KEMRecipientInfo Component Security Levels"}
 
 (*) In the case of AES Key Wrap, a 256-bit key is typically used because AES-192 is not as commonly deployed.
 
-### Use of the HKDF-based Key Derivation Function
+### Use of the HKDF-Based Key Derivation Function
 
 The HKDF function is a composition of the HKDF-Extract and HKDF-Expand functions.
 
-~~~
+~~~ pseudocode
 HKDF(salt, IKM, info, L)
   = HKDF-Expand(HKDF-Extract(salt, IKM), info, L)
 ~~~
 
-When used with KEMRecipientInfo, the salt parameter is unused, that is it is the zero-length string "". The IKM, info and L parameters correspond to the same KDF inputs from {{Section 5 of RFC9629}}. The info parameter is independently generated by the originator and recipient. Implementations MUST confirm that L is consistent with the key size of the key-encryption algorithm.
+When used with KEMRecipientInfo, the salt parameter is unused; that is, it is the zero-length string "". The IKM, info, and L parameters correspond to the same KDF inputs from {{Section 5 of RFC9629}}. The info parameter is independently generated by the originator and recipient. Implementations MUST confirm that L is consistent with the key size of the key-encryption algorithm.
 
 <!-- End of Underlying Components section -->
 
 ## Certificate Conventions {#sec-using-certs}
 
-RFC 5280 {{!RFC5280}} specifies the profile for using X.509 Certificates in Internet applications.  A recipient static public key is needed
-for ML-KEM, and the originator obtains that public key from the recipient's certificate.  The conventions for carrying ML-KEM public keys are specified in [I-D.ietf-lamps-kyber-certificates].
+{{!RFC5280}} specifies the profile for using X.509 certificates in Internet applications.  A recipient static public key is needed
+for ML-KEM and the originator obtains that public key from the recipient's certificate.  The conventions for carrying ML-KEM public keys are specified in [I-D.ietf-lamps-kyber-certificates].
 
 ## SMIME Capabilities Attribute Conventions {#sec-using-smime-caps}
 
 {{Section 2.5.2 of RFC8551}} defines the SMIMECapabilities attribute to announce a partial list of algorithms that an S/MIME implementation can support. When constructing a CMS signed-data content type {{!RFC5652}}, a compliant implementation MAY include the SMIMECapabilities attribute that announces support for one or more of the ML-KEM algorithm identifiers.
 
-The SMIMECapability SEQUENCE representing the ML-KEM algorithm MUST include one of the ML-KEM object identifiers in the capabilityID field. When one of the ML-KEM object identifiers appears in the capabilityID field, the parameters MUST NOT be present.
+The SMIMECapability SEQUENCE representing the ML-KEM algorithm MUST include one of the ML-KEM OIDs in the capabilityID field. When one of the ML-KEM OIDs appears in the capabilityID field, the parameters MUST NOT be present.
 
 <!-- End of smime-capabilities-attribute-conventions section -->
 
@@ -226,9 +236,9 @@ The SMIMECapability SEQUENCE representing the ML-KEM algorithm MUST include one 
 
 # Identifiers {#sec-identifiers}
 
-All identifiers used to indicate ML-KEM within the CMS are defined in [CSOR] and {{!RFC8619}} but reproduced here for convenience:
+All identifiers used to indicate ML-KEM within the CMS are defined in [CSOR] and {{!RFC8619}}; they are reproduced here for convenience:
 
-~~~
+~~~ asn.1
   nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-ccitt(2)
       country(16) us(840) organization(1) gov(101) csor(3)
       nistAlgorithm(4) }
@@ -255,19 +265,19 @@ All identifiers used to indicate ML-KEM within the CMS are defined in [CSOR] and
 
 The Security Considerations sections of {{!I-D.ietf-lamps-kyber-certificates}} and {{!RFC9629}} apply to this specification as well.
 
-For ongoing discussions of ML-KEM-specific security considerations, refer to {{?I-D.sfluhrer-cfrg-ml-kem-security-considerations}}.
+For ongoing discussions of ML-KEM-specific security considerations, refer to {{?MLKEM-SEC-CONS}}.
 
-Implementations MUST protect the ML-KEM private key, the key-encryption key, the content-encryption key, message-authentication key, and the content-authenticated-encryption key. Of these keys, all but the private key are ephemeral and MUST be wiped after use. Disclosure of the ML-KEM private key could result in the compromise of all messages protected with that key. Disclosure of the key-encryption key, the content-encryption key, or the content-authenticated-encryption key could result in compromise of the associated encrypted content. Disclosure of the key-encryption key, the message-authentication key, or the content-authenticated-encryption key could allow modification of the associated authenticated content.
+Implementations MUST protect the ML-KEM private key, the key-encryption key, the content-encryption key, message-authentication key, and the content-authenticated-encryption key. Of these keys, all but the private key are ephemeral and MUST be wiped after use. Disclosure of the ML-KEM private key could result in the compromise of all messages protected with that key. Disclosure of the key-encryption key, the content-encryption key, or the content-authenticated-encryption key could result in the compromise of the associated encrypted content. Disclosure of the key-encryption key, the message-authentication key, or the content-authenticated-encryption key could allow modification of the associated authenticated content.
 
 Additional considerations related to key management may be found in {{?NIST.SP.800-57pt1r5}}.
 
-The generation of private keys relies on random numbers, as does the encapsulation function of ML-KEM.  The use of inadequate pseudo-random number generators (PRNGs) to generate these values can result in little or no security.  In the case of key generation, a random 32-byte seed is used to deterministically derive the key (with an additional 32 bytes reserved as a rejection value). In the case of encapsulation, a KEM is derived from the underlying ML-KEM public key encryption algorithm by deterministically encrypting a random 32-byte message for the public key.  If the random value is weakly-chosen, then an attacker may find it much easier to reproduce the PRNG environment that produced the keys or ciphertext, searching the resulting small set of possibilities for a matching public key or ciphertext value, rather than performing a more complex algorithmic attack against ML-KEM.  The generation of quality random numbers is difficult; see Section 3.3 of {{FIPS203}} for some additional information.
+The generation of private keys relies on random numbers, as does the encapsulation function of ML-KEM.  The use of inadequate pseudorandom number generators (PRNGs) to generate these values can result in little or no security.  In the case of key generation, a random 32-byte seed is used to deterministically derive the key (with an additional 32 bytes reserved as a rejection value). In the case of encapsulation, a KEM is derived from the underlying ML-KEM public key encryption algorithm by deterministically encrypting a random 32-byte message for the public key.  If the random value is weakly chosen, then an attacker may find it much easier to reproduce the PRNG environment that produced the keys or ciphertext, searching the resulting small set of possibilities for a matching public key or ciphertext value, rather than performing a more complex algorithmic attack against ML-KEM.  The generation of quality random numbers is difficult; see Section 3.3 of {{FIPS203}} for some additional information.
 
 ML-KEM encapsulation and decapsulation only outputs a shared secret and ciphertext. Implementations MUST NOT use intermediate values directly for any purpose.
 
-Implementations SHOULD NOT reveal information about intermediate values or calculations, whether by timing or other "side channels", otherwise an opponent may be able to determine information about the keying data and/or the recipient's private key. Although not all intermediate information may be useful to an opponent, it is preferable to conceal as much information as is practical, unless analysis specifically indicates that the information would not be useful to an opponent.
+Implementations SHOULD NOT reveal information about intermediate values or calculations, whether by timing or other "side channels"; otherwise an opponent may be able to determine information about the keying data and/or the recipient's private key. Although not all intermediate information may be useful to an opponent, it is preferable to conceal as much information as is practical, unless analysis specifically indicates that the information would not be useful to an opponent.
 
-Generally, good cryptographic practice employs a given ML-KEM key pair in only one scheme. This practice avoids the risk that vulnerability in one scheme may compromise the security of the other, and may be essential to maintain provable security.
+Generally, good cryptographic practice employs a given ML-KEM key pair in only one scheme. This practice avoids the risk that vulnerability in one scheme may compromise the security of the other and may be essential to maintain provable security.
 
 Parties can gain assurance that implementations are correct through formal implementation validation, such as the NIST Cryptographic Module Validation Program (CMVP) {{CMVP}}.
 
@@ -275,17 +285,9 @@ Parties can gain assurance that implementations are correct through formal imple
 
 # IANA Considerations {#sec-iana-considerations}
 
-For the ASN.1 Module in {{asn1}}, IANA is requested to assign an object identifier (OID) for the module identifier (TBD1) with a Description of "id-mod-cms-ml-kem-2024". The OID for the module should be allocated in the "SMI Security for S/MIME Module Identifier" registry (1.2.840.113549.1.9.16.0).
+For the ASN.1 Module in {{asn1}}, IANA has assigned an OID for the module identifier (84) with a description of "id-mod-cms-ml-kem-2024" in the "SMI Security for S/MIME Module Identifier" (1.2.840.113549.1.9.16.0) registry.
 
 <!-- End of iana-considerations section -->
-
-# Acknowledgements {#sec-acknowledgements}
-
-This document borrows heavily from {{?RFC9690}}, {{FIPS203}}, and {{?I-D.kampanakis-ml-kem-ikev2}}. Thanks go to the authors of those documents. "Copying always makes things easier and less error prone" - RFC8411.
-
-Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the detailed review and Carl Wallace and Philippe Cece for interoperability testing for the examples.
-
-<!-- End of acknowledgements section -->
 
 --- back
 
@@ -293,7 +295,7 @@ Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the detailed review
 
 This appendix includes the ASN.1 module {{X680}} for ML-KEM. This module imports objects from {{RFC5911}}, {{RFC9629}}, {{RFC8619}}, {{I-D.ietf-lamps-kyber-certificates}}.
 
-~~~
+~~~ asn.1
 <CODE BEGINS>
 {::include CMS-KYBER-2024.asn}
 <CODE ENDS>
@@ -301,11 +303,11 @@ This appendix includes the ASN.1 module {{X680}} for ML-KEM. This module imports
 
 # Parameter Set Security and Sizes {#arnold}
 
-Instead of defining the strength of a quantum algorithm in a traditional
-manner using the imprecise notion of bits of security, NIST has
+Instead of defining the strength of a quantum algorithm
+using the imprecise notion of bits of security, NIST has
 defined security levels by picking a reference scheme, which
-NIST expects to offer notable levels of resistance to both quantum and
-classical attack.  To wit, a KEM algorithm that achieves NIST PQC
+is expected to offer notable levels of resistance to both quantum and
+classical attacks.  To wit, a KEM algorithm that achieves NIST Post-Quantum Cryptography (PQC)
 security must require computational resources to break IND-CCA2
 security comparable or greater than that required for key search
 on AES-128, AES-192, and AES-256 for Levels 1, 3, and 5, respectively.
@@ -316,7 +318,7 @@ Levels 2 and 4 use collision search for SHA-256 and SHA-384 as reference.
 | ML-KEM-512    | 1     | 800             | 1632            | 768             | 32                 |
 | ML-KEM-768    | 3     | 1184            | 2400            | 1088            | 32                 |
 | ML-KEM-1024   | 5     | 1568            | 3168            | 1568            | 32                 |
-{: #tab-strengths title="ML-KEM parameter sets, NIST Security Level, and sizes in bytes"}
+{: #tab-strengths title="ML-KEM Parameter Sets, NIST Security Level, and Sizes in Bytes"}
 
 # ML-KEM CMS Authenticated-Enveloped-Data Example {#example}
 
@@ -338,13 +340,13 @@ in an attempt to simplify the example.
 
 Alice obtains Bob's ML-KEM-512 public key:
 
-~~~
+~~~ test-vectors
 {::include ./example/ML-KEM-512.pub}
 ~~~
 
 Bob's ML-KEM-512 public key has the following key identifier:
 
-~~~
+~~~ test-vectors
 {::include ./example/ML-KEM-512.keyid}
 ~~~
 
@@ -352,37 +354,37 @@ Alice generates a shared secret and ciphertext using Bob's ML-KEM-512 public key
 
 Shared secret:
 
-~~~
+~~~ test-vectors
 {::include ./example/shared_secret.txt}
 ~~~
 
 Ciphertext:
 
-~~~
+~~~ test-vectors
 {::include ./example/ciphertext.txt}
 ~~~
 
 Alice encodes the CMSORIforKEMOtherInfo:
 
-~~~
+~~~ test-vectors
 {::include ./example/ori_info.txt}
 ~~~
 
 Alice derives the key-encryption key from the shared secret and CMSORIforKEMOtherInfo using HKDF with SHA-256:
 
-~~~
+~~~ test-vectors
 {::include ./example/kek.txt}
 ~~~
 
 Alice randomly generates a 128-bit content-encryption key:
 
-~~~
+~~~ test-vectors
 {::include ./example/cek.txt}
 ~~~
 
 Alice uses AES-128-KEYWRAP to encrypt the content-encryption key with the key-encryption key:
 
-~~~
+~~~ test-vectors
 {::include ./example/encrypted_cek.txt}
 ~~~
 
@@ -390,13 +392,13 @@ Alice encrypts the padded content using AES-128-GCM with the content-encryption 
 
 The Base64-encoded result is:
 
-~~~
+~~~ test-vectors
 {::include ./example/ML-KEM-512.cms}
 ~~~
 
 This result decodes to:
 
-~~~
+~~~ test-vectors
 {::include ./example/ML-KEM-512.cms.txt}
 ~~~
 
@@ -404,12 +406,20 @@ This result decodes to:
 
 Bob's ML-KEM-512 private key:
 
-~~~
+~~~ test-vectors
 {::include ./example/ML-KEM-512-seed.priv}
 ~~~
 
 Bob decapsulates the ciphertext in the KEMRecipientInfo to get the ML-KEM-512 shared secret, encodes the CMSORIforKEMOtherInfo, derives the key-encryption key from the shared secret and the DER-encoded CMSORIforKEMOtherInfo using HKDF with SHA-256, uses AES-128-KEYWRAP to decrypt the content-encryption key with the key-encryption key, and decrypts the encrypted contents with the content-encryption key, revealing the plaintext content:
 
-~~~
+~~~ test-vectors
 {::include ./example/decrypted.txt}
 ~~~
+
+# Acknowledgements {#sec-acknowledgements}
+
+This document borrows heavily from {{?RFC9690}}, {{FIPS203}}, {{I-D.ietf-lamps-kyber-certificates}}, and {{?I-D.ietf-ipsecme-ikev2-mlkem}}. Thanks go to the authors of those documents. "Copying always makes things easier and less error prone" - RFC8411.
+
+Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the detailed review and Carl Wallace and Philippe Cece for interoperability testing for the examples.
+
+<!-- End of acknowledgements section -->
