@@ -102,6 +102,7 @@ informative:
     title: "Cryptographic Module Validation Program"
     date: 2025-09-03
   MLKEM-SEC-CONS: I-D.sfluhrer-cfrg-ml-kem-security-considerations
+  IKEv2-MLKEM: I-D.ietf-ipsecme-ikev2-mlkem
 
 --- abstract
 
@@ -418,7 +419,7 @@ Bob decapsulates the ciphertext in the KEMRecipientInfo to get the ML-KEM-512 sh
 
 # Acknowledgements {#sec-acknowledgements}
 
-This document borrows heavily from {{?RFC9690}}, {{FIPS203}}, {{I-D.ietf-lamps-kyber-certificates}}, and {{?I-D.ietf-ipsecme-ikev2-mlkem}}. Thanks go to the authors of those documents. "Copying always makes things easier and less error prone" - RFC8411.
+This document borrows heavily from {{?RFC9690}}, {{FIPS203}}, {{I-D.ietf-lamps-kyber-certificates}}, and {{IKEv2-MLKEM}}. Thanks go to the authors of those documents. "Copying always makes things easier and less error prone" - RFC8411.
 
 Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the detailed review and Carl Wallace and Philippe Cece for interoperability testing for the examples.
 
