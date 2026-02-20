@@ -5,10 +5,10 @@
 LAMPS                                                            J. Prat
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                            M. Ounsworth
-Expires: 23 August 2026                                          Entrust
+Expires: 24 August 2026                                          Entrust
                                                             D. Van Geest
                                                      CryptoNext Security
-                                                        19 February 2026
+                                                        20 February 2026
 
 
         Use of ML-KEM in the Cryptographic Message Syntax (CMS)
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 August 2026.
+   This Internet-Draft will expire on 24 August 2026.
 
 Copyright Notice
 
@@ -502,7 +502,7 @@ Table of Contents
               2025, <https://csrc.nist.gov/projects/cryptographic-
               module-validation-program>.
 
-   [I-D.ietf-ipsecme-ikev2-mlkem]
+   [IKEv2-MLKEM]
               Kampanakis, P., "Post-quantum Hybrid Key Exchange with ML-
               KEM in the Internet Key Exchange Protocol Version 2
               (IKEv2)", Work in Progress, Internet-Draft, draft-ietf-
@@ -899,10 +899,9 @@ C.2.  Recipient CMS Processing
 Appendix D.  Acknowledgements
 
    This document borrows heavily from [RFC9690], [FIPS203],
-   [I-D.ietf-lamps-kyber-certificates], and
-   [I-D.ietf-ipsecme-ikev2-mlkem].  Thanks go to the authors of those
-   documents.  "Copying always makes things easier and less error prone"
-   - RFC8411.
+   [I-D.ietf-lamps-kyber-certificates], and [IKEv2-MLKEM].  Thanks go to
+   the authors of those documents.  "Copying always makes things easier
+   and less error prone" - RFC8411.
 
    Thanks to Carl Wallace, Jonathan Hammel, and Sean Turner for the
    detailed review and Carl Wallace and Philippe Cece for
