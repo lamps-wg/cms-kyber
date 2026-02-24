@@ -227,8 +227,7 @@ for ML-KEM and the originator obtains that public key from the recipient's certi
 
 ## SMIME Capabilities Attribute Conventions {#sec-using-smime-caps}
 
-{{Section 2.5.2 of RFC8551}} defines the SMIMECapabilities attribute to announce a partial list of algorithms that an S/MIME implementation can support.
-When constructing a CMS enveloped-data content type, a CMS authenticated-data content type, or a CMS authenticated-enveloped-data content type, a compliant implementation MAY include the SMIMECapabilities attribute that announces support for one or more of the ML-KEM algorithm identifiers.
+{{Section 2.5.2 of RFC8551}} defines the SMIMECapabilities attribute to announce a partial list of algorithms that an S/MIME implementation can support. When constructing a CMS signed-data content type {{!RFC5652}}, a compliant implementation MAY include the SMIMECapabilities attribute that announces support for one or more of the ML-KEM algorithm identifiers.
 
 The SMIMECapability SEQUENCE representing the ML-KEM algorithm MUST include one of the ML-KEM OIDs in the capabilityID field. When one of the ML-KEM OIDs appears in the capabilityID field, the parameters MUST NOT be present.
 
